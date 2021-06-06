@@ -64,7 +64,7 @@ public class Server
             byte[] _data = udpListener.EndReceive(_result, ref _clientEndPoint); //zwraca wszystkie bity z tablicy i ustawi endpointIP na endpoint Ÿród³a danych
             udpListener.BeginReceive(UDPReceiveCallback, null);//odbiera kolejne dane 
 
-            if (_data.Length < 4)
+            if (_data.Length < 4) // jeœli poni¿ej 4 bitów, to znaczy, ze pakiet jest uszkodzony i go pomijam
             {
                 return;
             }
