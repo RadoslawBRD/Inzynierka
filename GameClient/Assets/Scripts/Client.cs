@@ -43,10 +43,38 @@ public class Client : MonoBehaviour
     {
         Disconnect();
     }
-
-    public void ConnectedToServer(string ipAddress)
+    
+    #nullable enable
+    public void ConnectedToServer(string? _ipAddress)
     {
-        
+        try
+        {        
+
+            if (_ipAddress is null || _ipAddress.Length < 4) 
+            { 
+                Debug.Log("Joining default address"); //dla debuga do³¹cza do localhost TODO : Powiadomienie o z³ym IP
+            }
+            else
+            {
+                string[] ipCheck = _ipAddress.Split('.');
+
+                foreach (string s in ipCheck)
+                {
+                    if (int.Parse(s) > 255 || int.Parse(s) < 0)
+                    {
+                        throw new Exception();
+                    }
+                }
+                ip = _ipAddress.ToString();
+                Debug.Log($"Joining address: {ip}");
+                            }
+        }
+        catch
+        {
+            Debug.Log("Joining default address exception"); // TODO : Powiadomienie o z³ym adresie IP
+        }
+#nullable restore
+
         tcp = new TCP();
         udp = new UDP();
 

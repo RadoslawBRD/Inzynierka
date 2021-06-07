@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject startMenu;
     public InputField usernameField;
+    public InputField ipAddress;
+
 
     //public GameObject settingsMenu;
     //public GameObject saveButton;
@@ -34,7 +36,7 @@ public class UIManager : MonoBehaviour
         startMenu.SetActive(false);
         usernameField.interactable = false;
         //Client.instance.ConnectedToServer(ipField.text);
-        Client.instance.ConnectedToServer("127.0.0.1");
+        Client.instance.ConnectedToServer(ipAddress.text);
        // Debug.Log(ipAddress);
     }
     public void OnSettings()
