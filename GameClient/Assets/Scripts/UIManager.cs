@@ -59,5 +59,10 @@ public class UIManager : MonoBehaviour
        // Debug.Log(ipAddress);
 
     }
+    public void onExit()
+    {
+        Debug.Log("Game is exiting");
+        Application.Quit();        
+    }
 
 }
