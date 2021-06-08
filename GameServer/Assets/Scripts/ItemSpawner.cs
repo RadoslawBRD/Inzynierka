@@ -34,7 +34,7 @@ public class ItemSpawner : MonoBehaviour
 
     private IEnumerator SpawnItem()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(10f); // ile czasu czekasz na spawn itemu
 
         hasItem = true;
         ServerSend.ItemSpawned(spawnerId);
