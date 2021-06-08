@@ -116,9 +116,10 @@ public class ClientHandle : MonoBehaviour
     public static void SpawnEnemy(Packet _packet)
     {
         int _enemyId = _packet.ReadInt();
+        float _maxHealth = _packet.ReadFloat();
         Vector3 _position = _packet.ReadVector3();
 
-        GameManager.instance.SpawnEnemy(_enemyId, _position);
+        GameManager.instance.SpawnEnemy(_enemyId,_maxHealth, _position);
     }
     public static void EnemyPosition(Packet _packet)
     {

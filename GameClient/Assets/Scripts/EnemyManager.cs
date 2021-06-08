@@ -6,12 +6,13 @@ public class EnemyManager : MonoBehaviour
 {
     public int id;
     public float health;
-    public float maxHealth = 100f;
+    public float maxHealth;
 
-    public void Initialize(int _id)
+    public void Initialize(int _id, float _maxHealth)
     {
         id = _id;
-        health = maxHealth;
+        health = _maxHealth;
+        maxHealth = _maxHealth;
     }
 
     public void SetHealth(float _healh)

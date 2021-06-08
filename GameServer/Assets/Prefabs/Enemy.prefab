@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7638234597676319631}
+  - component: {fileID: -2653405934669060581}
   - component: {fileID: 8346338606176722755}
   - component: {fileID: 420073556109056391}
   m_Layer: 0
@@ -34,7 +35,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8346338606176722755
+--- !u!114 &-2653405934669060581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,6 +43,34 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4045297414441658395}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40eac2086380e0643bae94f5d221c97d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  state: 0
+  target: {fileID: 0}
+  controller: {fileID: 420073556109056391}
+  shootOrigin: {fileID: 1589069306120275818}
+  gravity: 0
+  patrolSpeed: 0
+  chaseSpeed: 0
+  health: 0
+  maxHealth: 0
+  detectionRange: 0
+  shootRange: 0
+  shootAccuracy: 0
+  patrolDuration: 0
+  idleDuration: 0
+  typzombie: 
+--- !u!114 &8346338606176722755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4045297414441658395}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96b19ef4e756fad4b879a3efd569e241, type: 3}
   m_Name: 
@@ -61,6 +90,7 @@ MonoBehaviour:
   shootAccuracy: 3
   patrolDuration: 3
   idleDuration: 1
+  typzombie: 
 --- !u!143 &420073556109056391
 CharacterController:
   m_ObjectHideFlags: 0

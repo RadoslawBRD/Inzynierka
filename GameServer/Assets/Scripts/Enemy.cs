@@ -13,10 +13,11 @@ public class Enemy : MonoBehaviour
     public Player target;
     public CharacterController controller;
     public Transform shootOrigin;
+
     public float gravity = -9.81f;
     public float patrolSpeed = 2f;
     public float chaseSpeed = 8f;
-    public float health;
+    public float health=100f;
     public float maxHealth = 100f;
     public float detectionRange = 30f;
     public float shootRange = 2f;
@@ -29,7 +30,7 @@ public class Enemy : MonoBehaviour
     private bool isPatrolRoutineRunning;
     private float yVelocity = 0;
 
-    private void Start()
+    protected virtual void Start()
     {
         id = nextEnemyId;
         nextEnemyId++;
@@ -43,7 +44,7 @@ public class Enemy : MonoBehaviour
         chaseSpeed *= Time.fixedDeltaTime;
     }
 
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         switch (state)
         {

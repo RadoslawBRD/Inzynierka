@@ -212,6 +212,7 @@ public class ServerSend
     private static Packet SpawnEnemy_Data(Enemy _enemy, Packet _packet)
     {
         _packet.Write(_enemy.id);
+        _packet.Write(_enemy.maxHealth);
         _packet.Write(_enemy.transform.position);
         return _packet;
     }

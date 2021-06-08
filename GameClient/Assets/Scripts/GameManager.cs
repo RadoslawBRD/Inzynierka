@@ -57,10 +57,10 @@ public class GameManager : MonoBehaviour
 
         projectiles.Add(_id, _projectile.GetComponent<ProjectileManager>());
     }
-    public void SpawnEnemy(int _id, Vector3 _position)
+    public void SpawnEnemy(int _id, float _maxhelath, Vector3 _position)
     {
         GameObject _enemy = Instantiate(enemyPrefab, _position, Quaternion.identity);
-        _enemy.GetComponent<EnemyManager>().Initialize(_id);
+        _enemy.GetComponent<EnemyManager>().Initialize(_id, _maxhelath);
         enemies.Add(_id, _enemy.GetComponent<EnemyManager>());
     }
 
