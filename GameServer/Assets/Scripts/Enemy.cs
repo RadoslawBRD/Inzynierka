@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     public float patrolDuration = 3f;
     public float idleDuration = 1f;
 
+    public string typzombie;
+
     private bool isPatrolRoutineRunning;
     private float yVelocity = 0;
 
@@ -50,9 +52,7 @@ public class Enemy : MonoBehaviour
                 break;
             case EnemyState.patrol:
                 if (!LookForPlayer())
-                {
-                    Patrol();
-                }
+                    Patrol();                
                 break;
             case EnemyState.chase:
                 Chase();
