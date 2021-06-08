@@ -124,12 +124,8 @@ public class Player : MonoBehaviour
             }
             if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
             {
-                if (_hit.collider.CompareTag("Player"))
-                {
-                    _hit.collider.GetComponent<Player>().TakeDamage(50f);
-                }
-                else
-                    if (_hit.collider.CompareTag("Enemy"))
+                
+                if (_hit.collider.CompareTag("Enemy"))
                 {
                     _hit.collider.GetComponent<Enemy>().TakeDamage(50f);
                 }
