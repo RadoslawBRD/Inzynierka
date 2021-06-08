@@ -38,3 +38,4 @@ GameClient/Logs/AssetImportWorker0-prev.log
 *.log
 
 GameClient/Logs/ApiUpdaterCheck.txt
+*.meta
