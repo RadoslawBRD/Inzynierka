@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject itemSpawnerPrefab;
     public GameObject projetcilePrefab;
     public GameObject enemyPrefab;
+    public GameObject offlinePlayer;
 
     private void Awake()
     {
@@ -33,6 +34,21 @@ public class GameManager : MonoBehaviour
     {
         GameObject _player;
         if(_id == Client.instance.myId)//sprawdza czy pojawiaj¹cy siê gracz jest graczem lokalnym, jesli tak, to odpowiednio przypisjemy prefaby
+        {
+            _player = Instantiate(localPlayerPrefab, _position, _rotation);
+        }
+        else
+        {
+            _player = Instantiate(playerPrefab, _position, _rotation);
+        }
+
+        _player.GetComponent<PlayerManager>().Initialize(_id, _username);
+        players.Add(_id, _player.GetComponent<PlayerManager>());
+    }
+    public void OfflineSpawnPlayer(int _id, string _username, Vector3 _position, Quaternion _rotation)
+    {
+        GameObject _player;
+        if (_id == Client.instance.myId)//sprawdza czy pojawiaj¹cy siê gracz jest graczem lokalnym, jesli tak, to odpowiednio przypisjemy prefaby
         {
             _player = Instantiate(localPlayerPrefab, _position, _rotation);
         }
