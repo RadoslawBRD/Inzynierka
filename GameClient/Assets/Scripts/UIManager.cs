@@ -12,7 +12,6 @@ public class UIManager : MonoBehaviour
     public InputField usernameField;
     public InputField ipAddress;
 
-
     //public GameObject settingsMenu;
     //public GameObject saveButton;
     //public InputField ipField;
@@ -38,6 +37,12 @@ public class UIManager : MonoBehaviour
         //Client.instance.ConnectedToServer(ipField.text);
         Client.instance.ConnectedToServer(ipAddress.text);
        // Debug.Log(ipAddress);
+    }
+    public void Offlinegame()
+    {
+        startMenu.SetActive(false);
+        usernameField.interactable = false;
+        Client.instance.OfflineGame();
     }
     public void OnSettings()
     {

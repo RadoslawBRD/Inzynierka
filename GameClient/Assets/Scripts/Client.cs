@@ -17,6 +17,7 @@ public class Client : MonoBehaviour
     public int myId = 0;
     public TCP tcp;
     public UDP udp;
+    public OfflinePlayerManager offlineplayer;
 
     public bool isPlayer = true;
     private bool isConnected = false;
@@ -325,6 +326,11 @@ public class Client : MonoBehaviour
 
         };
         Debug.Log("Initialized packets");
+    }
+
+    public void OfflineGame()
+    {
+        ClientHandle.SpawnOfflinePlayer(1,"OfflinePlayer", new Vector3(25f,25f,25f), new Quaternion(1,1,1,1));
     }
 
     private void Disconnect()

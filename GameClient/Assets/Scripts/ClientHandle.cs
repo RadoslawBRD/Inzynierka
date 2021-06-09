@@ -25,6 +25,10 @@ public class ClientHandle : MonoBehaviour
 
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
     }
+    public static void SpawnOfflinePlayer(int _id, string _username, Vector3 _position, Quaternion _rotation)
+    {
+        GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
+    }
     public static void PlayerPosition(Packet _packet)
     {
         int _id = _packet.ReadInt();
