@@ -53,7 +53,8 @@ public class ClientSend : MonoBehaviour
 
             SendTCPData(_packet);
         }
-    }public static void PlayerThrowItem(Vector3 _facing)
+    }
+    public static void PlayerThrowItem(Vector3 _facing)
     {
         using (Packet _packet = new Packet((int)ClientPackets.playerThrowItem))
         {
@@ -62,7 +63,5 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
-
-   
-    #endregion
+   #endregion
 }
