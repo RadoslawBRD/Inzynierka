@@ -63,5 +63,26 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
+    public static void PlayerSentCommand(string _commandId,string? _parameter)
+    {
+        int _numberOfStrings=1;
+        using (Packet _packet = new Packet((int)ClientPackets.playerSentCommand))
+        {
+            _numberOfStrings++;
+            if(!(_parameter is null))
+                _numberOfStrings++;
+
+            _packet.Write(_numberOfStrings);
+            _packet.Write(_commandId);
+            if (!(_parameter is null))
+                _packet.Write(_parameter);
+
+
+
+
+            SendTCPData(_packet); //TCP bo nie moge stracic tego pakietu
+
+        }
+    }
    #endregion
 }

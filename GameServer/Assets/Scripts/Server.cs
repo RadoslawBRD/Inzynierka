@@ -123,6 +123,7 @@ public class Server
         { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement},
         { (int)ClientPackets.playerShoot, ServerHandle.PlayerShoot},
         { (int)ClientPackets.playerThrowItem, ServerHandle.PlayerThrowItem},
+        { (int)ClientPackets.playerSentCommand, ServerHandle.PlayerSentCommand}
 
     };
         Debug.Log("Initialized packets");

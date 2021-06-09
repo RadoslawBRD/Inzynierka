@@ -34,7 +34,9 @@ public enum ClientPackets { //odbierane od playerów
     welcomeReceived = 1,
     playerMovement,
     playerShoot,
-    playerThrowItem
+    playerThrowItem,
+    playerSentCommand
+
 }
  
  public class Packet : IDisposable { 

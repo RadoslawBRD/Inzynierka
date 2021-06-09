@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
         {
             ClientSend.PlayerThrowItem(camTransform.forward);
         }
+        if (Input.GetKeyDown(KeyCode.BackQuote)|| Input.GetKeyDown(KeyCode.Tilde))
+        {
+            DebugConsole.instance.OpenCloseConsole();
+        }
     }
     private void FixedUpdate()
     {

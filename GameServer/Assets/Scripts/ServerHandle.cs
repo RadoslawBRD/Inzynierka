@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,28 @@ public class ServerHandle
         Server.clients[_fromClient].player.ThrowItem(_throwDirection);
     }
 
-    
+    public static void PlayerSentCommand(int _fromClient, Packet _packet)
+    {
+        Debug.Log("ogarniam komende");
+        int _numberOfStrings = _packet.ReadInt();
+        string[] _command = new string[5];
+        for (int i = 0; i < _numberOfStrings-1; i++)
+            _command[i] = _packet.ReadString();
+
+        switch (_command[0])
+        {
+            case "start_game":
+                GameManager.instance.startGame();
+                break;
+            case "restart_game":
+                GameManager.instance.restartGame();
+                break;
+            case "kill_all_enemies":
+                GameManager.instance.killAllEnemies();
+                break;
+            default:
+                break;
+        }
+    }
 }
 
