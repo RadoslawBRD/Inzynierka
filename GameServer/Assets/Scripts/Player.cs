@@ -107,11 +107,25 @@ public class Player : MonoBehaviour
     {
         if (isMaster) //strezlanie mastera(respienie zombie)
         {
-            if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 1125f))
+            if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hitGround, 1125f))
             {
-                if (_hit.collider.CompareTag("Ground"))
+                if (_hitGround.collider.CompareTag("Ground"))
                 {
-                    NetworkManager.instance.InstantiateEnemy(_hit.point);
+                    bool isPlayerAway = true;
+                    /*Collider[] _colliders = Physics.OverlapSphere(_hitGround.collider.transform.position, 5f);
+                    foreach (Collider _collider in _colliders)
+                    {
+                        if (_collider.CompareTag("Player"))
+                        {
+                            isPlayerAway = false;
+                        }                       
+
+                    }
+                    if(isPlayerAway)*/
+                    NetworkManager.instance.InstantiateEnemy(_hitGround.point);
+
+
+
                 }
             }
 
