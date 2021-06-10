@@ -31,10 +31,23 @@ public class UIManager : MonoBehaviour
    
     public void ConnectedToServer()
     {
-        
+        for(int i = 0; i < usernameField.text.Length; i++)
+        {
+            if(usernameField.text[i].ToString() == " ")
+            {
+                Debug.Log("Nick nie mo¿e zawieraæ spacji");
+                return;
+            }
+        }
+        if(usernameField.text == "")
+        {
+            Debug.Log("Nick nie mo¿e byc pusty");
+            return;
+        }
         startMenu.SetActive(false);
         usernameField.interactable = false;
         //Client.instance.ConnectedToServer(ipField.text);
+        Debug.Log("Connecting to the server");
         Client.instance.ConnectedToServer(ipAddress.text);
        // Debug.Log(ipAddress);
     }
