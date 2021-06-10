@@ -47,7 +47,7 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerDisconnected(Packet _packet)
     {
         int _id = _packet.ReadInt();
-
+        GameManager.players[_id].RemoveFloatingNickname();
         Destroy(GameManager.players[_id].gameObject);
 
         GameManager.players.Remove(_id);

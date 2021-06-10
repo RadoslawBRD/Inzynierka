@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
         id = _id;
         username = _username;
         health = maxHealth;
-        createFloatingNickname();
+        StartCoroutine(createFloatingNickname());
     }
 
     public void SetHealth(float _health)
@@ -31,17 +31,24 @@ public class PlayerManager : MonoBehaviour
     }
     public void Die()
     {
-        DestroyImmediate(floatingUsernamePrefab,true );
+        StartCoroutine(createFloatingNickname());
         model.enabled = false;
     }
-    public void createFloatingNickname()
+    private IEnumerator createFloatingNickname()
     {
+        yield return new WaitForSeconds(1f);
+
         if (floatingUsernamePrefab != null)
         {
             var floatingText = Instantiate(floatingUsernamePrefab, new Vector3(transform.position.x, transform.position.y + 1.3f, transform.position.z), Quaternion.identity);
             floatingText.GetComponent<TextMesh>().text = username;
-
+            floatingText.transform.parent = GameManager.players[id].transform;
         }
+    }
+    public void RemoveFloatingNickname()
+    {
+        FloatingNickname.instance.Destroy();
+
     }
     public void Respawn()
     {
