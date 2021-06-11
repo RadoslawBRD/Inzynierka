@@ -11,8 +11,8 @@ public class EnemyBasic : Enemy
         gravity = -9.81f;
         patrolSpeed = 2f;
         chaseSpeed = 8f;
-        health = 200f;
-        maxHealth = 200f;
+        health = 150f;
+        maxHealth = 150f;
         detectionRange = 30f;
         shootRange = 2f;
         shootAccuracy = 0.1f;
