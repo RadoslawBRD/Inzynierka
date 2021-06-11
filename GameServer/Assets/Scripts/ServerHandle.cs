@@ -63,6 +63,9 @@ public class ServerHandle
             case "kill_all_enemies":
                 GameManager.instance.killAllEnemies();
                 break;
+            case "add_granade":
+                GameManager.instance.addGranade(_fromClient, _command[1]);
+                break;
             default:
                 break;
         }

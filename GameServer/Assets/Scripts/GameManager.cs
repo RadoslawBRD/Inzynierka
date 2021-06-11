@@ -118,5 +118,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void addGranade(int _toPlayer, string _howMany)
+    {
+        Server.clients[_toPlayer].player.AddItem(int.Parse(_howMany));
+    }
 
 }

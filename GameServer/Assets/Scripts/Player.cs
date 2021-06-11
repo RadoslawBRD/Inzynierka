@@ -171,7 +171,7 @@ public class Player : MonoBehaviour
         {
             health = 0f;
             controller.enabled = false;
-            transform.position = new Vector3(0f, 25f, 0f);
+            transform.position = new Vector3(0f, 25f, 0f); //miejsce spawnu gracza
             ServerSend.PlayerPosition(this);
             StartCoroutine(Respawn());
         }
@@ -202,5 +202,9 @@ public class Player : MonoBehaviour
             itemAmount++;
             return true;
         
+    }
+    public void AddItem(int _value)
+    {
+        itemAmount += _value;
     }
 }
