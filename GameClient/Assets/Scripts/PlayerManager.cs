@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public GameObject floatingUsernamePrefab;
+    //public GameObject gunPrefab;
+
     public int id;
     public string username;
     public float health;
@@ -18,6 +20,7 @@ public class PlayerManager : MonoBehaviour
         username = _username;
         health = maxHealth;
         StartCoroutine(createFloatingNickname());
+        //StartCoroutine(GunInit());
     }
 
     public void SetHealth(float _health)
@@ -31,7 +34,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void Die()
     {
-        StartCoroutine(createFloatingNickname());
+        //StartCoroutine(createFloatingNickname());
         model.enabled = false;
     }
     private IEnumerator createFloatingNickname()
@@ -45,11 +48,20 @@ public class PlayerManager : MonoBehaviour
             floatingText.transform.parent = GameManager.players[id].transform;
         }
     }
+    /*private IEnumerator GunInit()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (gunPrefab != null)
+        {
+            var gun = Instantiate(gunPrefab,transform.position, Quaternion.identity);
+            gun.transform.parent = GameManager.players[id].transform;
+        }
+    }*/
     public void RemoveFloatingNickname()
     {
         FloatingNickname.instance.Destroy();
-
-    }
+     }
     public void Respawn()
     {
         model.enabled = true;

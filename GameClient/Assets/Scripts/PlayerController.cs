@@ -19,6 +19,11 @@ public class PlayerController : MonoBehaviour
         {
             DebugConsole.instance.OpenCloseConsole();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            //UIManager.instance.changeInGamePauseMenu();
+        }
+
     }
     private void FixedUpdate()
     {
