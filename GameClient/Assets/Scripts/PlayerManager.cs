@@ -21,6 +21,7 @@ public class PlayerManager : MonoBehaviour
         health = maxHealth;
         StartCoroutine(createFloatingNickname());
         //StartCoroutine(GunInit());
+        BulletsCount.instance.ammoDisplay.gameObject.SetActive(true);
     }
 
     public void SetHealth(float _health)
@@ -65,7 +66,6 @@ public class PlayerManager : MonoBehaviour
     public void Respawn()
     {
         model.enabled = true;
-        createFloatingNickname();
         SetHealth(maxHealth);
     }
 }

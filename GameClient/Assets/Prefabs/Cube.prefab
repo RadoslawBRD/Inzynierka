@@ -110,3 +110,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upRecoil: {x: -5, y: 0, z: 0}
   gunPrefab: {fileID: 59923951027551640}
+  bulletsCurrent: 1
+  bulletsMax: 30

@@ -667,6 +667,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 3902541082654316462, guid: 2d46fcb0b32fd0348a64d1074b92c0ce, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 3902541083089266600, guid: 2d46fcb0b32fd0348a64d1074b92c0ce, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -755,6 +759,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGameLive: 0
+  _selectedPlayer: 0
 --- !u!4 &1966465144
 Transform:
   m_ObjectHideFlags: 0
