@@ -13,7 +13,8 @@ public class DebugConsole : MonoBehaviour
     public static DebugCommand START_GAME;
     public static DebugCommand RESTART_GAME;
     public static DebugCommand KILL_ALL_ENEMIES;
-    public static DebugCommand ADD_GRANADE;
+    public static DebugCommand<string> ADD_GRANADE;
+    
 
     public List<object> commandList;
 
@@ -52,14 +53,18 @@ public class DebugConsole : MonoBehaviour
             Debug.Log("sending kill_all_enemies");
             ClientSend.PlayerSentCommand("kill_all_enemies", null);
         });
-
+        ADD_GRANADE = new DebugCommand<string>("add_granade", "Add granade", "add_granade <int>", (x) =>
+        {
+            Debug.Log("sending add_granade");
+            ClientSend.PlayerSentCommand("add_granade", x);
+        });
 
         commandList = new List<object>
         {
             START_GAME,
             RESTART_GAME,
-            KILL_ALL_ENEMIES
-
+            KILL_ALL_ENEMIES,
+            ADD_GRANADE
         };
     }
 
@@ -80,9 +85,11 @@ public class DebugConsole : MonoBehaviour
     }
     private void HandleInput()
     {
-        for(int i=0;i<commandList.Count;i++)
+        string[] properties = input.Split(' ');
+
+        for (int i = 0; i < commandList.Count; i++)
         {
-            DebugCommandBase commandBase = commandList[i] as DebugCommand;
+            DebugCommandBase commandBase = commandList[i] as DebugCommandBase;
 
             if(input.Contains(commandBase.commandId))
             {
@@ -90,6 +97,11 @@ public class DebugConsole : MonoBehaviour
                 {
                     (commandList[i] as DebugCommand).Invoke();
                 }
+                else if (commandList[i] as DebugCommand<string> != null)
+                    {
+                        (commandList[i] as DebugCommand<string>).Invoke(properties[1]);
+                    }
+                
             }
         }
     }
