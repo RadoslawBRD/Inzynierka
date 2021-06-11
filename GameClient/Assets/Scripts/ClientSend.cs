@@ -63,7 +63,7 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
-    public static void PlayerSentCommand(string _commandId,string? _parameter)
+    public static void PlayerSentCommand(string _commandId, string? _parameter)
     {
         int _numberOfStrings=1;
         using (Packet _packet = new Packet((int)ClientPackets.playerSentCommand))
