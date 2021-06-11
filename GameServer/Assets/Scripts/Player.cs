@@ -32,9 +32,13 @@ public class Player : MonoBehaviour
         //moveSpeed *= Time.deltaTime;
         jumpSpeed *= Time.deltaTime;
     }
-    public void SetMaster()
+    public void SetMaster(bool value)
     {
-        isMaster = true;
+        isMaster = value;
+        if (value)
+            gameObject.tag = "Master";
+        else
+            gameObject.tag = "Player";
     }
     public void Initialize(int _id, string _username)
     {

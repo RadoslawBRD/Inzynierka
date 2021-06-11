@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public bool isGameLive = false;
+    public int _selectedPlayer; //id gracza, który jest masterem
     int playerCount = 0;
     // Start is called before the first frame update
     void Start()
@@ -59,9 +60,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(5f);
         Debug.Log("Resetting game");
         
-        int _selectedPlayer = Random.Range(1, _playsers);
+        _selectedPlayer = Random.Range(1, _playsers);
         
-        Server.clients[_selectedPlayer].player.SetMaster();
+        Server.clients[_selectedPlayer].player.SetMaster(true);
        
 
         foreach (Client _client in Server.clients.Values)
@@ -76,6 +77,9 @@ public class GameManager : MonoBehaviour
     private IEnumerator RestartGame(int _playsers)
     {
         isGameLive = false;
+        Server.clients[_selectedPlayer].player.SetMaster(false);
+        Server.clients[_selectedPlayer].player.itemAmount = 0;
+
         yield return new WaitForSeconds(5f);
 
         Debug.Log("Resetting game");
