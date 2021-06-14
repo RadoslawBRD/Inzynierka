@@ -56,6 +56,7 @@ public class ClientSend : MonoBehaviour
     }
     public static void PlayerThrowItem(Vector3 _facing)
     {
+        GranadeCount.instance.setGranadeAmount(-1);
         using (Packet _packet = new Packet((int)ClientPackets.playerThrowItem))
         {
             _packet.Write(_facing);
