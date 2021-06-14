@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,9 @@ public class UIManager : MonoBehaviour
     public GameObject startMenu;
     public InputField usernameField;
     public InputField ipAddress;
-
+    public GameObject pauseMenu;
+    public bool inGamePause=false;
+    //public GameObject backGround;
     //public GameObject settingsMenu;
     //public GameObject saveButton;
     //public InputField ipField;
@@ -44,11 +47,21 @@ public class UIManager : MonoBehaviour
             Debug.Log("Nick nie mo¿e byc pusty");
             return;
         }
-        startMenu.SetActive(false);
-        usernameField.interactable = false;
+        //usernameField.interactable = false;
         //Client.instance.ConnectedToServer(ipField.text);
-        Debug.Log("Connecting to the server");
-        Client.instance.ConnectedToServer(ipAddress.text);
+
+        if (Regex.Matches(ipAddress.text, @"[a-zA-Z!@#$%^&*()_+{};':<>,?/|\s]").Count == 0)
+        {
+            Debug.Log("Connecting to the server");
+            startMenu.SetActive(false);
+
+            Client.instance.ConnectedToServer(ipAddress.text);
+            ToggleCoursorMode();
+        }
+        else
+            Debug.LogError("Invalid characters in IP Address");
+
+       
        // Debug.Log(ipAddress);
     }
     public void Offlinegame()
@@ -78,6 +91,48 @@ public class UIManager : MonoBehaviour
        // ipAddress = Settings.instance.ipField.text;
        // Debug.Log(ipAddress);
 
+    }
+    public bool onPauseChange()
+    {
+        inGamePause = !inGamePause;
+        return inGamePause;
+    }
+    public void changeInGamePauseMenu()
+    {
+        bool isPaused = onPauseChange();
+
+        pauseMenu.SetActive(isPaused);
+        //backGround.SetActive(isPaused);
+        ToggleCoursorMode();
+
+    }
+    public void onResume()
+    {
+        changeInGamePauseMenu();
+    }
+    public void onDisconnect()
+    {
+       // Client.instance.tcp.Disconnect();
+       // Client.instance.udp.Disconnect();
+        Client.instance.Disconnect();
+        startMenu.SetActive(true);
+        changeInGamePauseMenu();
+        ToggleCoursorMode();
+        Camera.main.transform.position=new Vector3(0, 1, -10);
+    }
+
+    private void ToggleCoursorMode()
+    {
+        Cursor.visible = !Cursor.visible;
+        if (Cursor.lockState == CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            
+        }
     }
     public void onExit()
     {

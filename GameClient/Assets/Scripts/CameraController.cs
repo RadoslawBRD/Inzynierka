@@ -1,3 +1,62 @@
+/*using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CameraController : MonoBehaviour
+{
+    public static CameraController instance;
+
+    public PlayerManager player;
+    public float sensitivity = 100f;
+    public float clampAngle = 85f;
+
+    private float verticalRotation;
+    private float horizontalRotation;
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+
+        verticalRotation = transform.localEulerAngles.x;
+        horizontalRotation = player.transform.eulerAngles.y;
+    }
+    *//*private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+        {
+            Debug.Log("instance already exists, destroying object!");
+            Destroy(this);
+        }
+
+    }*//*
+    private void Update()
+    {
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            Look();
+        }
+    }
+
+    private void Look()
+    {
+        float _mouseVertical = -Input.GetAxis("Mouse Y");
+        float _mouseHorizontal = Input.GetAxis("Mouse X");
+
+        verticalRotation += _mouseVertical * sensitivity * Time.deltaTime;
+        horizontalRotation += _mouseHorizontal * sensitivity * Time.deltaTime;
+
+        verticalRotation = Mathf.Clamp(verticalRotation, -clampAngle, clampAngle);
+
+        transform.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+        player.transform.rotation = Quaternion.Euler(0f, horizontalRotation, 0f);
+    }
+
+
+}
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,14 +79,16 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        /*if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ToggleCoursorMode();
-        }
 
-        if(Cursor.lockState == CursorLockMode.Locked)
+            ToggleCoursorMode();
+        }*/
+
+
+        if (Cursor.lockState == CursorLockMode.Locked)
         {
-            Look();
+           Look();
         }
         Debug.DrawRay(transform.position, transform.forward * 2, Color.red);
     }
@@ -49,7 +110,7 @@ public class CameraController : MonoBehaviour
     private void ToggleCoursorMode()
     {
         Cursor.visible = !Cursor.visible;
-        if(Cursor.lockState == CursorLockMode.None)
+        if (Cursor.lockState == CursorLockMode.None)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }

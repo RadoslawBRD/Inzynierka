@@ -202,7 +202,7 @@ public class Client : MonoBehaviour
 
         }
 
-        private void Disconnect()
+        public void Disconnect()
         {
             instance.Disconnect();
 
@@ -292,10 +292,10 @@ public class Client : MonoBehaviour
             });
         }
         
-        private void Disconnect()
+        public void Disconnect()
         {
             instance.Disconnect();
-
+            
             endpoint = null;
             socket = null;
         }
@@ -333,14 +333,15 @@ public class Client : MonoBehaviour
         ClientHandle.SpawnOfflinePlayer(1,"OfflinePlayer", new Vector3(25f,25f,25f), new Quaternion(1,1,1,1));
     }
 
-    private void Disconnect()
+    public void Disconnect()
     {
         if(isConnected)
         {
+
             isConnected = false;
             tcp.socket.Close();
             udp.socket.Close();
-
+            GameManager.instance.DisconnectFromServer();
             Debug.Log("Disconnected from the server");        }
     }
 
