@@ -14,6 +14,7 @@ public class BulletsCount : MonoBehaviour
 
 
     public Text ammoDisplay;
+
     private void Awake()
     {
         if (instance == null)
@@ -26,20 +27,8 @@ public class BulletsCount : MonoBehaviour
 
     }
 
-
-    private void OnGUI()
-    {
-        GUI.Box(new Rect(0, Screen.height, Screen.width, 30), "");
-
-    }
-    void Start()
-    {
-
-
-    }
-    
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         ammoDisplay.text = bulletsCurrent.ToString() + " / "  + bulletsMax.ToString();
     }
