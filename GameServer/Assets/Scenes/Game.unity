@@ -539,6 +539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequency: 10
+  type: Basic
 --- !u!4 &1407362042
 Transform:
   m_ObjectHideFlags: 0
@@ -583,6 +584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequency: 1
+  type: Basic
 --- !u!4 &1549075546
 Transform:
   m_ObjectHideFlags: 0
@@ -654,8 +656,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4045297414441658395, guid: 76931a898432a6a47bf66f0a6e4503e5, type: 3}
-  enemyPrefab: {fileID: 4045297414441658395, guid: 264dda0d5f4311c44a0fb3f1ca1f5648, type: 3}
-  projectilePrefab: {fileID: 677718171024148823, guid: f8987edabbf0c5147bb51b4c0f3c0986, type: 3}
+  enemyBasicPrefab: {fileID: 4045297414441658395, guid: 264dda0d5f4311c44a0fb3f1ca1f5648, type: 3}
+  enemyTankPrefab: {fileID: 3750570088666119801, guid: a4a49e36118351b46bee373119f825c2, type: 3}
+  playerSimpleGranadePrefab: {fileID: 677718171024148823, guid: f8987edabbf0c5147bb51b4c0f3c0986, type: 3}
+  enemyStonePrefab: {fileID: 2734002522258633704, guid: 963b01e345d828444bf109d625747229, type: 3}
 --- !u!1001 &1852328201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -804,6 +808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequency: 10
+  type: Basic
 --- !u!4 &2024400601
 Transform:
   m_ObjectHideFlags: 0
