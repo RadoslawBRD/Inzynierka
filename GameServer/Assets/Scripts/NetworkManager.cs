@@ -7,8 +7,10 @@ public class NetworkManager : MonoBehaviour
     public static NetworkManager instance;
 
     public GameObject playerPrefab;
-    public GameObject enemyPrefab;
-    public GameObject projectilePrefab;
+    public GameObject enemyBasicPrefab;
+    public GameObject enemyTankPrefab;
+    public GameObject playerSimpleGranadePrefab;
+    public GameObject enemyStonePrefab;
 
     private void Awake()
     {
@@ -37,13 +39,38 @@ public class NetworkManager : MonoBehaviour
         return Instantiate(playerPrefab, new Vector3(0f,0.5f,0f), Quaternion.identity).GetComponent<Player>(); //zwraca referencje do playera
     }
 
-    public Projectile InstantiateProjectile(Transform _shootOrigin)
+    public ProjectileBase InstantiateProjectile(Transform _shootOrigin, string _type)
     {
-        return Instantiate(projectilePrefab, _shootOrigin.position + _shootOrigin.forward * 0.7f, Quaternion.identity).GetComponent<Projectile>();
+        switch (_type)
+        {
+            case "Basic":
+                return Instantiate(playerSimpleGranadePrefab, _shootOrigin.position + _shootOrigin.forward * 0.7f, Quaternion.identity).GetComponent<PlayerSimpleGranade>();
+            case "Stone":
+                return Instantiate(enemyStonePrefab, _shootOrigin.position + _shootOrigin.forward * 0.7f, Quaternion.identity).GetComponent<EnemyProjectileStone>();
+
+            default:
+                return Instantiate(playerSimpleGranadePrefab, _shootOrigin.position + _shootOrigin.forward * 0.7f, Quaternion.identity).GetComponent<PlayerSimpleGranade>();
+
+        }
     }
-    public void InstantiateEnemy(Vector3 _position)
+    public void InstantiateEnemy(Vector3 _position, string _type)
     {
-        Instantiate(enemyPrefab, _position, Quaternion.identity);
+        switch (_type)
+        {
+            case "Basic":
+                Instantiate(enemyBasicPrefab, _position, Quaternion.identity);
+                break;
+            case "Tank":
+                Instantiate(enemyTankPrefab, _position, Quaternion.identity);
+                break;
+            case "Poisone":
+                break;
+            case "Jumper":
+                break;
+            default:
+                Instantiate(enemyBasicPrefab, _position, Quaternion.identity);
+                break;
+        }
     }
 
 }

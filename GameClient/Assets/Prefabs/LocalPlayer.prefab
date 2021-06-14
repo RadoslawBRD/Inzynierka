@@ -240,6 +240,7 @@ MonoBehaviour:
   maxHealth: 100
   model: {fileID: 7099239633810417850}
   itemCount: 0
+  isMaster: 0
 --- !u!114 &303041162050151390
 MonoBehaviour:
   m_ObjectHideFlags: 0
