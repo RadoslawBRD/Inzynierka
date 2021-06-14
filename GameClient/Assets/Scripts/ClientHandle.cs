@@ -88,7 +88,7 @@ public class ClientHandle : MonoBehaviour
         int _spawnerId = _packet.ReadInt();
         int _byPlayer = _packet.ReadInt();
 
-
+        GranadeCount.instance.setGranadeAmount(1);
         GameManager.itemSpawners[_spawnerId].ItemPickedUp();
         GameManager.players[_byPlayer].itemCount++;
     }
