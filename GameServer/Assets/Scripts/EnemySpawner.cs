@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public float frequency = 3f;
+    public string type = "Basic";
 
     public void Start()
     {
@@ -17,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
         if(Enemy.enemies.Count < Enemy.maxEnemies)
         {
-            NetworkManager.instance.InstantiateEnemy(transform.position);
+            NetworkManager.instance.InstantiateEnemy(transform.position, "Tank");
         }
         StartCoroutine(SpawnEnemy());
     }
