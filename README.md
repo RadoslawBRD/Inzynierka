@@ -1,4 +1,4 @@
-# Inzynierka
+# Projekt inzynierski
 Projekt zombie
 
 # GameServer
