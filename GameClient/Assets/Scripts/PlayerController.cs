@@ -5,15 +5,26 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Transform camTransform;
+    public static Dictionary<int, string> selectedThrowable = new Dictionary<int, string>();
+
+
+    private void Start()
+    {
+        selectedThrowable[1] = "Basic";
+        selectedThrowable[2] = "Stone";
+    }
     private void Update()
     {
+        Debug.DrawRay(transform.position, camTransform.forward, Color.red, 100f,true);
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            ClientSend.PlayerShoot(camTransform.forward);
+            if(BulletsCount.instance.bulletsCurrent>0)
+                ClientSend.PlayerShoot(camTransform.forward);
         }
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            ClientSend.PlayerThrowItem(camTransform.forward);
+            ClientSend.PlayerThrowItem(camTransform.forward,selectedThrowable[2]);
         }
         if (Input.GetKeyDown(KeyCode.BackQuote)|| Input.GetKeyDown(KeyCode.Tilde))
         {
@@ -21,7 +32,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //UIManager.instance.changeInGamePauseMenu();
+            UIManager.instance.changeInGamePauseMenu();
         }
 
     }

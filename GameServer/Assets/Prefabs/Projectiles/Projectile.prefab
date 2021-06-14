@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3880257311883278488}
   - component: {fileID: 6704544284399934418}
   - component: {fileID: 6495322051479128537}
-  - component: {fileID: 8916030527724214312}
-  m_Layer: 0
+  - component: {fileID: 6515273482631213001}
+  m_Layer: 2
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &8916030527724214312
+--- !u!114 &6515273482631213001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 677718171024148823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11af9fdd2ff23f04cb958bdc719b0d0d, type: 3}
+  m_Script: {fileID: 11500000, guid: c2b43b0e16bcaab42ab193de7f4153fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
@@ -131,3 +131,4 @@ MonoBehaviour:
   initialForce: {x: 0, y: 0, z: 0}
   explosionRadius: 10
   explosionDamage: 10
+  type: Basic

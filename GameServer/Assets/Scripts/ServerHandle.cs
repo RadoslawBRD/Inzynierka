@@ -40,8 +40,9 @@ public class ServerHandle
     public static void PlayerThrowItem(int _fromClient, Packet _packet)
     {
         Vector3 _throwDirection =_packet.ReadVector3();
+        String _type = _packet.ReadString();
 
-        Server.clients[_fromClient].player.ThrowItem(_throwDirection);
+        Server.clients[_fromClient].player.ThrowItem(_throwDirection, _type);
     }
 
     public static void PlayerSentCommand(int _fromClient, Packet _packet)

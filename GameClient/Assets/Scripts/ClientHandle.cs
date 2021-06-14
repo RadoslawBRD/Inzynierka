@@ -98,9 +98,11 @@ public class ClientHandle : MonoBehaviour
         int _projectileId = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
         int _thrownByPlayer = _packet.ReadInt();
+        string _type = _packet.ReadString();
 
-        GameManager.instance.SpawnProjectile(_projectileId, _position);
-        GameManager.players[_thrownByPlayer].itemCount--;
+        GameManager.instance.SpawnProjectile(_projectileId, _position, _type);
+        if(_thrownByPlayer!=100)
+            GameManager.players[_thrownByPlayer].itemCount--;
     }
     public static void ProjectilePosition(Packet _packet)
     {
@@ -113,7 +115,10 @@ public class ClientHandle : MonoBehaviour
     {
         int _projectileId = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
-
+        if(_projectileId is 0)
+        {
+            return;
+        }
         GameManager.projectiles[_projectileId].Explode(_position);
     }
 
@@ -122,8 +127,9 @@ public class ClientHandle : MonoBehaviour
         int _enemyId = _packet.ReadInt();
         float _maxHealth = _packet.ReadFloat();
         Vector3 _position = _packet.ReadVector3();
+        string _type = _packet.ReadString();
 
-        GameManager.instance.SpawnEnemy(_enemyId,_maxHealth, _position);
+        GameManager.instance.SpawnEnemy(_enemyId, _maxHealth, _position, _type);
     }
     public static void EnemyPosition(Packet _packet)
     {

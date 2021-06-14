@@ -8,16 +8,25 @@ public class ProjectileManager : MonoBehaviour
     public GameObject explosionPrefab;
 
 
-    public void Initialize(int _id)
+    public virtual void Initialize(int _id)
     {
         id = _id;
+
     }
 
-    public void Explode(Vector3 _position)
+    public virtual void Explode(Vector3 _position)
     {
         transform.position = _position;
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         GameManager.projectiles.Remove(id);
         Destroy(gameObject);
+    }
+
+
+    private IEnumerator DestroyItem()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
+    
     }
 }

@@ -165,16 +165,17 @@ public class ServerSend
         }
 
     }
-    public static void SpawnProjectile(Projectile _projectile, int _thrownByPlayer)
+    public static void SpawnProjectile(ProjectileBase _projectile, int _thrownByPlayer, string _type)
     {
         using (Packet _packet = new Packet((int)ServerPackets.spawnProjectile))
         {
             _packet.Write(_projectile.id);
             _packet.Write(_projectile.transform.position);
             _packet.Write(_thrownByPlayer);
+            _packet.Write(_type);
             SendTCPDataToAll(_packet);
         }
-    }public static void ProjectilePosition(Projectile _projectile)
+    }public static void ProjectilePosition(ProjectileBase _projectile)
     {
         using (Packet _packet = new Packet((int)ServerPackets.projectilePosition))
         {
@@ -184,7 +185,7 @@ public class ServerSend
             SendUDPDataToAll(_packet);
         }
     }
-    public static void ProjectileExploded(Projectile _projectile)
+    public static void ProjectileExploded(ProjectileBase _projectile)
     {
         using (Packet _packet = new Packet((int)ServerPackets.projectileExploded))
         {
@@ -214,6 +215,7 @@ public class ServerSend
         _packet.Write(_enemy.id);
         _packet.Write(_enemy.maxHealth);
         _packet.Write(_enemy.transform.position);
+        _packet.Write(_enemy.type);
         return _packet;
     }
     public static void EnemyPosition(Enemy _enemy)

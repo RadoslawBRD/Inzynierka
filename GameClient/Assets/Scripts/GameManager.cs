@@ -14,10 +14,12 @@ public class GameManager : MonoBehaviour
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
     public GameObject itemSpawnerPrefab;
-    public GameObject projetcilePrefab;
-    public GameObject enemyPrefab;
+    public GameObject simplePlayerGranadePrefab;
+    public GameObject enemyStonePrefab;
+    public GameObject enemyBasicPrefab;
+    public GameObject enemyTankPrefab;
     public GameObject offlinePlayer;
-
+    
     private void Awake()
     {
         if (instance == null)
@@ -66,18 +68,59 @@ public class GameManager : MonoBehaviour
         _spawner.GetComponent<ItemSpawner>().Initialize(_spawnerId,_hasItem);
         itemSpawners.Add(_spawnerId, _spawner.GetComponent<ItemSpawner>());
     }
-    public void SpawnProjectile(int _id, Vector3 _position)
-    {
-        GameObject _projectile = Instantiate(projetcilePrefab, _position, Quaternion.identity);
+    public void SpawnProjectile(int _id, Vector3 _position, string _type){
+        GameObject _projectile = null;
+        switch (_type)
+        {
+            case "Basic":
+                _projectile = Instantiate(simplePlayerGranadePrefab, _position, Quaternion.identity);
+                break;
+            case "Stone":
+                _projectile = Instantiate(enemyStonePrefab, _position, Quaternion.identity);
+                break;
+            case "Poisone":
+                break;
+            case "Jumper":
+                break;
+            default:
+                _projectile = Instantiate(simplePlayerGranadePrefab, _position, Quaternion.identity);
+                break;                               
+        }
         _projectile.GetComponent<ProjectileManager>().Initialize(_id);
-
         projectiles.Add(_id, _projectile.GetComponent<ProjectileManager>());
     }
-    public void SpawnEnemy(int _id, float _maxhelath, Vector3 _position)
+    public void SpawnEnemy(int _id, float _maxhelath, Vector3 _position, string _type)
     {
-        GameObject _enemy = Instantiate(enemyPrefab, _position, Quaternion.identity);
+        GameObject _enemy=null;
+        switch (_type)
+        {
+            case "Basic":
+                _enemy = Instantiate(enemyBasicPrefab, _position, Quaternion.identity);
+                break;
+            case "Tank":
+                _enemy = Instantiate(enemyTankPrefab, _position, Quaternion.identity);
+                break;
+            case "Poisone":
+                break;
+            case "Jumper":
+                break;
+            default:
+                _enemy = Instantiate(enemyBasicPrefab, _position, Quaternion.identity);
+                break;
+
+        }
         _enemy.GetComponent<EnemyManager>().Initialize(_id, _maxhelath);
         enemies.Add(_id, _enemy.GetComponent<EnemyManager>());
+    }
+    public void DisconnectFromServer()
+    {
+        try { players.Clear(); } catch { }
+        try { enemies.Clear(); } catch { }
+        try { itemSpawners.Clear(); } catch { }
+        try { projectiles.Clear(); } catch { }
+        Destroy(gameObject);
+        
+        Debug.Log("zamykanko");
     }
 
 }

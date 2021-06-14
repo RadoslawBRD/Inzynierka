@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public float maxHealth=100f;
     public int itemAmount = 0;
     public int maxItemAmount = 3;
-
+    public string _type = "Basic";
 
     private bool[] inputs;
     private float yVelocity = 0; //prêdkoœc poruszania siê wertykalnie
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     }
     public void FixedUpdate()
     {
+
         if (health <= 0f)
         {
             return;
@@ -126,7 +127,7 @@ public class Player : MonoBehaviour
 
                     }
                     if(isPlayerAway)*/
-                    NetworkManager.instance.InstantiateEnemy(_hitGround.point);
+                    NetworkManager.instance.InstantiateEnemy(_hitGround.point, "Basic");
 
 
 
@@ -142,7 +143,7 @@ public class Player : MonoBehaviour
             }
             if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
             {
-                
+
                 if (_hit.collider.CompareTag("Enemy"))
                 {
                     _hit.collider.GetComponent<Enemy>().TakeDamage(50f);
@@ -151,7 +152,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void ThrowItem(Vector3 _viewDirection)
+    public void ThrowItem(Vector3 _viewDirection, string _type)
     {
         if (health <= 0)
         {
@@ -160,7 +161,7 @@ public class Player : MonoBehaviour
         if(itemAmount > 0)
         {
             itemAmount--;
-            NetworkManager.instance.InstantiateProjectile(shootOrigin).Initialize(_viewDirection, throwForce, id);
+            NetworkManager.instance.InstantiateProjectile(shootOrigin, _type).Initialize(_viewDirection, throwForce, id);
         }
     }
 

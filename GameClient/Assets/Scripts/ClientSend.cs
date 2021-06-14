@@ -54,13 +54,13 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
-    public static void PlayerThrowItem(Vector3 _facing)
+    public static void PlayerThrowItem(Vector3 _facing, string _type)
     {
         GranadeCount.instance.setGranadeAmount(-1);
         using (Packet _packet = new Packet((int)ClientPackets.playerThrowItem))
         {
             _packet.Write(_facing);
-
+            _packet.Write(_type);
             SendTCPData(_packet);
         }
     }
