@@ -13,15 +13,20 @@ public class PlayerManager : MonoBehaviour
     public float maxHealth;
     public MeshRenderer model;
     public int itemCount = 0;
+    public bool isMaster;
 
+    
     public void Initialize(int _id, string _username)
     {
         id = _id;
         username = _username;
         health = maxHealth;
+        
         StartCoroutine(createFloatingNickname());
         //StartCoroutine(GunInit());
         BulletsCount.instance.ammoDisplay.gameObject.SetActive(true);
+        HealthCount.instance.healthDisplay.gameObject.SetActive(true);
+        GranadeCount.instance.granadeDisplay.gameObject.SetActive(true);
     }
 
     public void SetHealth(float _health)
@@ -32,6 +37,7 @@ public class PlayerManager : MonoBehaviour
         {
             Die();
         }
+        HealthCount.instance.SetHealth(health);
     }
     public void Die()
     {
