@@ -63,7 +63,8 @@ public class GameManager : MonoBehaviour
         _selectedPlayer = Random.Range(1, _playsers);
         
         Server.clients[_selectedPlayer].player.SetMaster(true);
-       
+        Server.clients[_selectedPlayer].player.itemAmount = 0;
+
 
         foreach (Client _client in Server.clients.Values)
         {
@@ -79,9 +80,9 @@ public class GameManager : MonoBehaviour
         isGameLive = false;
         Server.clients[_selectedPlayer].player.SetMaster(false);
         Server.clients[_selectedPlayer].player.itemAmount = 0;
+        _selectedPlayer = 100;
 
         yield return new WaitForSeconds(5f);
-
         Debug.Log("Resetting game");
 
         foreach (Client _client in Server.clients.Values)
@@ -89,12 +90,14 @@ public class GameManager : MonoBehaviour
             if (_client.player != null)
             {
                 Debug.Log($"Killing player{_client.player.id}");
-                _client.player.TakeDamage(1000f);
+                _client.player.TakeDamage(1190f); // przesy³am kod przez zadawnie obra¿eñ
             }
         }
 
-        foreach(Enemy _enemy in Enemy.enemies.Values)
+        foreach(Enemy _enemy in Enemy.enemies.Values.ToList())
         {
+            
+
             if (_enemy.health > 0)
             {
                 _enemy.TakeDamage(_enemy.maxHealth+100f);
@@ -102,7 +105,8 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
+   
+    //////////// commands/////////////
     public void startGame()
     {
         StartCoroutine(SelectMaster(playerCount));
