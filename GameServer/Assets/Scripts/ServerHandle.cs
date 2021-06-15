@@ -28,14 +28,17 @@ public class ServerHandle
             _inputs[i] = _packet.ReadBool();
         }
         Quaternion _rotation = _packet.ReadQuaternion();
-
+        string _type = _packet.ReadString();
         Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
+        //Server.clients[_fromClient].player.SetSelectedEnemy(_type);
+
     }
     public static void PlayerShoot(int _fromClient, Packet _packet)
     {
         Vector3 _shootDirection = _packet.ReadVector3();
+        string _type = _packet.ReadString();
 
-        Server.clients[_fromClient].player.Shoot(_shootDirection);
+        Server.clients[_fromClient].player.Shoot(_shootDirection, _type);
     }
     public static void PlayerThrowItem(int _fromClient, Packet _packet)
     {

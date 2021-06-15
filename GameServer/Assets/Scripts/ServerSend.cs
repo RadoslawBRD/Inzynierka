@@ -120,12 +120,12 @@ public class ServerSend
             
         }
     }
-    public static void PlayerRespawned(Player player)
+    public static void PlayerRespawned(Player player, bool _isMaster) 
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerRespawn))
         {
             _packet.Write(player.id);
-
+            _packet.Write(_isMaster);
             SendTCPDataToAll(_packet);
 
         }

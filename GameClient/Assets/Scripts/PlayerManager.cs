@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public GameObject floatingUsernamePrefab;
+
     //public GameObject gunPrefab;
 
     public int id;
@@ -13,9 +14,9 @@ public class PlayerManager : MonoBehaviour
     public float maxHealth;
     public MeshRenderer model;
     public int itemCount = 0;
-    public bool isMaster;
+    public bool isMaster = false;
+   
 
-    
     public void Initialize(int _id, string _username)
     {
         id = _id;
@@ -24,9 +25,10 @@ public class PlayerManager : MonoBehaviour
         
         StartCoroutine(createFloatingNickname());
         //StartCoroutine(GunInit());
-        BulletsCount.instance.ammoDisplay.gameObject.SetActive(true);
+        /*BulletsCount.instance.ammoDisplay.gameObject.SetActive(true);
         HealthCount.instance.healthDisplay.gameObject.SetActive(true);
-        GranadeCount.instance.granadeDisplay.gameObject.SetActive(true);
+        GranadeCount.instance.granadeDisplay.gameObject.SetActive(true);*/
+        UIManager.instance.playerHUD.SetActive(true);
     }
 
     public void SetHealth(float _health)
@@ -65,6 +67,7 @@ public class PlayerManager : MonoBehaviour
             gun.transform.parent = GameManager.players[id].transform;
         }
     }*/
+   
     public void RemoveFloatingNickname()
     {
         FloatingNickname.instance.Destroy();
@@ -73,5 +76,18 @@ public class PlayerManager : MonoBehaviour
     {
         model.enabled = true;
         SetHealth(maxHealth);
+        if (isMaster)
+        {
+            UIManager.instance.masterHUD.SetActive(true);
+            UIManager.instance.playerHUD.SetActive(false);
+
+        }
+        else
+        {
+            UIManager.instance.masterHUD.SetActive(false);
+            UIManager.instance.playerHUD.SetActive(true);
+        }
+
+
     }
 }

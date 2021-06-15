@@ -64,7 +64,11 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerRespawned(Packet _packet)
     {
         int _id = _packet.ReadInt();
-
+        bool _isMaster = _packet.ReadBool();
+        GameManager.players[_id].isMaster = _isMaster;
+       // GameManager.players[_id].GetComponent<GameObject>().tag = "Master";
+        GameManager.players[_id].gameObject.tag = "Master";
+        
         GameManager.players[_id].Respawn();
     }
     public static void CreateItemSpawner(Packet _packet)

@@ -14,11 +14,13 @@ public class UIManager : MonoBehaviour
     public InputField ipAddress;
     public GameObject pauseMenu;
     public bool inGamePause=false;
-    //public GameObject backGround;
+    public GameObject playerHUD;
+    public GameObject masterHUD;
+    public GameObject enemyBasic;
+    public GameObject enemyTank;
     //public GameObject settingsMenu;
     //public GameObject saveButton;
-    //public InputField ipField;
-    //private string ipAddress;
+    public bool isMaster = false;
 
     private void Awake()
     {
@@ -105,6 +107,23 @@ public class UIManager : MonoBehaviour
         //backGround.SetActive(isPaused);
         ToggleCoursorMode();
 
+    }
+    public void setSelectedEnemy(int _value)
+    {
+        enemyBasic.SetActive(false);
+        enemyTank.SetActive(false);
+        switch (_value)
+        {
+            case 1:
+                enemyBasic.SetActive(true);
+
+                break;
+            case 2:
+                enemyTank.SetActive(true);
+                break;
+            default:
+                break;
+        }
     }
     public void onResume()
     {

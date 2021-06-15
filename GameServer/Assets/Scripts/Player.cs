@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Dictionary<int, string> selectedEnemy = new Dictionary<int, string>();
+
+        
     public int id;
     public string username;
     public bool isMaster = false;
@@ -21,13 +24,15 @@ public class Player : MonoBehaviour
     public int itemAmount = 0;
     public int maxItemAmount = 3;
     public string _type = "Basic";
-
+    public int selectedEnemyInt = 1;
     private bool[] inputs;
     private float yVelocity = 0; //prêdkoœc poruszania siê wertykalnie
 
     private void Start()
     {
-        
+        selectedEnemy[1] = "Basic";
+        selectedEnemy[2] = "Tank";
+
         gravity *= Time.deltaTime * Time.deltaTime;
         //moveSpeed *= Time.deltaTime;
         jumpSpeed *= Time.deltaTime;
@@ -47,6 +52,22 @@ public class Player : MonoBehaviour
         health = maxHealth;
         
         inputs = new bool[5];
+    }
+    public void SetSelectedEnemy(string _type)
+    {
+        switch (_type)
+        {
+            case "Basic":
+                selectedEnemyInt = 1;
+                break;
+            case "Tank":
+                selectedEnemyInt = 2;
+                break;
+            default:
+                selectedEnemyInt = 1;
+                break;
+        }
+
     }
     public void FixedUpdate()
     {
@@ -108,7 +129,7 @@ public class Player : MonoBehaviour
         inputs = _inputs;
         transform.rotation = _rotation;
     }
-    public void Shoot(Vector3 _viewDirection)
+    public void Shoot(Vector3 _viewDirection, string _type)
     {
         if (isMaster) //strezlanie mastera(respienie zombie)
         {
@@ -127,7 +148,8 @@ public class Player : MonoBehaviour
 
                     }
                     if(isPlayerAway)*/
-                    NetworkManager.instance.InstantiateEnemy(_hitGround.point, "Basic");
+                    Debug.Log(_type);
+                    NetworkManager.instance.InstantiateEnemy(_hitGround.point, _type);
 
 
 
@@ -179,6 +201,10 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(0f, 25f, 0f); //miejsce spawnu gracza
             ServerSend.PlayerPosition(this);
             StartCoroutine(Respawn());
+            if(_damage == 1190f)
+            {
+                SetMaster(false);
+            }
         }
         ServerSend.PlayerHealth(this);
     }
@@ -194,7 +220,7 @@ public class Player : MonoBehaviour
 
         health = maxHealth;
         controller.enabled = true;
-        ServerSend.PlayerRespawned(this);
+        ServerSend.PlayerRespawned(this, isMaster);
     }
 
     public bool AttemptPickupItem()

@@ -30,7 +30,7 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void PlayerMovement(bool[] _inputs)
+    public static void PlayerMovement(bool[] _inputs, string _type)
     {
         using (Packet _packet = new Packet((int)ClientPackets.playerMovement))
         {
@@ -40,17 +40,18 @@ public class ClientSend : MonoBehaviour
                 _packet.Write(_input);                
             }
             _packet.Write(GameManager.players[Client.instance.myId].transform.rotation);
+            _packet.Write(_type);
 
             SendUDPData(_packet);//wysy³am przez udp, bo mogê straciæ ewentualne pakiety i zyskam na prêdkoœci transferu
         }
     }
 
-    public static void PlayerShoot(Vector3 _facing)
+    public static void PlayerShoot(Vector3 _facing, string _type)
     {
         using (Packet _packet = new Packet((int)ClientPackets.playerShoot))
         {
             _packet.Write(_facing);
-
+            _packet.Write(_type);
             SendTCPData(_packet);
         }
     }

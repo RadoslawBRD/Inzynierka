@@ -1,24 +1,22 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 
 public class Server
-{    
-
+{
     public static int MaxPlayers { get; private set; }
     public static int Port { get; private set; }
 
     public static Dictionary<int, Client> clients = new Dictionary<int, Client>(); //s³ownik przechowuj¹cy id klientów oraz objektów Client
-    
     public delegate void PacketHandler(int _fromClient, Packet _packet);
     public static Dictionary<int, PacketHandler> packetHandlers;
 
     private static TcpListener tcpListener;
     private static UdpClient udpListener;
 
+  
     public static void Start(int _maxPlayers, int _port)
     {
         MaxPlayers = _maxPlayers;
