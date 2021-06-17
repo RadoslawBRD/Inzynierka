@@ -22,7 +22,7 @@ public class DebugConsole : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.KeypadEnter))
         {
-            Debug.Log("czytam komendestar_game");
+            Debug.Log($"czytam komende{input}");
 
             HandleInput();
             input = "";
@@ -45,7 +45,7 @@ public class DebugConsole : MonoBehaviour
          });
         RESTART_GAME = new DebugCommand("restart_game", "Restart game", "restart_game", () =>
         {
-            Debug.Log("sending restart_game");
+            Debug.Log($"sending {input}");
             ClientSend.PlayerSentCommand("restart_game", null);
         });
         KILL_ALL_ENEMIES = new DebugCommand("kill_all_enemies", "Restart game", "kill_all_enemies", () =>
@@ -91,7 +91,7 @@ public class DebugConsole : MonoBehaviour
         {
             DebugCommandBase commandBase = commandList[i] as DebugCommandBase;
 
-            if(input.Contains(commandBase.commandId))
+            if(input.Equals(commandBase.commandId))
             {
                 if (commandList[i] as DebugCommand != null)
                 {
