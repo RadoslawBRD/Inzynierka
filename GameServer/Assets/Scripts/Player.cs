@@ -33,17 +33,27 @@ public class Player : MonoBehaviour
         selectedEnemy[1] = "Basic";
         selectedEnemy[2] = "Tank";
 
+        gravity = -9.81f;
         gravity *= Time.deltaTime * Time.deltaTime;
         //moveSpeed *= Time.deltaTime;
+        jumpSpeed = 5.0f;
         jumpSpeed *= Time.deltaTime;
     }
+
+        
+      
     public void SetMaster(bool value)
     {
         isMaster = value;
         if (value)
+        {
             gameObject.tag = "Master";
+        }
         else
+        {
             gameObject.tag = "Player";
+          
+        }
     }
     public void Initialize(int _id, string _username)
     {
@@ -210,13 +220,14 @@ public class Player : MonoBehaviour
     }
     private IEnumerator Respawn()
     {
+        yield return new WaitForSeconds(5f);
+
         if (isMaster)
         {
             gameObject.GetComponent<Player>().tag = "Master";
-            gravity = 0;
-            yVelocity = 0;
+            //gravity = 0;
+           // yVelocity = 0;
         }
-        yield return new WaitForSeconds(5f);
 
         health = maxHealth;
         controller.enabled = true;
