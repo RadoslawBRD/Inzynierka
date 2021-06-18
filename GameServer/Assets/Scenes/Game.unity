@@ -2985,14 +2985,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1007507605}
-    - target: {fileID: 296927644764590296, guid: 143c0d8582b0fc94fbc5d7a6578f2e8c, type: 3}
-      propertyPath: m_Convex
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 296927644764590296, guid: 143c0d8582b0fc94fbc5d7a6578f2e8c, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 535861559742631892, guid: 143c0d8582b0fc94fbc5d7a6578f2e8c, type: 3}
       propertyPath: m_TagString
       value: Ground
@@ -3039,7 +3031,7 @@ PrefabInstance:
       objectReference: {fileID: 556867806}
     - target: {fileID: 1370048398104998194, guid: 143c0d8582b0fc94fbc5d7a6578f2e8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1525580220796959940, guid: 143c0d8582b0fc94fbc5d7a6578f2e8c, type: 3}
       propertyPath: m_Mesh
@@ -3241,18 +3233,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 974545026}
-    - target: {fileID: 6970489149925534733, guid: 143c0d8582b0fc94fbc5d7a6578f2e8c, type: 3}
-      propertyPath: m_SelectedEdges.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6970489149925534733, guid: 143c0d8582b0fc94fbc5d7a6578f2e8c, type: 3}
-      propertyPath: m_SelectedFaces.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6970489149925534733, guid: 143c0d8582b0fc94fbc5d7a6578f2e8c, type: 3}
-      propertyPath: m_SelectedVertices.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 6976587024067444558, guid: 143c0d8582b0fc94fbc5d7a6578f2e8c, type: 3}
       propertyPath: m_Mesh
       value: 
