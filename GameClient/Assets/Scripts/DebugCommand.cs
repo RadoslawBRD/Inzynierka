@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class DebugCommandBase
 {
+
+    /// <summary>
+    /// ////////inna nazwa pliku ni¿ klasy
+    /// </summary>
     private string _commandId;
     private string _commandDescription;
     private string _commandFormat;
