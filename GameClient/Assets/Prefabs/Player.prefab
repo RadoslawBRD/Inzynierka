@@ -140,10 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6448a8c3a79eb46aeb64e07668f165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatingUsernamePrefab: {fileID: 246033264577668165, guid: f4c63018966e2464390d361850c319cc, type: 3}
+  floatingUsernamePrefab: {fileID: 246033264577668165, guid: 75ac5117a2493a94ba33af193fcc8d1f, type: 3}
   id: 0
   username: 
   health: 0
   maxHealth: 100
   model: {fileID: 7099239633810417850}
   itemCount: 0
+  isMaster: 0

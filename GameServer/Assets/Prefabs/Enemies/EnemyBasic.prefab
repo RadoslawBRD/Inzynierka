@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7638234597676319631}
-  - component: {fileID: -2653405934669060581}
   - component: {fileID: 420073556109056391}
+  - component: {fileID: 8945868833298203747}
   m_Layer: 0
   m_Name: EnemyBasic
   m_TagString: Enemy
@@ -34,35 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2653405934669060581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4045297414441658395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40eac2086380e0643bae94f5d221c97d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
-  state: 0
-  target: {fileID: 0}
-  controller: {fileID: 420073556109056391}
-  shootOrigin: {fileID: 1589069306120275818}
-  gravity: 0
-  patrolSpeed: 0
-  chaseSpeed: 0
-  health: 0
-  maxHealth: 0
-  detectionRange: 0
-  shootRange: 0
-  shootAccuracy: 0
-  patrolDuration: 0
-  idleDuration: 0
-  type: Basic
-  typzombie: 
 --- !u!143 &420073556109056391
 CharacterController:
   m_ObjectHideFlags: 0
@@ -81,6 +52,35 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8945868833298203747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4045297414441658395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c83f41f75a18698468a7ba2c32fd60f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  state: 0
+  target: {fileID: 0}
+  controller: {fileID: 420073556109056391}
+  shootOrigin: {fileID: 1589069306120275818}
+  gravity: -9.81
+  patrolSpeed: 2
+  chaseSpeed: 8
+  health: 100
+  maxHealth: 100
+  detectionRange: 30
+  shootRange: 2
+  shootAccuracy: 0.1
+  patrolDuration: 3
+  idleDuration: 1
+  type: Basic
+  typzombie: 
 --- !u!1 &5911422275544508263
 GameObject:
   m_ObjectHideFlags: 0

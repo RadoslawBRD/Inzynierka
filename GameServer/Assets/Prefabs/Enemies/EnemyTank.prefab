@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 801746696420454908}
-  - component: {fileID: 1061197871372440463}
   - component: {fileID: 7432246401285807536}
+  - component: {fileID: 2843669421570117190}
   m_Layer: 0
   m_Name: EnemyTank
   m_TagString: Enemy
@@ -34,38 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1061197871372440463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3750570088666119801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d3753f5e71ae754da7b9d1a4d8aad00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
-  state: 0
-  target: {fileID: 0}
-  controller: {fileID: 7432246401285807536}
-  shootOrigin: {fileID: 1664925876676602822}
-  gravity: 0
-  patrolSpeed: 0
-  chaseSpeed: 0
-  health: 0
-  maxHealth: 0
-  detectionRange: 0
-  shootRange: 0
-  shootAccuracy: 0
-  patrolDuration: 0
-  idleDuration: 0
-  type: 
-  typzombie: 
-  throwRange: 0
-  throwForce: 0
-  projectileType: Stone
 --- !u!143 &7432246401285807536
 CharacterController:
   m_ObjectHideFlags: 0
@@ -84,6 +52,38 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2843669421570117190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3750570088666119801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b0047c2d84d674ca259df7c33aecfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  state: 0
+  target: {fileID: 0}
+  controller: {fileID: 7432246401285807536}
+  shootOrigin: {fileID: 1664925876676602822}
+  gravity: -9.81
+  patrolSpeed: 2
+  chaseSpeed: 8
+  health: 100
+  maxHealth: 100
+  detectionRange: 30
+  shootRange: 2
+  shootAccuracy: 0.1
+  patrolDuration: 3
+  idleDuration: 1
+  type: Basic
+  typzombie: 
+  throwRange: 0
+  throwForce: 0
+  projectileType: 
 --- !u!1 &5877798054776590041
 GameObject:
   m_ObjectHideFlags: 0

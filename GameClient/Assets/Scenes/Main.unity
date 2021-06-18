@@ -580,7 +580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0ee52dfea0db2cd4987f9a817d0ee1cd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3971b65bd280f6c4f9559e6de5b51057, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1400,11 +1400,11 @@ MonoBehaviour:
   localPlayerPrefab: {fileID: 7736400315923714922, guid: 8d755cb399a62cd4584aef9b138740b3, type: 3}
   playerPrefab: {fileID: 7736400315923714922, guid: 591e3b6d1b78c984493d4931c9073299, type: 3}
   itemSpawnerPrefab: {fileID: 8491395294640095964, guid: a71470f4407a9b847bc9ab4b42be024e, type: 3}
-  simplePlayerGranadePrefab: {fileID: 4535846932150210912, guid: f4b34c2857088d849804820e2a634ce5, type: 3}
-  enemyStonePrefab: {fileID: 4249437046166830086, guid: a4589b9cee37b464cbd4f495bcdb1301, type: 3}
-  enemyBasicPrefab: {fileID: 7736400315923714922, guid: b36a1188e8c4dca4a84c9b8065131703, type: 3}
-  enemyTankPrefab: {fileID: 5708151488821539632, guid: 8b0c540c7c62a9447b87ca77e651dc8e, type: 3}
-  offlinePlayer: {fileID: 4842027521505955232, guid: c374af17c14f9224097d5539b62c43e2, type: 3}
+  simplePlayerGranadePrefab: {fileID: 4535846932150210912, guid: 2bc8bb43bdabd0743b32318a420a9809, type: 3}
+  enemyStonePrefab: {fileID: 4249437046166830086, guid: 4b64a87259b09a14bb4182a6efddcbc0, type: 3}
+  enemyBasicPrefab: {fileID: 7736400315923714922, guid: ac774dce104fc9247ad72ed988d9f0eb, type: 3}
+  enemyTankPrefab: {fileID: 5708151488821539632, guid: 8cd79ca8964e8d54f8510c8a0b6326ff, type: 3}
+  offlinePlayer: {fileID: 4842027521505955232, guid: c674fcea4c59e5c458d9cb81c3f46444, type: 3}
 --- !u!4 &223974228
 Transform:
   m_ObjectHideFlags: 0
@@ -1835,7 +1835,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 390288863}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2181407b6533b2441829a02fc4d9ebf1, type: 3}
+  m_Script: {fileID: 11500000, guid: bc98512f81ffc104aad79a8f76d1b773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &432910709
@@ -3964,7 +3964,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6e239671af61506469feed00d5103874, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4535d8503bba64d489e42baaea1c8775, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4155,7 +4155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1237074323
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5453,7 +5453,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1607755477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5939,7 +5939,7 @@ MonoBehaviour:
   ip: 127.0.0.1
   port: 1000
   myId: 0
-  offlineplayer: {fileID: 0}
+  offlineplayer: {fileID: 3864354766970326684, guid: c674fcea4c59e5c458d9cb81c3f46444, type: 3}
   isPlayer: 1
 --- !u!4 &1727145784
 Transform:
@@ -6599,9 +6599,9 @@ GameObject:
   - component: {fileID: 1929845585}
   - component: {fileID: 1929845584}
   - component: {fileID: 1929845583}
-  - component: {fileID: 1929845587}
-  - component: {fileID: 1929845588}
   - component: {fileID: 1929845589}
+  - component: {fileID: 1929845588}
+  - component: {fileID: 1929845587}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -6704,12 +6704,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929845582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82ce2eadae4598640ab587b445e3037b, type: 3}
+  m_Script: {fileID: 11500000, guid: 12f84dff67d0da04cb50cf7dd7af5839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletsCurrent: 0
-  bulletsMax: 0
-  ammoDisplay: {fileID: 454320504}
+  currentHP: 0
+  maxHp: 0
+  healthDisplay: {fileID: 33522702}
 --- !u!114 &1929845588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6719,12 +6719,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929845582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d970fc4561b622a438ff3626c5434aae, type: 3}
+  m_Script: {fileID: 11500000, guid: 625b573ca1caacc449dec5920fabe590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHP: 0
-  maxHp: 0
-  healthDisplay: {fileID: 33522702}
+  currentGranade: 0
+  granadeDisplay: {fileID: 1889951807}
 --- !u!114 &1929845589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6734,11 +6733,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1929845582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b24c9b93f5d03744da7f17cf1faa048e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cb96f1a069f3174b9412da578a2218f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGranade: 0
-  granadeDisplay: {fileID: 1889951807}
+  bulletsCurrent: 0
+  bulletsMax: 0
+  ammoDisplay: {fileID: 454320504}
 --- !u!43 &2066605699
 Mesh:
   m_ObjectHideFlags: 0
