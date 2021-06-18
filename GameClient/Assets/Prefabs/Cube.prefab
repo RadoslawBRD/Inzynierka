@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 59923951027551621}
   - component: {fileID: 59923951027551620}
   - component: {fileID: 59923951027551643}
-  - component: {fileID: 59923951027551642}
+  - component: {fileID: 3128001443814592057}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 74c111662295bc44a8d13317a6ca5ff6, type: 2}
+  - {fileID: 2100000, guid: 66d1f915c6aff6a4da0b9f794b3a9a4a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &59923951027551642
+--- !u!114 &3128001443814592057
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,10 +105,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 59923951027551640}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 607d2fe553c2b5245a018afda6a1678f, type: 3}
+  m_Script: {fileID: 11500000, guid: 237e81f725342a346ae3b8eeb6e7af05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upRecoil: {x: -5, y: 0, z: 0}
+  upRecoil: {x: 0, y: 0, z: 0}
   gunPrefab: {fileID: 59923951027551640}
-  bulletsCurrent: 1
+  bulletsCurrent: 5
   bulletsMax: 30

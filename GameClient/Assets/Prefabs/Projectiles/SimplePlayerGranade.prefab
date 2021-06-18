@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 9116334786489070673}
   - component: {fileID: 4544108891353058144}
   - component: {fileID: 7132122171346306657}
-  - component: {fileID: 383048360654358453}
+  - component: {fileID: 6550805689244887400}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: SimplePlayerGranade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,7 +96,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &383048360654358453
+--- !u!114 &6550805689244887400
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4535846932150210912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ccc97442238208439e849111e42d570, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b500c6933802ff4580f2c7969f7cca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
