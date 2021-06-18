@@ -24,8 +24,6 @@ ExportedObj/
 *.VC.db
 
 # Unity3D generated meta files
-*.pidb.meta
-*.pdb.meta
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
@@ -40,4 +38,3 @@ GameClient/Logs/AssetImportWorker0-prev.log
 *.log
 
 GameClient/Logs/ApiUpdaterCheck.txt
-*.meta
