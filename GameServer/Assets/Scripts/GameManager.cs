@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public bool isGameLive = false;
+    public int killTarget = 5;
+    public int killCount = 0;
     public int _selectedPlayer; //id gracza, który jest masterem
     int playerCount = 0;
     // Start is called before the first frame update
@@ -32,7 +35,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerCount = 0;
+        if(killTarget <= killCount)
+        {
+            RestartGame();
+            Debug.Log("Koniec gry!");
+        }
+        /*playerCount = 0;
         foreach (Client _client in Server.clients.Values)
         {
 
@@ -46,21 +54,30 @@ public class GameManager : MonoBehaviour
         {
             if (playerCount>=2)
             {
-                //StartCoroutine(SelectMaster(playerCount));
-                //Debug.Log("Game is starting...");                
-                //Debug.Log("Game would be starting...");                
+                StartCoroutine(SelectMaster(playerCount));
+                Debug.Log("Game is starting...");                
+                Debug.Log("Game would be starting...");                
             }
 
-        }
+        }*/
         
     }
-    private IEnumerator SelectMaster(int _playsers)
+    private IEnumerator SelectMaster()
     {
+        playerCount = 0;
+        foreach (Client _client in Server.clients.Values)
+        {
+
+            if (_client.player != null)
+            {
+                playerCount++;
+            }
+        }
         isGameLive = true;
         yield return new WaitForSeconds(5f);
         Debug.Log("Resetting game");
         
-        _selectedPlayer = Random.Range(1, _playsers);
+        _selectedPlayer = UnityEngine.Random.Range(1, playerCount);
         
         Server.clients[_selectedPlayer].player.SetMaster(true);
         Server.clients[_selectedPlayer].player.itemAmount = 0;
@@ -75,12 +92,19 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    private IEnumerator RestartGame(int _playsers)
+    private IEnumerator RestartGame()
     {
         isGameLive = false;
-        Server.clients[_selectedPlayer].player.SetMaster(false);
-        Server.clients[_selectedPlayer].player.itemAmount = 0;
-        _selectedPlayer = 100;
+        try
+        {
+            Server.clients[_selectedPlayer].player.SetMaster(false);
+            Server.clients[_selectedPlayer].player.itemAmount = 0;
+            _selectedPlayer = 100;
+        }
+        catch(Exception _ex)
+        {
+            Debug.Log(_ex);
+        }
 
         yield return new WaitForSeconds(5f);
         Debug.Log("Resetting game");
@@ -96,8 +120,6 @@ public class GameManager : MonoBehaviour
 
         foreach(Enemy _enemy in Enemy.enemies.Values.ToList())
         {
-            
-
             if (_enemy.health > 0)
             {
                 _enemy.TakeDamage(_enemy.maxHealth+100f);
@@ -105,15 +127,20 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    public void UpdateKillScore()
+    {
+        killCount++;
+    }
    
     //////////// commands/////////////
     public void startGame()
     {
-        StartCoroutine(SelectMaster(playerCount));
+        StartCoroutine(SelectMaster());
     }
     public void restartGame()
     {
-        StartCoroutine(RestartGame(playerCount));
+        StartCoroutine(RestartGame());
 
     }
     public void killAllEnemies()
