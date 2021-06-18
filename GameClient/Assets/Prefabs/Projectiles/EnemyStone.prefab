@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2271742094075469343}
   - component: {fileID: 8019142236462416161}
   - component: {fileID: 6829765189042505184}
-  - component: {fileID: 4589282092078358817}
+  - component: {fileID: 6549745900515977413}
   m_Layer: 0
   m_Name: EnemyStone
   m_TagString: Untagged
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: afdc549ebd94f254a9b1903d015f1e0b, type: 2}
+  - {fileID: 2100000, guid: 5273c2d8d9d218148af5b90d25b5e244, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4589282092078358817
+--- !u!114 &6549745900515977413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4249437046166830086}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b500c6933802ff4580f2c7969f7cca9, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ccc97442238208439e849111e42d570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  explosionPrefab: {fileID: 1025285306637258, guid: 7e0a4e48fd028bc4fa5ec31a271882f5, type: 3}
+  explosionPrefab: {fileID: 1025285306637258, guid: d8f0099df63275647a8bcf646df1ca00, type: 3}
