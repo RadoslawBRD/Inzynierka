@@ -209,7 +209,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0f)
         {
             health = 0f;
-
+            GameManager.instance.UpdateKillScore();
             enemies.Remove(id);
             Destroy(gameObject);
         }

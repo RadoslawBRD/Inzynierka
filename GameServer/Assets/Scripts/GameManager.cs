@@ -37,7 +37,8 @@ public class GameManager : MonoBehaviour
     {
         if(killTarget <= killCount)
         {
-            RestartGame();
+            killCount = 0;
+            StartCoroutine(RestartGame());
             Debug.Log("Koniec gry!");
         }
         /*playerCount = 0;
@@ -106,8 +107,8 @@ public class GameManager : MonoBehaviour
             Debug.Log(_ex);
         }
 
-        yield return new WaitForSeconds(5f);
         Debug.Log("Resetting game");
+        yield return new WaitForSeconds(5f);
 
         foreach (Client _client in Server.clients.Values)
         {
