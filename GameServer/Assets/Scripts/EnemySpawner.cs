@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
 
         if(Enemy.enemies.Count < Enemy.maxEnemies)
         {
-            NetworkManager.instance.InstantiateEnemy(transform.position, "Tank");
+            NetworkManager.instance.InstantiateEnemy(transform.position, type);
         }
         StartCoroutine(SpawnEnemy());
     }

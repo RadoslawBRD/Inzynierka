@@ -52,7 +52,6 @@ public class Player : MonoBehaviour
         else
         {
             gameObject.tag = "Player";
-          
         }
     }
     public void Initialize(int _id, string _username)

@@ -13,7 +13,7 @@ public class EnemyTank : Enemy
 
         gravity = -9.81f;
         patrolSpeed = 1f;
-        chaseSpeed = 3f;
+        chaseSpeed = 3.5f;
         health = 250f;
         maxHealth = 250f;
         detectionRange = 30f;
@@ -56,7 +56,7 @@ public class EnemyTank : Enemy
     }
     public void ThrowItem(Vector3 _viewDirection, string _type)
     {
-        if (Random.Range(0,40)<5)
+        if (Random.Range(0,100)<5)
         //if (true)
         {
             Debug.Log("rzucam no");

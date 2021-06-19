@@ -14,7 +14,14 @@ public class Destroy : MonoBehaviour
     private IEnumerator DestroyItem()
     {
         yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
+        try
+        {
+            Destroy(gameObject);
+        }
+        catch
+        {
+            Debug.Log("Usuwam nieistniej¹cy obiekt");
+        }
 
     }
 }

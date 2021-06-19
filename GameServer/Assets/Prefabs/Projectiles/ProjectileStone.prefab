@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 9193447823354487683}
   - component: {fileID: -8291771390302607056}
   - component: {fileID: 801943670303213462}
-  - component: {fileID: 2762851043132150020}
   m_Layer: 2
   m_Name: ProjectileStone
   m_TagString: Untagged
@@ -131,24 +130,5 @@ MonoBehaviour:
   thrownByPlayer: 0
   initialForce: {x: 0, y: 0, z: 0}
   explosionRadius: 10
-  explosionDamage: 10
-  type: 
---- !u!114 &2762851043132150020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2734002522258633704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ddb0f4eb66185a45a29af526ab6d5b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  id: 0
-  rigidBody: {fileID: 0}
-  thrownByPlayer: 0
-  initialForce: {x: 0, y: 0, z: 0}
-  explosionRadius: 10
-  explosionDamage: 10
+  explosionDamage: 20
   type: 
