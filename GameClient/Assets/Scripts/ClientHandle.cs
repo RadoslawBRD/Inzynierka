@@ -58,7 +58,7 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         float _health = _packet.ReadFloat();
 
-        GameManager.players[_id].SetHealth(_health);
+        GameManager.players[_id].SetHealth(_health, _id);
     }
 
     public static void PlayerRespawned(Packet _packet)
@@ -72,7 +72,7 @@ public class ClientHandle : MonoBehaviour
             GameManager.players[_id].gameObject.tag = "Master";
         }
         
-        GameManager.players[_id].Respawn();
+        GameManager.players[_id].Respawn(_isMaster);
     }
     public static void CreateItemSpawner(Packet _packet)
     {
@@ -94,8 +94,8 @@ public class ClientHandle : MonoBehaviour
     {
         int _spawnerId = _packet.ReadInt();
         int _byPlayer = _packet.ReadInt();
-
-        GranadeCount.instance.setGranadeAmount(1);
+        if(_byPlayer == Client.instance.myId)
+            GranadeCount.instance.setGranadeAmount(1);
         GameManager.itemSpawners[_spawnerId].ItemPickedUp();
         GameManager.players[_byPlayer].itemCount++;
     }

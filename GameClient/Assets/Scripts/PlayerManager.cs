@@ -31,7 +31,7 @@ public class PlayerManager : MonoBehaviour
         UIManager.instance.playerHUD.SetActive(true);
     }
 
-    public void SetHealth(float _health)
+    public void SetHealth(float _health, int _id)
     {
         health = _health;
 
@@ -39,7 +39,8 @@ public class PlayerManager : MonoBehaviour
         {
             Die();
         }
-        HealthCount.instance.SetHealth(health);
+        if(_id==Client.instance.myId)
+            HealthCount.instance.SetHealth(health);
     }
     public void Die()
     {
@@ -72,15 +73,14 @@ public class PlayerManager : MonoBehaviour
     {
         FloatingNickname.instance.Destroy();
      }
-    public void Respawn()
+    public void Respawn(bool _master)
     {
         model.enabled = true;
-        SetHealth(maxHealth);
-        if (isMaster)
+        SetHealth(maxHealth, id);
+        if (_master)
         {
             UIManager.instance.masterHUD.SetActive(true);
             UIManager.instance.playerHUD.SetActive(false);
-
         }
         else
         {
