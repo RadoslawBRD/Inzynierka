@@ -65,9 +65,12 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         bool _isMaster = _packet.ReadBool();
-        GameManager.players[_id].isMaster = _isMaster;
-       // GameManager.players[_id].GetComponent<GameObject>().tag = "Master";
-        GameManager.players[_id].gameObject.tag = "Master";
+        if (_isMaster)
+        {
+            GameManager.players[_id].isMaster = _isMaster;
+            // GameManager.players[_id].GetComponent<GameObject>().tag = "Master";
+            GameManager.players[_id].gameObject.tag = "Master";
+        }
         
         GameManager.players[_id].Respawn();
     }
