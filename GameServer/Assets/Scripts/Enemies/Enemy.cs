@@ -194,6 +194,7 @@ public class Enemy : MonoBehaviour
         {
             if (_hit.collider.CompareTag("Player"))
             {
+                Debug.Log($"Hit in{_hit.collider.gameObject.ToString()}");
                 if (Random.value <= shootAccuracy)
                 {
                     _hit.collider.GetComponent<Player>().TakeDamage(50f);
