@@ -4533,7 +4533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequency: 1
-  type: Basic
+  type: Tank
 --- !u!4 &1549075546
 Transform:
   m_ObjectHideFlags: 0
