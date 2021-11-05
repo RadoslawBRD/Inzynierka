@@ -75,14 +75,14 @@ public class GameManager : MonoBehaviour
             }
         }
         isGameLive = true;
-        yield return new WaitForSeconds(5f);
         Debug.Log("Resetting game");
-        
-        _selectedPlayer = UnityEngine.Random.Range(1, playerCount);
+
+        _selectedPlayer = 1;// UnityEngine.Random.Range(1, playerCount);
         
         Server.clients[_selectedPlayer].player.SetMaster(true);
         Server.clients[_selectedPlayer].player.itemAmount = 0;
 
+        yield return new WaitForSeconds(5f);
 
         foreach (Client _client in Server.clients.Values)
         {
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
             if (_client.player != null)
             {
                 Debug.Log($"Killing player{_client.player.id}");
-                _client.player.TakeDamage(1190f); // przesy³am kod przez zadawnie obra¿eñ
+                _client.player.TakeDamage(1190f); // przesy³am informacje o resecie przez zadawnie obra¿eñ
             }
         }
 
@@ -158,5 +158,12 @@ public class GameManager : MonoBehaviour
     {
         Server.clients[_toPlayer].player.AddItem(int.Parse(_howMany));
     }
+
+    public void setKillTarget(int _killTarget)
+    {
+        killTarget = _killTarget;
+
+    }
+
 
 }
