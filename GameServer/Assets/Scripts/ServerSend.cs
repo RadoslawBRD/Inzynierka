@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -175,7 +176,9 @@ public class ServerSend
             _packet.Write(_type);
             SendTCPDataToAll(_packet);
         }
-    }public static void ProjectilePosition(ProjectileBase _projectile)
+    }
+
+    public static void ProjectilePosition(ProjectileBase _projectile)
     {
         using (Packet _packet = new Packet((int)ServerPackets.projectilePosition))
         {
@@ -236,6 +239,16 @@ public class ServerSend
             SendTCPDataToAll(_packet);
         }
     }
-   
-    
+    public static void SetPlayerMoney(int _toClient, int _moneyCount)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.playerMoney))
+        {
+            _packet.Write(_toClient);
+            _packet.Write(_moneyCount);
+
+            SendTCPDataToOne(_toClient, _packet);
+
+        }
+    }
+
 }

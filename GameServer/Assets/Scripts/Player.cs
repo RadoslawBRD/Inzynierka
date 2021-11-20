@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     public float throwForce = 600f;
     public float health;
+    public int moneyCount = 0;
     public float maxHealth=100f;
     public int itemAmount = 0;
     public int maxItemAmount = 3;
@@ -174,10 +175,22 @@ public class Player : MonoBehaviour
             }
             if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
             {
-                Debug.Log($"Hit in{_hit.collider.gameObject.ToString()}");
+                Debug.Log($"Hit in{_hit.collider.gameObject}");
 
                 if (_hit.collider.gameObject.CompareTag("Enemy"))
                 {
+                    if (_hit.collider.gameObject.GetComponent<Enemy>().health <= 50f) /// wzrost œrodków za zabicie
+                    {
+                        if (_hit.collider.gameObject.GetComponent<Enemy>().type == "Basic")
+
+                            moneyCount += 10;
+                        else
+                            if (_hit.collider.gameObject.GetComponent<Enemy>().type == "Tank")
+                            moneyCount += 50;
+
+                        Debug.Log($"KASA: {moneyCount}");
+                        ServerSend.SetPlayerMoney(id, moneyCount);
+                    }
                     _hit.collider.GetComponent<Enemy>().TakeDamage(50f);
                 }
                 

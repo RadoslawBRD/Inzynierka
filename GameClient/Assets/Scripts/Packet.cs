@@ -22,7 +22,8 @@ public enum ServerPackets
     projectileExploded,
     spawnEnemy,
     enemyPosition,
-    enemyHealth
+    enemyHealth,
+    playerMoney
 
 
 

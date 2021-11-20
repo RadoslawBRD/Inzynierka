@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     public MeshRenderer model;
     public int itemCount = 0;
     public bool isMaster = false;
+    public int moneyCount=0;
    
 
     public void Initialize(int _id, string _username)

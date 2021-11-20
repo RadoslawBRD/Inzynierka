@@ -23,7 +23,8 @@ public enum ServerPackets { // wysy³ane do playerów
     projectileExploded,
     spawnEnemy,
     enemyPosition,
-    enemyHealth
+    enemyHealth,
+    playerMoney
 
 
 }

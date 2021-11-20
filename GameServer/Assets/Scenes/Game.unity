@@ -4159,7 +4159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb681aa9aebb3b445ac098984d67aaf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 10
+  frequency: 1
   type: Basic
 --- !u!4 &1407362042
 Transform:

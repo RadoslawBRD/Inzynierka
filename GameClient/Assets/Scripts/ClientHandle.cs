@@ -152,6 +152,14 @@ public class ClientHandle : MonoBehaviour
 
         GameManager.enemies[_enemyId].SetHealth(_health);
     }
+    public static void SetPlayerMoney(Packet _packet)
+    {
+        int _toClient = _packet.ReadInt();
+        int _moneyCount = _packet.ReadInt();
+
+        MoneyCount.instance.setMoney(_moneyCount);
+        GameManager.players[_toClient].moneyCount = _moneyCount;
+    }
 
     
 }

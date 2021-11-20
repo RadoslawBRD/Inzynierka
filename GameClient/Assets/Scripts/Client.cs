@@ -320,6 +320,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.spawnEnemy, ClientHandle.SpawnEnemy},
             { (int)ServerPackets.enemyPosition, ClientHandle.EnemyPosition},
             { (int)ServerPackets.enemyHealth, ClientHandle.EnemyHealht},
+            { (int)ServerPackets.playerMoney, ClientHandle.SetPlayerMoney},
 
 
 

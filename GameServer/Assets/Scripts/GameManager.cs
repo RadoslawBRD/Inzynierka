@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public bool isGameLive = false;
-    public int killTarget = 5;
+    public int killTarget = 55;
     public int killCount = 0;
     public int _selectedPlayer; //id gracza, który jest masterem
     int playerCount = 0;
