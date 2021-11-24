@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     public float shootAccuracy = 0.1f;
     public float patrolDuration = 3f;
     public float idleDuration = 1f;
+    public float damage = 40f;
     public string type = "Basic";
 
 
@@ -197,7 +198,7 @@ public class Enemy : MonoBehaviour
                 Debug.Log($"Hit in{_hit.collider.gameObject.ToString()}");
                 if (Random.value <= shootAccuracy)
                 {
-                    _hit.collider.GetComponent<Player>().TakeDamage(50f);
+                    _hit.collider.GetComponent<Player>().TakeDamage(damage);
                 }
             }
         }
