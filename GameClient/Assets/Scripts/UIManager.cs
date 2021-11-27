@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -131,11 +132,22 @@ public class UIManager : MonoBehaviour
     }
     public void onDisconnect()
     {
-       // Client.instance.tcp.Disconnect();
-       // Client.instance.udp.Disconnect();
         Client.instance.Disconnect();
-        startMenu.SetActive(true);
+        //GameManager.instance.DisconnectFromServer();
+
+        // Client.instance.tcp.Disconnect();
+        // Client.instance.udp.Disconnect();
+        try
+        {
+            foreach (EnemyManager _enemyId in GameManager.enemies.Values)
+                _enemyId.SetHealth(0);
+        }
+        catch (Exception _ex)
+        {
+            Debug.Log($"Error while removing enemies: {_ex}");
+        }
         changeInGamePauseMenu();
+        startMenu.SetActive(true);
         ToggleCoursorMode();
         Camera.main.transform.position=new Vector3(0, 1, -10);
     }
