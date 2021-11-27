@@ -20,6 +20,18 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //Debug.DrawRay(transform.position, camTransform.forward, Color.red, 100f,true);
+        if (GameManager.instance.localPlayer.GetComponent<PlayerManager>().getMasterState())        
+         
+            {
+            Debug.LogWarning("state = true");
+            UIManager.instance.masterHUD.SetActive(true);
+                UIManager.instance.playerHUD.SetActive(false);
+            }
+            else
+            {
+                UIManager.instance.masterHUD.SetActive(false);
+                UIManager.instance.playerHUD.SetActive(true);
+            }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -78,8 +90,9 @@ public class PlayerController : MonoBehaviour
             Input.GetKey(KeyCode.D),
             Input.GetKey(KeyCode.Space),
         };
-
         ClientSend.PlayerMovement(_inputs, selectedEnemy[selectedEnemyInt]);
 
     }
+
+  
 }

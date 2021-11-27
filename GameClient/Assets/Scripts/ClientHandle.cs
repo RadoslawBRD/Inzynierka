@@ -22,6 +22,7 @@ public class ClientHandle : MonoBehaviour
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
+       // bool _isMaster = _packet.ReadBool();
 
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
     }
@@ -70,8 +71,14 @@ public class ClientHandle : MonoBehaviour
             GameManager.players[_id].isMaster = _isMaster;
             // GameManager.players[_id].GetComponent<GameObject>().tag = "Master";
             GameManager.players[_id].gameObject.tag = "Master";
+            if(_id == Client.instance.myId)
+             GameManager.instance.localPlayer.GetComponent<PlayerManager>().isMaster = true;
         }
-        
+        else
+        {
+            if (_id == Client.instance.myId)
+                GameManager.instance.localPlayer.GetComponent<PlayerManager>().isMaster = false;
+        }
         GameManager.players[_id].Respawn(_isMaster);
     }
     public static void CreateItemSpawner(Packet _packet)
