@@ -9,7 +9,7 @@ Version-0.1:
 # GameServer
 Zawiera pliki serwera, może być uruchamiany przez edytor oraz jako build standalone, działa poprawnie pod windowsem i linuxem.
 Version-0.1:
-* Serwer w wersji stanalone
+* Serwer w wersji stanalone dla windows
 
 # GameClient
 Zawiera pliki klienta, może byc uruchamiany przez edytor oraz jako build standalone.
