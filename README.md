@@ -1,15 +1,15 @@
 # Projekt inzynierski
 Projekt zombie 
 Version-0.1:
-Placeholdery dla wszystkich graficznych elementów
-Zaimplemenotwny tryb "Zabij odpowiednio wiele by wygrać"
-Zombie podstawowy i rzucajacy 'kamieniami'
+* Placeholdery dla wszystkich graficznych elementów
+* Zaimplemenotwny tryb "Zabij odpowiednio wiele by wygrać"
+* Zombie podstawowy i rzucajacy 'kamieniami'
 
 
 # GameServer
 Zawiera pliki serwera, może być uruchamiany przez edytor oraz jako build standalone, działa poprawnie pod windowsem i linuxem.
 Version-0.1
-Serwer w wersji stanalone
+* Serwer w wersji stanalone
 
 # GameClient
 Zawiera pliki klienta, może byc uruchamiany przez edytor oraz jako build standalone.
