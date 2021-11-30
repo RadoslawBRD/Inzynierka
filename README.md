@@ -15,7 +15,7 @@ Serwer w wersji stanalone
 Zawiera pliki klienta, może byc uruchamiany przez edytor oraz jako build standalone.
 
 Podstaowe komendy:
-  start_game - startuje gre
-  restart_game - resetuje gre do podstawowego trybu
-  add_granade x  -  dodaje wywołującemu 'x' granatów
-  kill_all_enemies - zabija wszystkich przeciwników
+  * start_game - startuje gre
+  * restart_game - resetuje gre do podstawowego trybu
+  * add_granade x  -  dodaje wywołującemu 'x' granatów
+  * kill_all_enemies - zabija wszystkich przeciwników
