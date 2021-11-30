@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public bool isGameLive = false;
     public int killTarget = 55;
     public int killCount = 0;
-    public int _selectedPlayer; //id gracza, który jest masterem
+    public int _selectedPlayer; //id gracza, ktÃ³ry jest masterem
     int playerCount = 0;
     // Start is called before the first frame update
     void Start()
@@ -77,7 +77,8 @@ public class GameManager : MonoBehaviour
         isGameLive = true;
         Debug.Log("Resetting game");
 
-        _selectedPlayer = 1;// UnityEngine.Random.Range(1, playerCount);
+        //_selectedPlayer = 1;
+         UnityEngine.Random.Range(1, playerCount);
         
         Server.clients[_selectedPlayer].player.SetMaster(true);
         Server.clients[_selectedPlayer].player.itemAmount = 0;
@@ -125,7 +126,7 @@ public class GameManager : MonoBehaviour
             if (_client.player != null)
             {
                 Debug.Log($"Killing player{_client.player.id}");
-                _client.player.TakeDamage(1190f); // przesy³am informacje o resecie przez zadawnie obra¿eñ
+                _client.player.TakeDamage(1190f); // przesyÂ³am informacje o resecie przez zadawnie obraÂ¿eÃ±
             }
         }
 
