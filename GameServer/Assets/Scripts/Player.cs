@@ -222,7 +222,7 @@ public class Player : MonoBehaviour
         {
             health = 0f;
             controller.enabled = false;
-            transform.position = new Vector3(14.4f, 6.1f, 5.7f); //miejsce spawnu gracza
+            transform.position = new Vector3(13f, 10f, -25f); //miejsce spawnu gracza
             ServerSend.PlayerPosition(this);
             StartCoroutine(Respawn());
             if(_damage == 1190f)
