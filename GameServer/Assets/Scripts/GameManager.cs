@@ -144,8 +144,13 @@ public class GameManager : MonoBehaviour
 
     public void UpdateKillScore()
     {
-        if(isGameLive)
+        if (isGameLive)
+        {
             killCount++;
+            ServerSend.KillTargetUpdate(killCount, killTarget);
+        }
+            
+
     }
    
     //////////// commands/////////////

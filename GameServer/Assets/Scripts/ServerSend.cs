@@ -251,4 +251,16 @@ public class ServerSend
         }
     }
 
+    public static void KillTargetUpdate(int _killValue, int _killTargetValue)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.killtargetupdate))
+        {
+            _packet.Write(_killValue);
+            _packet.Write(_killTargetValue);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+    
+
 }
