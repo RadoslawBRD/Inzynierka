@@ -18,10 +18,9 @@ public class EnemyTank : Enemy
         maxHealth = 250f;
         detectionRange = 30f;
         shootRange = 2f;
-        shootAccuracy = 0.00001f;
+        shootAccuracy = 0.1f;
         patrolDuration = 3f;
         idleDuration = 1f;
-        damage = 60f;
         type = "Tank";
         throwRange = 15f;
         throwForce = 250f;

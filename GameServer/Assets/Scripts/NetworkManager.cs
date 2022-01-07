@@ -34,7 +34,7 @@ public class NetworkManager : MonoBehaviour
     }
     public Player InstantiatePlayer()
     {
-        return Instantiate(playerPrefab, new Vector3(14f, 10f, -25f), Quaternion.identity).GetComponent<Player>(); //zwraca referencje do playera / miejsce spawnu gracza
+        return Instantiate(playerPrefab, new Vector3(0f,0.5f,0f), Quaternion.identity).GetComponent<Player>(); //zwraca referencje do playera
     }
 
     public ProjectileBase InstantiateProjectile(Transform _shootOrigin, string _type)

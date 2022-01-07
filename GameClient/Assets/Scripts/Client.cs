@@ -205,8 +205,6 @@ public class Client : MonoBehaviour
         public void Disconnect()
         {
             instance.Disconnect();
-            foreach (EnemyManager _enemyId in GameManager.enemies.Values)
-                _enemyId.SetHealth(0);
 
             stream = null;
             recivedData = null;
@@ -342,10 +340,9 @@ public class Client : MonoBehaviour
         {
 
             isConnected = false;
-            GameManager.instance.DisconnectFromServer();
-
             tcp.socket.Close();
             udp.socket.Close();
+            GameManager.instance.DisconnectFromServer();
             Debug.Log("Disconnected from the server");        }
     }
 

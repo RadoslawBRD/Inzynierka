@@ -18,7 +18,6 @@ public class EnemyBasic : Enemy
         shootAccuracy = 0.1f;
         patrolDuration = 3f;
         idleDuration = 1f;
-        damage = 50f;
         type = "Basic";
         base.Start();
     }

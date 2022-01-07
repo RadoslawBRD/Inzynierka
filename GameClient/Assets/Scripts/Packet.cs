@@ -23,8 +23,8 @@ public enum ServerPackets
     spawnEnemy,
     enemyPosition,
     enemyHealth,
-    playerMoney,
-    killtargetupdate
+    playerMoney
+
 
 
 

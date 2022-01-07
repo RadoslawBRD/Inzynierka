@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,11 +13,10 @@ public class Enemy : MonoBehaviour
     public Player target;
     public CharacterController controller;
     public Transform shootOrigin;
-    private NavMeshAgent navMeshaAgent;
 
     public float gravity = -9.81f;
     public float patrolSpeed = 2f;
-    public float chaseSpeed = 6f;
+    public float chaseSpeed = 8f;
     public float health=100f;
     public float maxHealth = 100f;
     public float detectionRange = 30f;
@@ -26,7 +24,6 @@ public class Enemy : MonoBehaviour
     public float shootAccuracy = 0.1f;
     public float patrolDuration = 3f;
     public float idleDuration = 1f;
-    public float damage = 40f;
     public string type = "Basic";
 
 
@@ -34,29 +31,19 @@ public class Enemy : MonoBehaviour
 
     private bool isPatrolRoutineRunning;
     private float yVelocity = 0;
+
     protected virtual void Start()
     {
         id = nextEnemyId;
         nextEnemyId++;
         enemies.Add(id, this);
-        
+
         ServerSend.SpawnEnemy(this);
 
         state = EnemyState.patrol;
         gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
         patrolSpeed *= Time.fixedDeltaTime;
         chaseSpeed *= Time.fixedDeltaTime;
-        StartCoroutine(initializeNavMeshAgent());
-    }
-
-    private IEnumerator initializeNavMeshAgent()
-    {
-        yield return new WaitForSeconds(2);
-        navMeshaAgent = gameObject.GetComponent<NavMeshAgent>();
-        navMeshaAgent.enabled = true;
-
-        //navMeshaAgent = gameObject.GetComponent<NavMeshAgent>();
-
     }
 
     protected void FixedUpdate()
@@ -150,10 +137,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                //Move(_enemyToPlayer, chaseSpeed);
-                //navMeshaAgent.destination = target.transform.position;
-                MoveNav();
-
+                Move(_enemyToPlayer, chaseSpeed);
             }
         }
         else
@@ -176,8 +160,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                MoveNav();
-                //Move(_enemyToPlayer, chaseSpeed);
+                Move(_enemyToPlayer, chaseSpeed);
             }
         }
         else
@@ -186,12 +169,7 @@ public class Enemy : MonoBehaviour
             state = EnemyState.patrol;
         }
     }
-    protected void MoveNav()
-    {
-        navMeshaAgent.destination = target.transform.position;
 
-        ServerSend.EnemyPosition(this);
-    }
     protected void Move(Vector3 _direction, float _speed)
     {
         _direction.y = 0f;
@@ -219,7 +197,7 @@ public class Enemy : MonoBehaviour
                 Debug.Log($"Hit in{_hit.collider.gameObject.ToString()}");
                 if (Random.value <= shootAccuracy)
                 {
-                    _hit.collider.GetComponent<Player>().TakeDamage(damage);
+                    _hit.collider.GetComponent<Player>().TakeDamage(50f);
                 }
             }
         }

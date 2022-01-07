@@ -91,5 +91,4 @@ public class PlayerManager : MonoBehaviour
 
 
     }
-    public bool getMasterState() { return isMaster; }
 }
