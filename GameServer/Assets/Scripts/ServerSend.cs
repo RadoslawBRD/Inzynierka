@@ -77,6 +77,7 @@ public class ServerSend
             _packet.Write(_player.username);
             _packet.Write(_player.transform.position);
             _packet.Write(_player.transform.rotation);
+            //_packet.Write(_player.isMaster);
 
             SendTCPData(_toClient, _packet); //tcp, bo to jest istotny pakiet informuj¹cy o spawnie wiêc nie moge go straciæ
         }
@@ -87,7 +88,6 @@ public class ServerSend
         {
             _packet.Write(_player.id);
             _packet.Write(_player.transform.position);
-
             SendUDPDataToAll(_packet);
         }
     }
@@ -250,5 +250,17 @@ public class ServerSend
 
         }
     }
+
+    public static void KillTargetUpdate(int _killValue, int _killTargetValue)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.killtargetupdate))
+        {
+            _packet.Write(_killValue);
+            _packet.Write(_killTargetValue);
+
+            SendTCPDataToAll(_packet);
+        }
+    }
+    
 
 }

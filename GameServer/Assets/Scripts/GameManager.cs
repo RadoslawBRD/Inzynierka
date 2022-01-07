@@ -88,8 +88,18 @@ public class GameManager : MonoBehaviour
         {
             if (_client.player != null)
             {
+                _client.player.itemAmount = 0;
                 Debug.Log($"Killing player{_client.player.id}");
                 _client.player.TakeDamage(1000f);
+            }
+        }
+
+        foreach (Enemy _enemy in Enemy.enemies.Values.ToList())
+        {
+            if (_enemy.health > 0)
+            {
+                _enemy.TakeDamage(_enemy.maxHealth + 1000f);
+                Debug.Log($"Zabijam zombie{ _enemy.id}");
             }
         }
     }
@@ -97,9 +107,9 @@ public class GameManager : MonoBehaviour
     {
         isGameLive = false;
         try
-        {
-            Server.clients[_selectedPlayer].player.SetMaster(false);
+        {            
             Server.clients[_selectedPlayer].player.itemAmount = 0;
+            Server.clients[_selectedPlayer].player.SetMaster(false);
             _selectedPlayer = 100;
         }
         catch(Exception _ex)
@@ -108,7 +118,7 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("Resetting game");
-        yield return new WaitForSeconds(5f);
+        
 
         foreach (Client _client in Server.clients.Values)
         {
@@ -123,15 +133,24 @@ public class GameManager : MonoBehaviour
         {
             if (_enemy.health > 0)
             {
-                _enemy.TakeDamage(_enemy.maxHealth+100f);
+                _enemy.TakeDamage(_enemy.maxHealth+1000f);
+                Debug.Log($"Zabijam zombie{ _enemy.id}");
             }
         }
+        yield return new WaitForSeconds(5f);
+        Debug.Log("Starting game");
 
     }
 
     public void UpdateKillScore()
     {
-        killCount++;
+        if (isGameLive)
+        {
+            killCount++;
+            ServerSend.KillTargetUpdate(killCount, killTarget);
+        }
+            
+
     }
    
     //////////// commands/////////////
