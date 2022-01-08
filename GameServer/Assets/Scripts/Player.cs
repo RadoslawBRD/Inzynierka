@@ -222,7 +222,7 @@ public class Player : MonoBehaviour
         {
             health = 0f;
             controller.enabled = false;
-            transform.position = new Vector3(0f, 25f, 0f); //miejsce spawnu gracza
+            transform.position = new Vector3(13f, 10f, -25f); //miejsce spawnu gracza
             ServerSend.PlayerPosition(this);
             StartCoroutine(Respawn());
             if(_damage == 1190f)
@@ -234,6 +234,7 @@ public class Player : MonoBehaviour
     }
     private IEnumerator Respawn()
     {
+
         yield return new WaitForSeconds(5f);
 
         if (isMaster)
@@ -246,6 +247,7 @@ public class Player : MonoBehaviour
         health = maxHealth;
         controller.enabled = true;
         ServerSend.PlayerRespawned(this, isMaster);
+
     }
 
     public bool AttemptPickupItem()

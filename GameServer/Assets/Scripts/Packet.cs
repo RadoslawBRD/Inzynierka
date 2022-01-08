@@ -24,7 +24,9 @@ public enum ServerPackets { // wysy³ane do playerów
     spawnEnemy,
     enemyPosition,
     enemyHealth,
-    playerMoney
+    playerMoney,
+    killtargetupdate
+
 
 
 }
