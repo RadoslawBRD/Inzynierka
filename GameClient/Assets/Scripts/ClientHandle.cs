@@ -160,7 +160,12 @@ public class ClientHandle : MonoBehaviour
         MoneyCount.instance.setMoney(_moneyCount);
         GameManager.players[_toClient].moneyCount = _moneyCount;
     }
+    public static void KillTargetUpdate(Packet _packet)
+    {
+        int _killValue = _packet.ReadInt();
+        int _killTargetValue = _packet.ReadInt();
+        KillCount.instance.SetKillCount(_killValue, _killTargetValue);
+    }
 
-    
 }
 
