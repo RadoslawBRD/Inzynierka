@@ -147,10 +147,13 @@ public class ClientHandle : MonoBehaviour
     }
     public static void EnemyPosition(Packet _packet)
     {
-        int _enemyId = _packet.ReadInt();
+        int enemyId = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
-        if(GameManager.enemies.TryGetValue(_enemyId, out EnemyManager _enemy))
+        EnemyState state = _packet.ReadState();
+        if (GameManager.enemies.TryGetValue(enemyId, out EnemyManager _enemy)) {
             _enemy.transform.position = _position;
+            _enemy.SetState(state);
+        }   
     }
     public static void EnemyHealht(Packet _packet)
     {
