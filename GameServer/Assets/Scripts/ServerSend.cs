@@ -227,6 +227,7 @@ public class ServerSend
         {
             _packet.Write(_enemy.id);
             _packet.Write(_enemy.transform.position);
+            _packet.Write(_enemy.state);
             SendUDPDataToAll(_packet);
         }
     }

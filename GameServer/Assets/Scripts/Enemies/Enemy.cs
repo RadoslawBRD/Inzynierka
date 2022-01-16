@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     public CharacterController controller;
     public Transform shootOrigin;
     private NavMeshAgent navMeshaAgent;
+    private Animator animator;
 
     public float gravity = -9.81f;
     public float patrolSpeed = 2f;
@@ -46,6 +47,7 @@ public class Enemy : MonoBehaviour
         gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
         patrolSpeed *= Time.fixedDeltaTime;
         chaseSpeed *= Time.fixedDeltaTime;
+        animator = GetComponentInChildren<Animator>();
         StartCoroutine(initializeNavMeshAgent());
     }
 
@@ -65,18 +67,24 @@ public class Enemy : MonoBehaviour
         {
             case EnemyState.idle:
                 LookForPlayer();
+                animator.SetInteger(1, 1);
                 break;
             case EnemyState.patrol:
                 if (!LookForPlayer())
-                    Patrol();                
+                    Patrol();
+                animator.SetInteger(1, 1);
                 break;
             case EnemyState.chase:
                 Chase();
+                animator.SetInteger(1, 3);
                 break;
             case EnemyState.attack:
                 Attack();
+                animator.SetInteger(1, 4);
                 break;
             default:
+                animator.SetInteger(1, 1);
+
                 break;
         }
     }
@@ -261,8 +269,8 @@ public class Enemy : MonoBehaviour
 
 public enum EnemyState
 {
-    idle,
-    patrol,
-    chase,
-    attack
+    idle, //1
+    patrol, //1
+    chase, //3
+    attack //4
 }
