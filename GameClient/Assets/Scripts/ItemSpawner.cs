@@ -47,9 +47,4 @@ public class ItemSpawner : MonoBehaviour
         hasItem = false;
         itemModel.enabled = false;
     }
-    public void OnDestroy()
-    {
-        Destroy(this);
-    }
-    
 }

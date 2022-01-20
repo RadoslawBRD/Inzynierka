@@ -38,3 +38,5 @@ GameClient/Logs/AssetImportWorker0-prev.log
 *.log
 
 GameClient/Logs/ApiUpdaterCheck.txt
+GameClient/Packages/packages-lock.json
+GameServer/Logs/shadercompiler-UnityShaderCompiler.exe0.log
