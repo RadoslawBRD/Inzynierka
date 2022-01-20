@@ -7,12 +7,17 @@ public class EnemyManager : MonoBehaviour
     public int id;
     public float health;
     public float maxHealth;
+    public EnemyState state = EnemyState.idle;
+
+
+    private Animator animator;
 
     public void Initialize(int _id, float _maxHealth)
     {
         id = _id;
         health = _maxHealth;
         maxHealth = _maxHealth;
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void SetHealth(float _healh)
@@ -24,4 +29,33 @@ public class EnemyManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void SetState(EnemyState _state)
+    {
+        state = _state;
+        switch (_state)
+        {
+            case EnemyState.idle:
+                animator.SetInteger(1, 1);
+                break;
+            case EnemyState.patrol:
+                animator.SetInteger(1, 1);
+                break;
+            case EnemyState.chase:
+                animator.SetInteger(1, 3);
+                break;
+            case EnemyState.attack:
+                animator.SetInteger(1, 4);
+                break;
+            default:
+                animator.SetInteger(1, 1);
+                break;
+        }        
+    }
+}
+public enum EnemyState
+{
+    idle,
+    patrol,
+    chase,
+    attack
 }

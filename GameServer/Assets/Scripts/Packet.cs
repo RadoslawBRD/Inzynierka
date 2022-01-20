@@ -201,6 +201,10 @@ public enum ClientPackets { //odbierane od playerów
         Write(_value.w);
  
     }
+    public void Write(EnemyState _value)
+    {
+        Write(_value);
+    }
     #endregion
  
     #region Read Data

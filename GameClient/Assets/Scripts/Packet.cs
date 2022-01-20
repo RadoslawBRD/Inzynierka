@@ -383,6 +383,12 @@ public class Packet : IDisposable
     {
         return new Quaternion(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
     }
+
+    public EnemyState ReadState(bool _moveReadPos = true)
+    {
+        return new EnemyState();
+    }
+
     #endregion
 
     private bool disposed = false;
