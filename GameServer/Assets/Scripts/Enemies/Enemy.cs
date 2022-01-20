@@ -67,23 +67,23 @@ public class Enemy : MonoBehaviour
         {
             case EnemyState.idle:
                 LookForPlayer();
-                animator.SetInteger(1, 1);
+                animator.SetInteger("ChangeState", 1);
                 break;
             case EnemyState.patrol:
                 if (!LookForPlayer())
                     Patrol();
-                animator.SetInteger(1, 1);
+                animator.SetInteger("ChangeState", 1);
                 break;
             case EnemyState.chase:
                 Chase();
-                animator.SetInteger(1, 3);
+                animator.SetInteger("ChangeState", 3);
                 break;
             case EnemyState.attack:
                 Attack();
-                animator.SetInteger(1, 4);
+                animator.SetInteger("ChangeState", 4);
                 break;
             default:
-                animator.SetInteger(1, 1);
+                animator.SetInteger("ChangeState", 1);
 
                 break;
         }

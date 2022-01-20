@@ -35,19 +35,21 @@ public class EnemyManager : MonoBehaviour
         switch (_state)
         {
             case EnemyState.idle:
-                animator.SetInteger(1, 1);
+                animator.SetInteger("ChangeState", 1);
                 break;
             case EnemyState.patrol:
-                animator.SetInteger(1, 1);
+                
+                animator.SetInteger("ChangeState", 1);
                 break;
             case EnemyState.chase:
-                animator.SetInteger(1, 3);
+                animator.SetInteger("ChangeState", 3);
                 break;
             case EnemyState.attack:
-                animator.SetInteger(1, 4);
+                animator.SetInteger("ChangeState", 4);
                 break;
             default:
-                animator.SetInteger(1, 1);
+                animator.SetInteger("ChangeState", 1);
+
                 break;
         }        
     }

@@ -142,10 +142,28 @@ public class ClientHandle : MonoBehaviour
     {
         int enemyId = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
-        EnemyState state = _packet.ReadState();
+        string state = _packet.ReadString();
         if (GameManager.enemies.TryGetValue(enemyId, out EnemyManager _enemy)) {
             _enemy.transform.position = _position;
-            _enemy.SetState(state);
+            switch (state)
+            {
+                case "idle":
+                    _enemy.SetState(EnemyState.idle);
+                    break;
+                case "patrol":
+                    _enemy.SetState(EnemyState.patrol);
+                    break;
+                case "chase":
+                    _enemy.SetState(EnemyState.chase);
+                    break;
+                case "attack":
+                    _enemy.SetState(EnemyState.attack);
+                    break;
+                default:
+                    _enemy.SetState(EnemyState.idle);
+                    break;
+            }
+            
         }   
     }
     public static void EnemyHealht(Packet _packet)
