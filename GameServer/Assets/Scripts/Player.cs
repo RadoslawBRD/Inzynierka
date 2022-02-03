@@ -179,19 +179,19 @@ public class Player : MonoBehaviour
 
                 if (_hit.collider.gameObject.CompareTag("Enemy"))
                 {
-                    if (_hit.collider.gameObject.GetComponent<Enemy>().health <= 50f) /// wzrost œrodków za zabicie
+                    if (_hit.collider.gameObject.GetComponentInParent<Enemy>().health <= 50f) /// wzrost œrodków za zabicie
                     {
-                        if (_hit.collider.gameObject.GetComponent<Enemy>().type == "Basic")
+                        if (_hit.collider.gameObject.GetComponentInParent<Enemy>().type == "Basic")
 
                             moneyCount += 10;
                         else
-                            if (_hit.collider.gameObject.GetComponent<Enemy>().type == "Tank")
+                            if (_hit.collider.gameObject.GetComponentInParent<Enemy>().type == "Tank")
                             moneyCount += 50;
 
                         Debug.Log($"KASA: {moneyCount}");
                         ServerSend.SetPlayerMoney(id, moneyCount);
                     }
-                    _hit.collider.GetComponent<Enemy>().TakeDamage(50f);
+                    _hit.collider.GetComponentInParent<Enemy>().TakeDamage(50f);
                 }
                 
             }
