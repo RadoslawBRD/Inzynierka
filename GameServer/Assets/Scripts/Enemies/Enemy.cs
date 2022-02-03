@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator initializeNavMeshAgent()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         navMeshaAgent = gameObject.GetComponent<NavMeshAgent>();
         navMeshaAgent.enabled = true;
 
@@ -196,9 +196,13 @@ public class Enemy : MonoBehaviour
     }
     protected void MoveNav()
     {
-        navMeshaAgent.destination = target.transform.position;
+        if (navMeshaAgent != null) //navMeshaAgent.gameObject.GetComponent<NavMeshAgent>().enabled ||
+        {
+            navMeshaAgent.destination = target.transform.position;
+            this.transform.rotation = Quaternion.LookRotation((navMeshaAgent.destination - this.transform.position).normalized);
+            ServerSend.EnemyPosition(this);
+        }
 
-        ServerSend.EnemyPosition(this);
     }
     protected void Move(Vector3 _direction, float _speed)
     {

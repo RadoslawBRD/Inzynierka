@@ -101,7 +101,6 @@ public class ServerSend
             SendUDPDataToAll(_player.id, _packet);
         }
     }
-
     public static void PlayerDisconnected(int _playerId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerDisconnected))
@@ -227,6 +226,7 @@ public class ServerSend
         {
             _packet.Write(_enemy.id);
             _packet.Write(_enemy.transform.position);
+            _packet.Write(_enemy.transform.rotation);
             _packet.Write(_enemy.state.ToString());
             SendUDPDataToAll(_packet);
         }

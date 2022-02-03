@@ -142,9 +142,11 @@ public class ClientHandle : MonoBehaviour
     {
         int enemyId = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
+        Quaternion _rotation = _packet.ReadQuaternion();
         string state = _packet.ReadString();
         if (GameManager.enemies.TryGetValue(enemyId, out EnemyManager _enemy)) {
             _enemy.transform.position = _position;
+            _enemy.transform.rotation = _rotation;
             switch (state)
             {
                 case "idle":
