@@ -5,6 +5,8 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Client : MonoBehaviour
 {
@@ -225,8 +227,10 @@ public class Client : MonoBehaviour
         }
 
 
-        public void Connect( int _localPort)
+        public void Connect( int _localPort, string _currentScene)
         {
+            SceneManager.LoadScene(_currentScene, LoadSceneMode.Additive);
+            GameObject.Find("main Camera").SetActive(false);
             socket = new UdpClient(_localPort);
 
             socket.Connect(endpoint);

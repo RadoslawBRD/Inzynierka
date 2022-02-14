@@ -58,13 +58,13 @@ public class ServerSend
     }
     #endregion
 
-    public static void Welcome(int _toClient, string _msg)
+    public static void Welcome(int _toClient, string _msg, string _currentScene)
     {
         using (Packet _packet = new Packet((int)ServerPackets.welcome))
         {
             _packet.Write(_msg);
             _packet.Write(_toClient);
-
+            _packet.Write(_currentScene);
             SendTCPData(_toClient, _packet);
         }
     }
