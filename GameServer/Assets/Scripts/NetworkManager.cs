@@ -78,5 +78,34 @@ public class NetworkManager : MonoBehaviour
                 break;
         }
     }
+    public void Set_map(string _map)
+    {
+        
+        
+        switch (_map)
+        {
+            case "KillHouseMap":
+                try
+                {
+                    SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
+                    SceneManager.UnloadScene("StadiumMap");
+                }
+                catch { }
+                SceneManager.LoadScene("KillHouseMap", LoadSceneMode.Additive);
+                break;
+            case "StadiumMap":
+                try
+                {
+                    SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
+                    SceneManager.UnloadScene("StadiumMap");
+                }
+                catch { }
+                
+                SceneManager.LoadScene("StadiumMap", LoadSceneMode.Additive);
+                break;
+            default:
+                break;
+        }
+    }
 
 }

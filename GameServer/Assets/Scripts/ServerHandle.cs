@@ -70,6 +70,9 @@ public class ServerHandle
             case "add_granade":
                 GameManager.instance.addGranade(_fromClient, _command[1]);
                 break;
+            case "change_map":
+                NetworkManager.instance.Set_map(_command[1].ToString());
+                break;
             default:
                 break;
         }
