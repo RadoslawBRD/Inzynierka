@@ -148,14 +148,14 @@ public class Player : MonoBehaviour
                 if (_hitGround.collider.CompareTag("Ground"))
                 {
                     bool isPlayerAway = true;
-                    /*Vector3 _masterHit = _hitGround.collider.transform.position; //pokazuje 0,0,0
+                    Vector3 _masterHit = _hitGround.point; // powinno byæ git
 
                     foreach(Client _player in Server.clients.Values) 
                     {
-                        if (Vector3.Distance(_player.player.transform.position, _masterHit) < 25)
+                        if (Vector3.Distance(_player.player.transform.position, _masterHit) < 25) //TODO: dopracowaæ odleg³oœæ
                             isPlayerAway = false;
                     }
-                        */
+                        
                     if (isPlayerAway)
                     {
                         Debug.Log(_type);

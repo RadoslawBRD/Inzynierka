@@ -8,6 +8,7 @@ public class Server
 {
     public static int MaxPlayers { get; private set; }
     public static int Port { get; private set; }
+    //public static Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>();
 
     public static Dictionary<int, Client> clients = new Dictionary<int, Client>(); //s³ownik przechowuj¹cy id klientów oraz objektów Client
     public delegate void PacketHandler(int _fromClient, Packet _packet);
