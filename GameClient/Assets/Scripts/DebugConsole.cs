@@ -14,7 +14,9 @@ public class DebugConsole : MonoBehaviour
     public static DebugCommand RESTART_GAME;
     public static DebugCommand KILL_ALL_ENEMIES;
     public static DebugCommand<string> ADD_GRANADE;
+    public static DebugCommand<string> SET_MAP;
     
+
 
     public List<object> commandList;
 
@@ -58,13 +60,20 @@ public class DebugConsole : MonoBehaviour
             Debug.Log("sending add_granade");
             ClientSend.PlayerSentCommand("add_granade", x);
         });
+        SET_MAP = new DebugCommand<string>("set_map", "Set map", "set_map <string>", (x) =>
+        {
+            Debug.Log("sending set_map");
+            ClientSend.PlayerSentCommand("set_map", x);
+        });
+
 
         commandList = new List<object>
         {
             START_GAME,
             RESTART_GAME,
             KILL_ALL_ENEMIES,
-            ADD_GRANADE
+            ADD_GRANADE,
+            SET_MAP
         };
     }
 

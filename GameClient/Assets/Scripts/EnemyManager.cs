@@ -9,7 +9,8 @@ public class EnemyManager : MonoBehaviour
     public float maxHealth;
     public EnemyState state = EnemyState.idle;
 
-
+    private Vector3 position;
+    private Vector3 oldPosition;
     private Animator animator;
 
     public void Initialize(int _id, float _maxHealth)
@@ -35,21 +36,27 @@ public class EnemyManager : MonoBehaviour
         switch (_state)
         {
             case EnemyState.idle:
-                animator.SetInteger(1, 1);
+                animator.SetInteger("ChangeState", 1);
                 break;
             case EnemyState.patrol:
-                animator.SetInteger(1, 1);
+                animator.SetInteger("ChangeState", 1);
                 break;
             case EnemyState.chase:
-                animator.SetInteger(1, 3);
+                animator.SetInteger("ChangeState", 3);
                 break;
             case EnemyState.attack:
-                animator.SetInteger(1, 4);
+                animator.SetInteger("ChangeState", 4);
                 break;
             default:
-                animator.SetInteger(1, 1);
+                animator.SetInteger("ChangeState", 1);
                 break;
-        }        
+        }
+        position = this.transform.position;
+        if (Vector3.Distance(position, oldPosition) > 5)
+        {
+            Debug.LogWarning("skok pozycji, prawdopodobny lag");
+        }
+        oldPosition = position;
     }
 }
 public enum EnemyState

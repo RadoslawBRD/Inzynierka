@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public float maxHealth=100f;
     public int itemAmount = 0;
     public int maxItemAmount = 3;
+
     public string _type = "Basic";
     public int selectedEnemyInt = 1;
     private bool[] inputs;
@@ -40,9 +41,6 @@ public class Player : MonoBehaviour
         jumpSpeed = 5.0f;
         jumpSpeed *= Time.deltaTime;
     }
-
-        
-      
     public void SetMaster(bool value)
     {
         isMaster = value;
@@ -61,7 +59,7 @@ public class Player : MonoBehaviour
         username = _username;
         health = maxHealth;
         
-        inputs = new bool[5];
+        inputs = new bool[6];
     }
     public void SetSelectedEnemy(string _type)
     {
@@ -104,6 +102,7 @@ public class Player : MonoBehaviour
         {
             _inputDirection.x += 1;
         }
+        
 
         Move(_inputDirection);
     }
@@ -141,28 +140,26 @@ public class Player : MonoBehaviour
     }
     public void Shoot(Vector3 _viewDirection, string _type)
     {
-        if (isMaster) //strezlanie mastera(respienie zombie)
+        if (isMaster) //strzelanie mastera(respienie zombie)
         {
             if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hitGround, 1125f))
             {
                 if (_hitGround.collider.CompareTag("Ground"))
                 {
                     bool isPlayerAway = true;
-                    /*Collider[] _colliders = Physics.OverlapSphere(_hitGround.collider.transform.position, 5f);
-                    foreach (Collider _collider in _colliders)
+                    Vector3 _masterHit = _hitGround.point; // powinno byæ git
+
+                    foreach(Client _player in Server.clients.Values) 
                     {
-                        if (_collider.CompareTag("Player"))
-                        {
+                        if (Vector3.Distance(_player.player.transform.position, _masterHit) < 25) //TODO: dopracowaæ odleg³oœæ
                             isPlayerAway = false;
-                        }                       
-
                     }
-                    if(isPlayerAway)*/
-                    Debug.Log(_type);
-                    NetworkManager.instance.InstantiateEnemy(_hitGround.point, _type);
-
-
-
+                        
+                    if (isPlayerAway)
+                    {
+                        Debug.Log(_type);
+                        NetworkManager.instance.InstantiateEnemy(_hitGround.point, _type);
+                    }
                 }
             }
 
@@ -179,19 +176,19 @@ public class Player : MonoBehaviour
 
                 if (_hit.collider.gameObject.CompareTag("Enemy"))
                 {
-                    if (_hit.collider.gameObject.GetComponent<Enemy>().health <= 50f) /// wzrost œrodków za zabicie
+                    if (_hit.collider.gameObject.GetComponentInParent<Enemy>().health <= 50f) /// wzrost œrodków za zabicie
                     {
-                        if (_hit.collider.gameObject.GetComponent<Enemy>().type == "Basic")
+                        if (_hit.collider.gameObject.GetComponentInParent<Enemy>().type == "Basic")
 
                             moneyCount += 10;
                         else
-                            if (_hit.collider.gameObject.GetComponent<Enemy>().type == "Tank")
+                            if (_hit.collider.gameObject.GetComponentInParent<Enemy>().type == "Tank")
                             moneyCount += 50;
 
                         Debug.Log($"KASA: {moneyCount}");
                         ServerSend.SetPlayerMoney(id, moneyCount);
                     }
-                    _hit.collider.GetComponent<Enemy>().TakeDamage(50f);
+                    _hit.collider.GetComponentInParent<Enemy>().TakeDamage(50f);
                 }
                 
             }
@@ -210,7 +207,6 @@ public class Player : MonoBehaviour
             NetworkManager.instance.InstantiateProjectile(shootOrigin, _type).Initialize(_viewDirection, throwForce, id);
         }
     }
-
     public void TakeDamage(float _damage)
     {
         if(health <= 0f)
@@ -249,7 +245,6 @@ public class Player : MonoBehaviour
         ServerSend.PlayerRespawned(this, isMaster);
 
     }
-
     public bool AttemptPickupItem()
     {
         if (itemAmount >= maxItemAmount)
@@ -264,5 +259,22 @@ public class Player : MonoBehaviour
     public void AddItem(int _value)
     {
         itemAmount += _value;
+    }
+    public void InteractWithObject(Vector3 _viewDirection)
+    {
+        if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
+        {
+            Debug.Log($"E on {_hit.collider.gameObject}");
+            if (_hit.collider.gameObject.CompareTag("AmmoBox"))
+            {
+                Debug.Log("In AmmoBOX");
+                //dodaj X amunicji do gracza
+                ServerSend.InteractedWithItem(id, 30, "AmmoBox");
+                moneyCount -= 1;
+                ServerSend.SetPlayerMoney(id, moneyCount);
+
+                //zabierz x kasy od gracza
+            }
+        }
     }
 }

@@ -5,6 +5,8 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Client : MonoBehaviour
 {
@@ -53,7 +55,7 @@ public class Client : MonoBehaviour
 
             if (_ipAddress is null || _ipAddress.Length < 4) 
             { 
-                Debug.Log("Joining default address"); //dla debuga do³¹cza do localhost TODO : Powiadomienie o z³ym IP
+                Debug.Log("Joining default address"); //dla debuga doï¿½ï¿½cza do localhost TODO : Powiadomienie o zï¿½ym IP
             }
             else
             {
@@ -72,7 +74,7 @@ public class Client : MonoBehaviour
         }
         catch
         {
-            Debug.Log("Joining default address exception"); // TODO : Powiadomienie o z³ym adresie IP
+            Debug.Log("Joining default address exception"); // TODO : Powiadomienie o zï¿½ym adresie IP
         }
 #nullable restore
 
@@ -156,7 +158,7 @@ public class Client : MonoBehaviour
                 Disconnect();
             }
         }
-        private bool HandleData(byte[] _data) //pilnuje ¿eby nie uciê³o danych jeœli s¹ roz³o¿one na dwa pakiety(tak dzia³a TCP, wysy³a pakiety w paczkach)
+        private bool HandleData(byte[] _data) //pilnuje ï¿½eby nie uciï¿½o danych jeï¿½li sï¿½ rozï¿½oï¿½one na dwa pakiety(tak dziaï¿½a TCP, wysyï¿½a pakiety w paczkach)
         {
             int _packetLenght = 0;
 
@@ -171,7 +173,7 @@ public class Client : MonoBehaviour
                 }
             }
 
-            while(_packetLenght > 0 && _packetLenght <= recivedData.UnreadLength()) // jeœli to dzia³a to znaczy, ¿e mamy jeszcze pakiet, który mo¿emy obs³uzyæ
+            while(_packetLenght > 0 && _packetLenght <= recivedData.UnreadLength()) // jeï¿½li to dziaï¿½a to znaczy, ï¿½e mamy jeszcze pakiet, ktï¿½ry moï¿½emy obsï¿½uzyï¿½
             {
                 byte[] _packetBytes = recivedData.ReadBytes(_packetLenght);
                 ThreadManager.ExecuteOnMainThread(() =>
@@ -225,16 +227,18 @@ public class Client : MonoBehaviour
         }
 
 
-        public void Connect( int _localPort)
+        public void Connect( int _localPort, string _currentScene)
         {
+            SceneManager.LoadScene(_currentScene, LoadSceneMode.Additive);
+            GameObject.Find("main Camera").SetActive(false);
             socket = new UdpClient(_localPort);
 
             socket.Connect(endpoint);
             socket.BeginReceive(ReciveCallback, null);
 
             using (Packet _packet = new Packet())
-            {//utwoprzenie po³¹czenia z serwerem i otworzenie portu lokalnego tak aby klient otrzyma³ informacje z serwera
-                SendData(_packet); //klasa przypisuje packetID wiêc nie trzeba tego tutaj robic rêcznie
+            {//utwoprzenie poï¿½ï¿½czenia z serwerem i otworzenie portu lokalnego tak aby klient otrzymaï¿½ informacje z serwera
+                SendData(_packet); //klasa przypisuje packetID wiï¿½c nie trzeba tego tutaj robic rï¿½cznie
             }
         }
 
@@ -242,7 +246,7 @@ public class Client : MonoBehaviour
         {
             try
             {
-                _packet.InsertInt(instance.myId);//aby okresliæ, po stronie serwera, kto wysla³ pakiet
+                _packet.InsertInt(instance.myId);//aby okresliï¿½, po stronie serwera, kto wyslaï¿½ pakiet
                 if(socket!=null)
                 {
                     socket.BeginSend(_packet.ToArray(), _packet.Length(), null, null);
@@ -262,7 +266,7 @@ public class Client : MonoBehaviour
                 byte[] _data = socket.EndReceive(_result, ref endpoint);
                 socket.BeginReceive(ReciveCallback, null);
 
-                if (_data.Length < 4) // jest szansa, ¿e czêœæ pakietu przejdzie, a reszta nie, wtedy ta peirwsza czêœc jest bezu¿yteczna
+                if (_data.Length < 4) // jest szansa, ï¿½e czï¿½ï¿½ pakietu przejdzie, a reszta nie, wtedy ta peirwsza czï¿½c jest bezuï¿½yteczna
                 {
                     instance.Disconnect();
                     return;
@@ -280,14 +284,14 @@ public class Client : MonoBehaviour
             using (Packet _packet = new Packet(_data))
             {
                 int _packetLenght = _packet.ReadInt();
-                _data = _packet.ReadBytes(_packetLenght); // usuwa pierwsze 4 bity opisuj¹ce d³ugoœc pakietu
+                _data = _packet.ReadBytes(_packetLenght); // usuwa pierwsze 4 bity opisujï¿½ce dï¿½ugoï¿½c pakietu
             }
             ThreadManager.ExecuteOnMainThread(() => // 
             { 
                 using (Packet _packet = new Packet(_data))
                 {
                     int _packetId = _packet.ReadInt();
-                    packetHandlers[_packetId](_packet); //s³ownik packetid ³¹czy z pakietem
+                    packetHandlers[_packetId](_packet); //sï¿½ownik packetid ï¿½ï¿½czy z pakietem
                 }
             });
         }
@@ -321,6 +325,9 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.enemyPosition, ClientHandle.EnemyPosition},
             { (int)ServerPackets.enemyHealth, ClientHandle.EnemyHealht},
             { (int)ServerPackets.playerMoney, ClientHandle.SetPlayerMoney},
+            { (int)ServerPackets.killtargetupdate, ClientHandle.KillTargetUpdate},
+            { (int)ServerPackets.interactedWithItem, ClientHandle.InteractedWithItem},
+
 
 
 

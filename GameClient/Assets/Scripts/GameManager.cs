@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -114,12 +115,21 @@ public class GameManager : MonoBehaviour
     }
     public void DisconnectFromServer()
     {
+        try
+        {
+            SceneManager.UnloadScene("Main");
+        }
+        catch { }
         try { players.Clear(); } catch { }
         try { enemies.Clear(); } catch { }
         try { itemSpawners.Clear(); } catch { }
         try { projectiles.Clear(); } catch { }
-        Destroy(gameObject);
-        
+        //Destroy(gameObject);
+        try
+        {
+            SceneManager.LoadScene("Main",LoadSceneMode.Additive);
+        }
+        catch { }
         Debug.Log("zamykanko");
     }
 
