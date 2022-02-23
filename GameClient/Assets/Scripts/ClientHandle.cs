@@ -9,12 +9,14 @@ public class ClientHandle : MonoBehaviour
     {
         string _msg = _packet.ReadString();
         int _myId = _packet.ReadInt();
+        string _currentScene = _packet.ReadString();
 
         Debug.Log($"Message from server:{_msg}");
         Client.instance.myId = _myId;
+
         ClientSend.WelcomeRecived();
 
-        Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
+        Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port,_currentScene);
     }
     public static void SpawnPlayer(Packet _packet)
     {
@@ -66,11 +68,10 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         bool _isMaster = _packet.ReadBool();
         if (_isMaster)
-        {
-            GameManager.players[_id].isMaster = _isMaster;
-            // GameManager.players[_id].GetComponent<GameObject>().tag = "Master";
-            GameManager.players[_id].gameObject.tag = "Master";
-        }
+            {
+                GameManager.players[_id].isMaster = _isMaster;
+                GameManager.players[_id].gameObject.tag = "Master";
+            }
         
         GameManager.players[_id].Respawn(_isMaster);
     }
@@ -142,10 +143,30 @@ public class ClientHandle : MonoBehaviour
     {
         int enemyId = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
-        EnemyState state = _packet.ReadState();
+        Quaternion _rotation = _packet.ReadQuaternion();
+        string state = _packet.ReadString();
         if (GameManager.enemies.TryGetValue(enemyId, out EnemyManager _enemy)) {
             _enemy.transform.position = _position;
-            _enemy.SetState(state);
+            _enemy.transform.rotation = _rotation;
+            switch (state)
+            {
+                case "idle":
+                    _enemy.SetState(EnemyState.idle);
+                    break;
+                case "patrol":
+                    _enemy.SetState(EnemyState.patrol);
+                    break;
+                case "chase":
+                    _enemy.SetState(EnemyState.chase);
+                    break;
+                case "attack":
+                    _enemy.SetState(EnemyState.attack);
+                    break;
+                default:
+                    _enemy.SetState(EnemyState.idle);
+                    break;
+            }
+            
         }   
     }
     public static void EnemyHealht(Packet _packet)
@@ -169,6 +190,22 @@ public class ClientHandle : MonoBehaviour
         int _killTargetValue = _packet.ReadInt();
         KillCount.instance.SetKillCount(_killValue, _killTargetValue);
     }
+    public static void InteractedWithItem(Packet _packet)
+    {
+        string _itemName = _packet.ReadString();
+        switch (_itemName)
+        {
+            case "AmmoBox":
+                _packet.ReadInt();
+                BulletsCount.instance.updateMaxBulets(30);
+                break;
+            
+
+            default:
+                break;
+        }
+    }
+   
 
 }
 
