@@ -94,7 +94,7 @@ public class UIManager : MonoBehaviour
        // Debug.Log(ipAddress);
 
     }
-    public bool onPauseChange() { return !inGamePause; }
+    public bool onPauseChange() { return inGamePause = !inGamePause;}
     public void changeInGamePauseMenu()
     {
         bool isPaused = onPauseChange();
