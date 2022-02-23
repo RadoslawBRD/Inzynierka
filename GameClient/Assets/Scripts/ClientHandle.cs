@@ -68,11 +68,10 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         bool _isMaster = _packet.ReadBool();
         if (_isMaster)
-        {
-            GameManager.players[_id].isMaster = _isMaster;
-            // GameManager.players[_id].GetComponent<GameObject>().tag = "Master";
-            GameManager.players[_id].gameObject.tag = "Master";
-        }
+            {
+                GameManager.players[_id].isMaster = _isMaster;
+                GameManager.players[_id].gameObject.tag = "Master";
+            }
         
         GameManager.players[_id].Respawn(_isMaster);
     }
@@ -190,6 +189,11 @@ public class ClientHandle : MonoBehaviour
         int _killValue = _packet.ReadInt();
         int _killTargetValue = _packet.ReadInt();
         KillCount.instance.SetKillCount(_killValue, _killTargetValue);
+    }
+    public static void ServerInfo(Packet _packet)
+    {
+        string _msg = _packet.ReadString();
+        Debug.LogWarning("Got info!!!!!!!!!!!!!!!!!: "+ _msg);
     }
 
 }
