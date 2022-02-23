@@ -100,7 +100,6 @@ public class Server
             {
                 udpListener.BeginSend(_packet.ToArray(), _packet.Length(), _clientEndPoint, null, null);
             }
-
         }
         catch (Exception _ex)
         {
@@ -122,7 +121,9 @@ public class Server
         { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement},
         { (int)ClientPackets.playerShoot, ServerHandle.PlayerShoot},
         { (int)ClientPackets.playerThrowItem, ServerHandle.PlayerThrowItem},
-        { (int)ClientPackets.playerSentCommand, ServerHandle.PlayerSentCommand}
+        { (int)ClientPackets.playerSentCommand, ServerHandle.PlayerSentCommand},
+        { (int)ClientPackets.interactWithItem, ServerHandle.InteractWithObject}
+
 
     };
         Debug.Log("Initialized packets");

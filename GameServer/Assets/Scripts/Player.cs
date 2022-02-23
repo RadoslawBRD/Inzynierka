@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     public float maxHealth=100f;
     public int itemAmount = 0;
     public int maxItemAmount = 3;
+
     public string _type = "Basic";
     public int selectedEnemyInt = 1;
     private bool[] inputs;
@@ -40,9 +41,6 @@ public class Player : MonoBehaviour
         jumpSpeed = 5.0f;
         jumpSpeed *= Time.deltaTime;
     }
-
-        
-      
     public void SetMaster(bool value)
     {
         isMaster = value;
@@ -61,7 +59,7 @@ public class Player : MonoBehaviour
         username = _username;
         health = maxHealth;
         
-        inputs = new bool[5];
+        inputs = new bool[6];
     }
     public void SetSelectedEnemy(string _type)
     {
@@ -104,6 +102,7 @@ public class Player : MonoBehaviour
         {
             _inputDirection.x += 1;
         }
+        
 
         Move(_inputDirection);
     }
@@ -208,7 +207,6 @@ public class Player : MonoBehaviour
             NetworkManager.instance.InstantiateProjectile(shootOrigin, _type).Initialize(_viewDirection, throwForce, id);
         }
     }
-
     public void TakeDamage(float _damage)
     {
         if(health <= 0f)
@@ -247,7 +245,6 @@ public class Player : MonoBehaviour
         ServerSend.PlayerRespawned(this, isMaster);
 
     }
-
     public bool AttemptPickupItem()
     {
         if (itemAmount >= maxItemAmount)
@@ -262,5 +259,22 @@ public class Player : MonoBehaviour
     public void AddItem(int _value)
     {
         itemAmount += _value;
+    }
+    public void InteractWithObject(Vector3 _viewDirection)
+    {
+        if (Physics.Raycast(shootOrigin.position, _viewDirection, out RaycastHit _hit, 25f))
+        {
+            Debug.Log($"E on {_hit.collider.gameObject}");
+            if (_hit.collider.gameObject.CompareTag("AmmoBox"))
+            {
+                Debug.Log("In AmmoBOX");
+                //dodaj X amunicji do gracza
+                ServerSend.InteractedWithItem(id, 30, "AmmoBox");
+                moneyCount -= 1;
+                ServerSend.SetPlayerMoney(id, moneyCount);
+
+                //zabierz x kasy od gracza
+            }
+        }
     }
 }

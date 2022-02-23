@@ -77,5 +77,12 @@ public class ServerHandle
                 break;
         }
     }
+
+    public static void InteractWithObject(int _fromClient, Packet _packet)
+    {
+        Vector3 _shootDirection = _packet.ReadVector3();
+
+        Server.clients[_fromClient].player.InteractWithObject(_shootDirection);
+    }
 }
 

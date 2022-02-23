@@ -24,7 +24,6 @@ public class BulletsCount : MonoBehaviour
             Debug.Log("instance already exists, destroying object!");
             Destroy(this);
         }
-
     }
 
     // Update is called once per frame
@@ -37,6 +36,7 @@ public class BulletsCount : MonoBehaviour
         bulletsCurrent = value;
     }public void updateMaxBulets(int value)
     {
-        bulletsMax = value;
+        bulletsMax += value;
     }
+
 }

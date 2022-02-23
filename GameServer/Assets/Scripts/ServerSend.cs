@@ -262,6 +262,16 @@ public class ServerSend
             SendTCPDataToAll(_packet);
         }
     }
+    public static void InteractedWithItem(int _toClient, int _ammoCount, string _name)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.interactedWithItem))
+        {
+            _packet.Write(_name);
+            _packet.Write(_ammoCount);
+            
+            SendTCPDataToOne(_toClient, _packet);
+        }
+    }
     
 
 }

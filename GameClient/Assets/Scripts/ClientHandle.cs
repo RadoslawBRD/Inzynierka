@@ -190,11 +190,22 @@ public class ClientHandle : MonoBehaviour
         int _killTargetValue = _packet.ReadInt();
         KillCount.instance.SetKillCount(_killValue, _killTargetValue);
     }
-    public static void ServerInfo(Packet _packet)
+    public static void InteractedWithItem(Packet _packet)
     {
-        string _msg = _packet.ReadString();
-        Debug.LogWarning("Got info!!!!!!!!!!!!!!!!!: "+ _msg);
+        string _itemName = _packet.ReadString();
+        switch (_itemName)
+        {
+            case "AmmoBox":
+                _packet.ReadInt();
+                BulletsCount.instance.updateMaxBulets(30);
+                break;
+            
+
+            default:
+                break;
+        }
     }
+   
 
 }
 
