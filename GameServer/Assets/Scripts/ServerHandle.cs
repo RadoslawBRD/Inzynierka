@@ -70,9 +70,19 @@ public class ServerHandle
             case "add_granade":
                 GameManager.instance.addGranade(_fromClient, _command[1]);
                 break;
+            case "change_map":
+                NetworkManager.instance.Set_map(_command[1].ToString());
+                break;
             default:
                 break;
         }
+    }
+
+    public static void InteractWithObject(int _fromClient, Packet _packet)
+    {
+        Vector3 _shootDirection = _packet.ReadVector3();
+
+        Server.clients[_fromClient].player.InteractWithObject(_shootDirection);
     }
 }
 

@@ -7,9 +7,8 @@ public class GunRecoil : MonoBehaviour
     public Vector3 upRecoil;
     Vector3 originalRotation;
     public GameObject gunPrefab;
-
+    bool CR_running = false;
     public int bulletsCurrent=5;
-    public int bulletsMax=30;
     
 
     
@@ -28,14 +27,20 @@ public class GunRecoil : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            if (bulletsCurrent > 0) 
-            {
-                AddRecoil();
-                bulletShoot();
-            }else
-            {
-                StartCoroutine(gunReload());
-            }
+            if(!CR_running)
+                if (bulletsCurrent > 0) 
+                {
+                    AddRecoil();
+                    bulletShoot();
+                }else
+                {
+
+                    if (BulletsCount.instance.bulletsMax > 0)
+                    {
+                        CR_running = true;
+                        StartCoroutine(gunReload());
+                    }
+                }
 
         }
         else if (Input.GetButtonUp("Fire1") && bulletsCurrent > 0)
@@ -59,13 +64,27 @@ public class GunRecoil : MonoBehaviour
         BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
 
     }
+   
     private IEnumerator gunReload()
     {
         //AddRecoil();
         yield return new WaitForSeconds(1f);
-        bulletsCurrent = bulletsMax;
+        if (BulletsCount.instance.bulletsMax <= 30)
+        {
+            bulletsCurrent = BulletsCount.instance.bulletsMax;
+            BulletsCount.instance.updateMaxBulets(-30);
+
+        }
+        else
+        {
+            
+            BulletsCount.instance.updateMaxBulets(bulletsCurrent - 30);
+            bulletsCurrent = 30;
+        }
         BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
-        BulletsCount.instance.updateMaxBulets(bulletsMax);
+        StopRecoil();
+
+        CR_running = false;
 
         //StopRecoil();
 

@@ -79,15 +79,17 @@ public class PlayerManager : MonoBehaviour
         model.enabled = true;
         SetHealth(maxHealth, id);
         if (_master)
-        {
-            UIManager.instance.masterHUD.SetActive(true);
-            UIManager.instance.playerHUD.SetActive(false);
-        }
-        else
-        {
-            UIManager.instance.masterHUD.SetActive(false);
-            UIManager.instance.playerHUD.SetActive(true);
-        }
+            {
+                UIManager.instance.setMasterUI();
+                //UIManager.instance.masterHUD.SetActive(true);
+                //UIManager.instance.playerHUD.SetActive(false);
+            }
+            else
+            {
+                UIManager.instance.setPlayerUI();
+                //UIManager.instance.masterHUD.SetActive(false);
+                //UIManager.instance.playerHUD.SetActive(true);
+            }
 
 
     }

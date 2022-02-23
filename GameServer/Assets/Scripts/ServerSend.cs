@@ -58,13 +58,13 @@ public class ServerSend
     }
     #endregion
 
-    public static void Welcome(int _toClient, string _msg)
+    public static void Welcome(int _toClient, string _msg, string _currentScene)
     {
         using (Packet _packet = new Packet((int)ServerPackets.welcome))
         {
             _packet.Write(_msg);
             _packet.Write(_toClient);
-
+            _packet.Write(_currentScene);
             SendTCPData(_toClient, _packet);
         }
     }
@@ -260,6 +260,16 @@ public class ServerSend
             _packet.Write(_killTargetValue);
 
             SendTCPDataToAll(_packet);
+        }
+    }
+    public static void InteractedWithItem(int _toClient, int _ammoCount, string _name)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.interactedWithItem))
+        {
+            _packet.Write(_name);
+            _packet.Write(_ammoCount);
+            
+            SendTCPDataToOne(_toClient, _packet);
         }
     }
     
