@@ -24,7 +24,8 @@ public enum ServerPackets
     enemyPosition,
     enemyHealth,
     playerMoney,
-    killtargetupdate
+    killtargetupdate,
+    interactedWithItem
 
 
 
@@ -38,7 +39,8 @@ public enum ClientPackets
     playerMovement,
     playerShoot,
     playerThrowItem,
-    playerSentCommand
+    playerSentCommand,
+    interactWithItem
 }
 
 public class Packet : IDisposable

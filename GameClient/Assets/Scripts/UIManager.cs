@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     public InputField usernameField;
     public InputField ipAddress;
     public GameObject pauseMenu;
-    public bool inGamePause=false;
+    public bool inGamePause = false;
     public GameObject playerHUD;
     public GameObject masterHUD;
     public GameObject enemyBasic;
@@ -94,11 +94,7 @@ public class UIManager : MonoBehaviour
        // Debug.Log(ipAddress);
 
     }
-    public bool onPauseChange()
-    {
-        inGamePause = !inGamePause;
-        return inGamePause;
-    }
+    public bool onPauseChange() { return inGamePause = !inGamePause;}
     public void changeInGamePauseMenu()
     {
         bool isPaused = onPauseChange();
@@ -107,6 +103,18 @@ public class UIManager : MonoBehaviour
         //backGround.SetActive(isPaused);
         ToggleCoursorMode();
 
+    }
+    public void setPlayerUI()
+    {
+        masterHUD.SetActive(false);
+        playerHUD.SetActive(true);
+    }
+    public void setMasterUI()
+    {
+        masterHUD.SetActive(true);
+        playerHUD.SetActive(false);
+        //UIManager.instance.masterHUD.SetActive(true);
+        //UIManager.instance.playerHUD.SetActive(false);
     }
     public void setSelectedEnemy(int _value)
     {

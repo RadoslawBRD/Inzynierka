@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/KillHouseMap.unity
+    guid: 5eff7e7c128ad8245ab34f786f49a084
   m_configObjects: {}

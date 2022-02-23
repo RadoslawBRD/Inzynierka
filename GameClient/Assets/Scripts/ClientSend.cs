@@ -86,5 +86,15 @@ public class ClientSend : MonoBehaviour
 
         }
     }
-   #endregion
+    public static void InteractWithItem(Vector3 _facing)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.interactWithItem))
+        {
+            _packet.Write(_facing);
+            SendTCPData(_packet);
+        }
+    }
+    
+
+    #endregion
 }

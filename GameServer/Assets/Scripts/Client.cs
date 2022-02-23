@@ -50,7 +50,7 @@ public class Client
 
             stream.BeginRead(reciverBuffer, 0, dataBufferSize, ReciveCallback, null);
 
-            ServerSend.Welcome(id, "Witaj na serwerze!");
+            ServerSend.Welcome(id, "Witaj na serwerze!", NetworkManager.instance.currrentScene);
         }
 
         public void SendData(Packet _packet)

@@ -25,8 +25,8 @@ public enum ServerPackets { // wysy³ane do playerów
     enemyPosition,
     enemyHealth,
     playerMoney,
-    killtargetupdate
-
+    killtargetupdate,
+    interactedWithItem
 
 
 }
@@ -38,7 +38,8 @@ public enum ClientPackets { //odbierane od playerów
     playerMovement,
     playerShoot,
     playerThrowItem,
-    playerSentCommand
+    playerSentCommand,
+    interactWithItem
 
 }
  
