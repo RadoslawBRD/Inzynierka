@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     public int itemAmount = 0;
     public int maxItemAmount = 3;
 
+    private int ammoCost = 5;
+
     public string _type = "Basic";
     public int selectedEnemyInt = 1;
     private bool[] inputs;
@@ -269,9 +271,12 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("In AmmoBOX");
                 //dodaj X amunicji do gracza
-                ServerSend.InteractedWithItem(id, 30, "AmmoBox");
-                moneyCount -= 1;
-                ServerSend.SetPlayerMoney(id, moneyCount);
+                if (moneyCount > ammoCost)
+                {
+                    ServerSend.InteractedWithItem(id, 30, "AmmoBox");
+                    moneyCount -= ammoCost;
+                    ServerSend.SetPlayerMoney(id, moneyCount);
+                }
 
                 //zabierz x kasy od gracza
             }
