@@ -8,18 +8,15 @@ public class GunRecoil : MonoBehaviour
     Vector3 originalRotation;
     public GameObject gunPrefab;
     bool CR_running = false;
-    public int bulletsCurrent = 30;
-    private Animator animator;
-    public PlayerWeaponState playerWeaponState = PlayerWeaponState.idle;
+    public int bulletsCurrent=5;
+    
 
-
+    
     // Start is called before the first frame update
     void Start()
     {
         originalRotation = transform.localEulerAngles;
         BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
-        animator = GetComponentInChildren<Animator>();
-
     }
 
     // Update is called once per frame
@@ -30,13 +27,12 @@ public class GunRecoil : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            if (!CR_running)
-                if (bulletsCurrent > 0)
+            if(!CR_running)
+                if (bulletsCurrent > 0) 
                 {
-                    //AddRecoil();
-                    SetState(PlayerWeaponState.fire);
+                    AddRecoil();
                     bulletShoot();
-                } else
+                }else
                 {
 
                     if (BulletsCount.instance.bulletsMax > 0)
@@ -49,8 +45,7 @@ public class GunRecoil : MonoBehaviour
         }
         else if (Input.GetButtonUp("Fire1") && bulletsCurrent > 0)
         {
-            SetState(PlayerWeaponState.idle);
-            //StopRecoil();
+           StopRecoil();
         }
     }
     private void AddRecoil()
@@ -69,59 +64,29 @@ public class GunRecoil : MonoBehaviour
         BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
 
     }
-    public void SetState(PlayerWeaponState _state)
+   
+    private IEnumerator gunReload()
     {
-        switch (_state)
-        {
-            case PlayerWeaponState.idle:
-                animator.SetInteger("ChangeState", 1);
-                break;
-            case PlayerWeaponState.fire:
-                animator.SetInteger("ChangeState", 2);
-                break;
-            case PlayerWeaponState.reload:
-                animator.SetInteger("ChangeState", 3);
-                break;
-            case PlayerWeaponState.fullreload:
-                animator.SetInteger("ChangeState", 4);
-                break;
-            default:
-                animator.SetInteger("ChangeState", 1);
-                break;
-        }
-        animator.SetInteger("ChangeState", 1);
-    }
-        private IEnumerator gunReload()
-        {
         //AddRecoil();
-        SetState(PlayerWeaponState.reload);
-
         yield return new WaitForSeconds(1f);
-            if (BulletsCount.instance.bulletsMax <= 30)
-            {
-                bulletsCurrent = BulletsCount.instance.bulletsMax;
-                BulletsCount.instance.updateMaxBulets(-30);
-            }
-            else
-            {
-                BulletsCount.instance.updateMaxBulets(bulletsCurrent - 30);
-                bulletsCurrent = 30;
-            }
-            BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
-            SetState(PlayerWeaponState.idle);
+        if (BulletsCount.instance.bulletsMax <= 30)
+        {
+            bulletsCurrent = BulletsCount.instance.bulletsMax;
+            BulletsCount.instance.updateMaxBulets(-30);
 
+        }
+        else
+        {
+            
+            BulletsCount.instance.updateMaxBulets(bulletsCurrent - 30);
+            bulletsCurrent = 30;
+        }
+        BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
+        StopRecoil();
 
         CR_running = false;
 
-            //StopRecoil();
+        //StopRecoil();
 
-        }
     }
-
-public enum PlayerWeaponState
-{
-    idle,
-    fire,
-    reload,
-    fullreload
 }
