@@ -198,8 +198,8 @@ public class Enemy : MonoBehaviour
     {
         if (navMeshaAgent != null) //navMeshaAgent.gameObject.GetComponent<NavMeshAgent>().enabled ||
         {
-            navMeshaAgent.destination = target.transform.position;
-            this.transform.rotation = Quaternion.LookRotation((navMeshaAgent.destination - this.transform.position).normalized);
+            navMeshaAgent.destination = target.transform.position;            
+            this.transform.rotation = Quaternion.LookRotation((navMeshaAgent.nextPosition - this.transform.position).normalized);
             ServerSend.EnemyPosition(this);
         }
 

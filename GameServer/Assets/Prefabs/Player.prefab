@@ -56,7 +56,7 @@ MonoBehaviour:
   jumpSpeed: 5
   throwForce: 600
   health: 0
-  moneyCount: 0
+  moneyCount: 30
   maxHealth: 100
   itemAmount: 0
   maxItemAmount: 3
