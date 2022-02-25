@@ -122,7 +122,8 @@ public class Server
         { (int)ClientPackets.playerShoot, ServerHandle.PlayerShoot},
         { (int)ClientPackets.playerThrowItem, ServerHandle.PlayerThrowItem},
         { (int)ClientPackets.playerSentCommand, ServerHandle.PlayerSentCommand},
-        { (int)ClientPackets.interactWithItem, ServerHandle.InteractWithObject}
+        { (int)ClientPackets.interactWithItem, ServerHandle.InteractWithObject},
+        { (int)ClientPackets.playerSendReload, ServerHandle.PlayerSendReload}
 
 
     };

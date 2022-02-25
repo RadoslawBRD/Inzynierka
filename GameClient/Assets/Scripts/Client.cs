@@ -327,6 +327,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerMoney, ClientHandle.SetPlayerMoney},
             { (int)ServerPackets.killtargetupdate, ClientHandle.KillTargetUpdate},
             { (int)ServerPackets.interactedWithItem, ClientHandle.InteractedWithItem},
+            { (int)ServerPackets.thisPlayerSendReload, ClientHandle.ThisPlayerSendReload},
 
 
 

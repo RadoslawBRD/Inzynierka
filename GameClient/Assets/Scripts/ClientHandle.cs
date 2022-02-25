@@ -205,7 +205,13 @@ public class ClientHandle : MonoBehaviour
                 break;
         }
     }
-   
+    public static void ThisPlayerSendReload(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        if (GameManager.players.TryGetValue(_id, out PlayerManager _player))
+            _player.SetWeaponState(); // set state reload
+        Debug.LogError("player "+ _player.username.ToString() + "przeladowanie###########");
+    }
 
 }
 

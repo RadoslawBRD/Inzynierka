@@ -54,6 +54,7 @@ public class GunRecoil : MonoBehaviour
 
                     if (BulletsCount.instance.bulletsMax > 0)
                     {
+                        ClientSend.PlayerSendReload();
                         CR_running = true;
                         StartCoroutine(gunReload());
                     }
