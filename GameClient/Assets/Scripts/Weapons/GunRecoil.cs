@@ -19,7 +19,6 @@ public class GunRecoil : MonoBehaviour
     {
         originalRotation = transform.localEulerAngles;
         BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
-
     }
 
     // Update is called once per frame
@@ -29,8 +28,6 @@ public class GunRecoil : MonoBehaviour
         {
             animator = gameObject.GetComponentInChildren<Animator>();
             objectLoaded = true;
-
-
         }
         //gunPrefab.transform.parent = Camera.main.transform;
         BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
@@ -51,7 +48,6 @@ public class GunRecoil : MonoBehaviour
                 }
                 else
                 {
-
                     if (BulletsCount.instance.bulletsMax > 0)
                     {
                         ClientSend.PlayerSendReload();
@@ -95,7 +91,6 @@ public class GunRecoil : MonoBehaviour
             default:
                 animator.SetInteger("ChangeState", 1);
                 break;
-
         }
         //animator.SetInteger("ChangeState", 1);
     }
@@ -119,7 +114,6 @@ public class GunRecoil : MonoBehaviour
             SetState(PlayerWeaponState.idle);
 
         CR_running = false;
-
             //StopRecoil();
         }
     }
