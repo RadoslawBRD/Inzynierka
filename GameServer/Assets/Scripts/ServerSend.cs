@@ -272,6 +272,14 @@ public class ServerSend
             SendTCPDataToOne(_toClient, _packet);
         }
     }
+    public static void ThisPlayerSendReload(int _fromClient)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.interactedWithItem))
+        {
+            Debug.LogError("Player " + _fromClient + "reload ###########");
+            SendTCPDataToAll(_fromClient, _packet);
+        }
+    }
     
 
 }

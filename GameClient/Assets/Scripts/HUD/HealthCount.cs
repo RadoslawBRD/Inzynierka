@@ -9,7 +9,7 @@ public class HealthCount : MonoBehaviour
 
     public float currentHP;
     public float maxHp;
-    public Text healthDisplay;
+    public Slider healthDisplay;
 
     private void Awake()
     {
@@ -25,7 +25,8 @@ public class HealthCount : MonoBehaviour
    
     public void SetHealth(float _health)
     {
-        healthDisplay.text = _health.ToString("0.0");
+        Debug.Log("set health "+ _health);
+        healthDisplay.value = _health;
     }
 
 }

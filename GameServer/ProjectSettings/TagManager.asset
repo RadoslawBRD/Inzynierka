@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Master
   - AmmoBox
+  - Head
   layers:
   - Default
   - TransparentFX
