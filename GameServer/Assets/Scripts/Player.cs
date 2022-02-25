@@ -162,6 +162,10 @@ public class Player : MonoBehaviour
                         Debug.Log(_type);
                         NetworkManager.instance.InstantiateEnemy(_hitGround.point, _type);
                     }
+                    else
+                    {
+                        Debug.Log("IsPlayerAway");
+                    }
                 }
             }
 
