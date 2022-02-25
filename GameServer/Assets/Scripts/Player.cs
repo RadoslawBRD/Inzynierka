@@ -224,7 +224,14 @@ public class Player : MonoBehaviour
         {
             health = 0f;
             controller.enabled = false;
-            transform.position = new Vector3(13f, 10f, -25f); //miejsce spawnu gracza
+
+            //
+            if (NetworkManager.instance.currrentScene.ToString() == "KillHouse")//nazwa mapy to killhouse
+                transform.position = new Vector3(13f, 10f, -25f); //miejsce spawnu gracza
+            else 
+            { //nazwa mapy to Stadium
+                transform.position = new Vector3(13f, 10f, -25f); //miejsce spawnu gracza
+            }
             ServerSend.PlayerPosition(this);
             StartCoroutine(Respawn());
             if(_damage == 1190f)
