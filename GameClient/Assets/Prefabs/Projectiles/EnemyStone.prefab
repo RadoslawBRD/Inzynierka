@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8483683747245241966}
-  - component: {fileID: 2271742094075469343}
   - component: {fileID: 8019142236462416161}
   - component: {fileID: 6829765189042505184}
   - component: {fileID: 9058157005790375524}
+  - component: {fileID: 902304357505676144}
   m_Layer: 0
   m_Name: EnemyStone
   m_TagString: Untagged
@@ -34,14 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2271742094075469343
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4249437046166830086}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &8019142236462416161
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -61,7 +53,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: afdc549ebd94f254a9b1903d015f1e0b, type: 2}
+  - {fileID: 2100000, guid: 917ca299e09925749960baac3d7a946f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,3 +102,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   explosionPrefab: {fileID: 1025285306637258, guid: 7e0a4e48fd028bc4fa5ec31a271882f5, type: 3}
+--- !u!33 &902304357505676144
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4249437046166830086}
+  m_Mesh: {fileID: 4300002, guid: befdde6fd81058948a13ce55df4ac035, type: 3}
