@@ -421,6 +421,7 @@ MonoBehaviour:
   enemyTankPrefab: {fileID: 3750570088666119801, guid: ec99cd2961c28ae41b8be26c9b3eb6ff, type: 3}
   playerSimpleGranadePrefab: {fileID: 677718171024148823, guid: 040449cd8767d2c448a27ac51659ed08, type: 3}
   enemyStonePrefab: {fileID: 2734002522258633704, guid: dcf1804e6d4103240b8409f4e8a7ed1a, type: 3}
+  currrentScene: 
 --- !u!1 &1966465142
 GameObject:
   m_ObjectHideFlags: 0
