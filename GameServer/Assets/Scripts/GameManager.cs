@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         if(killTarget <= killCount)
         {
             killCount = 0;
-            StartCoroutine(RestartGame());
+            StartCoroutine(RestartGame(0.1f));
             Debug.Log("Koniec gry!");
         }
         /*playerCount = 0;
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    private IEnumerator RestartGame()
+    private IEnumerator RestartGame(float seconds)
     {
         isGameLive = false;
         try
@@ -137,8 +137,8 @@ public class GameManager : MonoBehaviour
                 Debug.Log($"Zabijam zombie{ _enemy.id}");
             }
         }
-        yield return new WaitForSeconds(5f);
-        Debug.Log("Starting game");
+        yield return new WaitForSeconds(seconds);
+        Debug.Log("Retarting game");
 
     }
 
@@ -152,7 +152,14 @@ public class GameManager : MonoBehaviour
             
 
     }
-   
+    public void runRestartGame(float seconds)
+    {
+        StartCoroutine(RestartGame(seconds));
+
+    }
+
+
+
     //////////// commands/////////////
     public void startGame()
     {
@@ -160,7 +167,7 @@ public class GameManager : MonoBehaviour
     }
     public void restartGame()
     {
-        StartCoroutine(RestartGame());
+        StartCoroutine(RestartGame(5f));
 
     }
     public void killAllEnemies()
@@ -182,6 +189,11 @@ public class GameManager : MonoBehaviour
     {
         killTarget = _killTarget;
 
+    }
+    public void set_map(string _map)
+    {
+        NetworkManager.instance.Set_map(_map.ToString());
+        ServerSend.ChangeMap(_map);
     }
 
 

@@ -83,6 +83,10 @@ public class ClientHandle : MonoBehaviour
 
         GameManager.instance.CreateItemSapwner(_spawnerId, _spawnerPosition, _hasItem);
     }
+    public static void DestroyItemSpawner(Packet _packet)
+    {
+
+    }
 
     public static void ItemSpawned(Packet _packet)
     {
@@ -211,6 +215,13 @@ public class ClientHandle : MonoBehaviour
         if (GameManager.players.TryGetValue(_id, out PlayerManager _player))
             _player.SetWeaponState(); // set state reload
         Debug.LogError("player "+ _player.username.ToString() + "przeladowanie###########");
+    }
+    public static void ChangeMap(Packet _packet)
+    {
+        string _map = _packet.ReadString();
+        GameManager.instance.ChangeMapClient(_map);
+        Debug.Log("Zmieniam mape na: " + _map);
+
     }
 
 }

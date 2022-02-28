@@ -328,6 +328,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.killtargetupdate, ClientHandle.KillTargetUpdate},
             { (int)ServerPackets.interactedWithItem, ClientHandle.InteractedWithItem},
             { (int)ServerPackets.thisPlayerSendReload, ClientHandle.ThisPlayerSendReload},
+            { (int)ServerPackets.changeMap, ClientHandle.ChangeMap},
 
 
 

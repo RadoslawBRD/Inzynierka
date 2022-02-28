@@ -132,6 +132,38 @@ public class GameManager : MonoBehaviour
         catch { }
         Debug.Log("zamykanko");
     }
+    public void ChangeMapClient(string _map)
+    {
+        switch (_map)
+        {
+            case "KillHouseMap":
+                try
+                {
+                    //currrentScene = "KillHouseMap";
+                    SceneManager.UnloadScene("StadiumMap");
+                    SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
+
+                }
+                catch { }
+                SceneManager.LoadScene("KillHouseMap", LoadSceneMode.Additive);
+                break;
+            case "StadiumMap":
+                try
+                {
+                    //currrentScene = "StadiumMap";
+
+                    SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
+                    SceneManager.UnloadScene("StadiumMap");
+                }
+                catch { }
+
+                SceneManager.LoadScene("StadiumMap", LoadSceneMode.Additive);
+                break;
+            default:
+                break;
+        }
+    }
+    
 
 }
 

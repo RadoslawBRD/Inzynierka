@@ -144,6 +144,10 @@ public class ServerSend
 
         }
     }
+    public static void DestroyItemSpawner()
+    {
+
+    }
     public static void ItemSpawned(int _spawnerId)
     {
         using (Packet _packet = new Packet((int)ServerPackets.itemSpawned))
@@ -278,6 +282,15 @@ public class ServerSend
         {
             Debug.LogError("Player " + _fromClient + "reload ###########");
             SendTCPDataToAll(_fromClient, _packet);
+        }
+    }
+
+    public static void ChangeMap(string _map)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.changeMap))
+        {
+            _packet.Write(_map);
+            SendTCPDataToAll(_packet);
         }
     }
     

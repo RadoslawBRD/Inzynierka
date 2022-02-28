@@ -226,11 +226,11 @@ public class Player : MonoBehaviour
             controller.enabled = false;
 
             //
-            if (NetworkManager.instance.currrentScene.ToString() == "KillHouse")//nazwa mapy to killhouse
-                transform.position = new Vector3(13f, 10f, -25f); //miejsce spawnu gracza
+            if (NetworkManager.instance.getCurrentScene().ToString() == "KillHouseMap")//nazwa mapy to killhouse
+                this.transform.position = new Vector3(13f, 10f, -25f); //miejsce respawnu gracza
             else 
             { //nazwa mapy to Stadium
-                transform.position = new Vector3(13f, 10f, -25f); //miejsce spawnu gracza
+                this.transform.position = new Vector3(-28f, 7f, 33f); //miejsce respawnu gracza
             }
             ServerSend.PlayerPosition(this);
             StartCoroutine(Respawn());

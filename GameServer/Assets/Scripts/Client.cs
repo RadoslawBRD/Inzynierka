@@ -50,7 +50,7 @@ public class Client
 
             stream.BeginRead(reciverBuffer, 0, dataBufferSize, ReciveCallback, null);
 
-            ServerSend.Welcome(id, "Witaj na serwerze!", NetworkManager.instance.currrentScene);
+            ServerSend.Welcome(id, "Witaj na serwerze!", NetworkManager.instance.getCurrentScene());
         }
 
         public void SendData(Packet _packet)
@@ -213,12 +213,12 @@ public class Client
                 ServerSend.SpawnPlayer(_client.id, player);
             }
         }
-        foreach(ItemSpawner _itemSpawner in ItemSpawner.spawners.Values)
+        foreach (ItemSpawner _itemSpawner in ItemSpawner.spawners.Values)
         {
             ServerSend.CreateItemSpawner(id, _itemSpawner.spawnerId, _itemSpawner.transform.position, _itemSpawner.hasItem);
         }
 
-        foreach(Enemy _enemy in Enemy.enemies.Values)
+        foreach (Enemy _enemy in Enemy.enemies.Values)
         {
             ServerSend.SpawnEnemy(id, _enemy);
         }
