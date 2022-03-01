@@ -10,7 +10,7 @@ public class NetworkManager : MonoBehaviour
     public GameObject enemyTankPrefab;
     public GameObject playerSimpleGranadePrefab;
     public GameObject enemyStonePrefab;
-    private string currrentScene = "StadiumMap"; // domyœlna   StadiumMap   KillHouseMap
+    private string currrentScene = "KillHouseMap"; // domyœlna   StadiumMap   KillHouseMap
 
     private void Awake()
     {
@@ -39,8 +39,8 @@ public class NetworkManager : MonoBehaviour
     }
     public Player InstantiatePlayer()
     {
-        if (NetworkManager.instance.getCurrentScene().ToString() == "KillHouse")//nazwa mapy to killhouse
-            return Instantiate(playerPrefab, new Vector3(-13f, 10f, 25f), Quaternion.identity).GetComponent<Player>(); //zwraca referencje do playera / miejsce spawnu gracza
+        if (NetworkManager.instance.getCurrentScene().ToString() == "KillHouseMap")//nazwa mapy to killhouse
+            return Instantiate(playerPrefab, new Vector3(20f, 10f, -30f), Quaternion.identity).GetComponent<Player>(); //zwraca referencje do playera / miejsce spawnu gracza
         else
          //nazwa mapy to Stadium
             return Instantiate(playerPrefab, new Vector3(-28f, 7f, 33f), Quaternion.identity).GetComponent<Player>(); //zwraca referencje do playera / miejsce spawnu gracza

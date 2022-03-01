@@ -227,7 +227,7 @@ public class Player : MonoBehaviour
 
             //
             if (NetworkManager.instance.getCurrentScene().ToString() == "KillHouseMap")//nazwa mapy to killhouse
-                this.transform.position = new Vector3(13f, 10f, -25f); //miejsce respawnu gracza
+                this.transform.position = new Vector3(20f, 10f, -30f); //miejsce respawnu gracza
             else 
             { //nazwa mapy to Stadium
                 this.transform.position = new Vector3(-28f, 7f, 33f); //miejsce respawnu gracza
