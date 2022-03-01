@@ -240,5 +240,28 @@ public class Client
         udp.Disconnect();
         ServerSend.PlayerDisconnected(id);
     }
+  
+    private IEnumerator RecreateItemSpawner()
+    {
+        yield return new WaitForSeconds(1f);
+        try
+        {
+            foreach (ItemSpawner _itemSpawner in ItemSpawner.spawners.Values)
+            {
+                ServerSend.CreateItemSpawner(id, _itemSpawner.spawnerId, _itemSpawner.transform.position, _itemSpawner.hasItem);
+            }
+        }
+        catch
+        {
+            Debug.Log("Might be no ItemSpawner's");
+        }
+
+    }
+    public void RunRecreateItemSpawner()
+    {
+        //StartCoroutine(RecreateItemSpawner());
+
+    }
+
 }
 
