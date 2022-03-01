@@ -74,6 +74,15 @@ public class ClientHandle : MonoBehaviour
             }
         
         GameManager.players[_id].Respawn(_isMaster);
+        //TODO: reset ekwipunku
+        
+        MoneyCount.instance.setMoney(0);         
+        BulletsCount.instance.setCurrentBulets(0);
+        BulletsCount.instance.setMaxBulets(0);
+        
+
+           
+
     }
     public static void CreateItemSpawner(Packet _packet)
     {
