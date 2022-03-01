@@ -290,6 +290,10 @@ PrefabInstance:
       propertyPath: bulletsCurrent
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 59923951027551620, guid: 73ec04e2bfe985f40b39e56c89c7e6b6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 59923951027551640, guid: 73ec04e2bfe985f40b39e56c89c7e6b6, type: 3}
       propertyPath: m_Name
       value: Cube
