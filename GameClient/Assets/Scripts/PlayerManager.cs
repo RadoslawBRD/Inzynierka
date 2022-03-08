@@ -43,6 +43,14 @@ public class PlayerManager : MonoBehaviour
         if(_id==Client.instance.myId)
             HealthCount.instance.SetHealth(health);
     }
+    public void Update()
+    {
+        if(isMaster)
+        {
+            UIManager.instance.setMasterUI();
+        }
+
+    }
     public void Die()
     {
         //StartCoroutine(createFloatingNickname());

@@ -153,8 +153,13 @@ public class Player : MonoBehaviour
 
                     foreach(Client _player in Server.clients.Values) 
                     {
-                        if (Vector3.Distance(_player.player.transform.position, _masterHit) < 25) //TODO: dopracowaæ odleg³oœæ
-                            isPlayerAway = false;
+                        if(_player.player!=null)
+                            if (_player.player.isMaster == true)
+                            {
+
+                            }else
+                                if (Vector3.Distance(_player.player.transform.position, _masterHit) < 25) //TODO: dopracowaæ odleg³oœæ
+                                    isPlayerAway = false;
                     }
                         
                     if (isPlayerAway)
