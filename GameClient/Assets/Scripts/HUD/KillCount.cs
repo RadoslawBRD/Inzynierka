@@ -4,8 +4,8 @@ using UnityEngine;
 public class KillCount : MonoBehaviour
 {
     public static KillCount instance;
-    public int killCount;
-    public int killTarget;
+    public int killCount=0;
+    public int killTarget=0;
     private void Awake()
     {
         if (instance == null)

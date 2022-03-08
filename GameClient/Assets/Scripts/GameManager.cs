@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemyBasicPrefab;
     public GameObject enemyTankPrefab;
     public GameObject offlinePlayer;
+    public GameObject KillCount;
     
     private void Awake()
     {
