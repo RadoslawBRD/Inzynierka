@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public bool isGameLive = false;
-    public int killTarget = 55;
+    public int killTarget = 5;
     public int killCount = 0;
     public int _selectedPlayer; //id gracza, który jest masterem
     int playerCount = 0;
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("Resetting game");
-        
+         
 
         foreach (Client _client in Server.clients.Values)
         {
@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        
         foreach(Enemy _enemy in Enemy.enemies.Values.ToList())
         {
             if (_enemy.health > 0)
@@ -137,7 +138,15 @@ public class GameManager : MonoBehaviour
                 Debug.Log($"Zabijam zombie{ _enemy.id}");
             }
         }
-        yield return new WaitForSeconds(seconds);
+
+        Enemy[] enemyInScene = FindObjectsOfType<Enemy>();
+        foreach (Enemy x in enemyInScene)
+        {
+            x.TakeDamage(x.maxHealth + 1000f);
+            Debug.Log("Dobijam zombie");
+        }
+
+            yield return new WaitForSeconds(seconds);
         Debug.Log("Retarting game");
 
     }
