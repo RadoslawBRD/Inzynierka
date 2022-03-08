@@ -61,6 +61,14 @@ public class ClientHandle : MonoBehaviour
         float _health = _packet.ReadFloat();
 
         GameManager.players[_id].SetHealth(_health, _id);
+        if(_health <=1000)
+        {
+            EnemyManager[] enemyInScene = FindObjectsOfType<EnemyManager>();
+            foreach(EnemyManager x in enemyInScene)
+            {
+                Destroy(x);            // testy
+            }
+        }
     }
 
     public static void PlayerRespawned(Packet _packet)
