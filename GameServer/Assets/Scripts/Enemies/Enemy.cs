@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 {
     public static int maxEnemies = 10;
     public static Dictionary<int, Enemy> enemies = new Dictionary<int, Enemy>();
-    private static int nextEnemyId = 1;
+    private static int nextEnemyId = 0;
 
     public int id;
     public EnemyState state;
@@ -199,7 +199,7 @@ public class Enemy : MonoBehaviour
         if (navMeshaAgent != null) //navMeshaAgent.gameObject.GetComponent<NavMeshAgent>().enabled ||
         {
             navMeshaAgent.destination = target.transform.position;            
-            this.transform.rotation = Quaternion.LookRotation((navMeshaAgent.nextPosition - this.transform.position).normalized);
+            this.transform.rotation = Quaternion.LookRotation(navMeshaAgent.nextPosition - this.transform.position);
             ServerSend.EnemyPosition(this);
         }
 
