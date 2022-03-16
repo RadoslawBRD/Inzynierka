@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     public GameObject enemyTankPrefab;
     public GameObject offlinePlayer;
     public GameObject KillCount;
-    
+
+    private string currentMap;
     private void Awake()
     {
         if (instance == null)
@@ -118,7 +119,7 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            SceneManager.UnloadScene("Main");
+            SceneManager.UnloadScene(getCurrentMap());
         }
         catch { }
         try { players.Clear(); } catch { }
@@ -126,15 +127,12 @@ public class GameManager : MonoBehaviour
         try { itemSpawners.Clear(); } catch { }
         try { projectiles.Clear(); } catch { }
         //Destroy(gameObject);
-        try
-        {
-            SceneManager.LoadScene("Main",LoadSceneMode.Additive);
-        }
-        catch { }
+       
         Debug.Log("zamykanko");
     }
     public void ChangeMapClient(string _map)
     {
+        setCurrentMap(_map);
         switch (_map)
         {
             case "KillHouseMap":
@@ -164,6 +162,8 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+    public string getCurrentMap() { return currentMap; }
+    public void setCurrentMap(string _map) { currentMap = _map; }
     
 
 }

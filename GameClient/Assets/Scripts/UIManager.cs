@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class UIManager : MonoBehaviour
@@ -142,10 +143,23 @@ public class UIManager : MonoBehaviour
        // Client.instance.tcp.Disconnect();
        // Client.instance.udp.Disconnect();
         Client.instance.Disconnect();
+        Destroy(GameObject.Find("LocalPlayer(Clone)"));
+        foreach (GameObject ss in GameObject.FindGameObjectsWithTag("ItemSpawner"))
+            Destroy(ss);
+        Destroy(GameObject.Find("ItemSpawner(Clone)"));
+        //GameManager.instance.localPlayerPrefab = null;
         startMenu.SetActive(true);
         changeInGamePauseMenu();
         ToggleCoursorMode();
-        Camera.main.transform.position=new Vector3(0, 1, -10);
+        //Camera.main.transform.position=new Vector3(0, 1, -10);
+        try
+        {
+            SceneManager.UnloadScene(GameManager.instance.getCurrentMap());
+        }
+        catch
+        {
+            Debug.Log("Problem z usuwaniem sceny");
+        }
     }
 
     private void ToggleCoursorMode()
