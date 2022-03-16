@@ -232,7 +232,7 @@ public class ServerSend
             _packet.Write(_enemy.transform.position);
             _packet.Write(_enemy.transform.rotation);
             _packet.Write(_enemy.state.ToString());
-            SendUDPDataToAll(_packet);
+            SendTCPDataToAll(_packet);
         }
     }
     public static void EnemyHealth(Enemy _enemy)
@@ -280,7 +280,7 @@ public class ServerSend
     {
         using (Packet _packet = new Packet((int)ServerPackets.interactedWithItem))
         {
-            Debug.LogError("Player " + _fromClient + "reload ###########");
+            Debug.Log("Player " + _fromClient + "reload ###########");
             SendTCPDataToAll(_fromClient, _packet);
         }
     }
