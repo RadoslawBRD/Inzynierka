@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     public int id;
     public string username;
     public float health;
-    public float maxHealth;
+    public float maxHealth=100;
     public MeshRenderer model;
     public int itemCount = 0;
     public bool isMaster = false;
@@ -91,6 +91,10 @@ public class PlayerManager : MonoBehaviour
                 //UIManager.instance.playerHUD.SetActive(true);
             }
 
+
+    }
+    public void SetWeaponState()
+    {
 
     }
 }

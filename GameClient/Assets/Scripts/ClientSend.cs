@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ClientSend : MonoBehaviour
 {
-      private static void SendTCPData(Packet _packet)
-      {
+    private static void SendTCPData(Packet _packet)
+    {
         _packet.WriteLength();
         Client.instance.tcp.SendData(_packet);
 
-      }
+    }
 
     private static void SendUDPData(Packet _packet)
     {
@@ -21,7 +21,7 @@ public class ClientSend : MonoBehaviour
 
     public static void WelcomeRecived()
     {
-        using(Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
+        using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
         {
             _packet.Write(Client.instance.myId);
             _packet.Write(UIManager.instance.usernameField.text);
@@ -35,9 +35,9 @@ public class ClientSend : MonoBehaviour
         using (Packet _packet = new Packet((int)ClientPackets.playerMovement))
         {
             _packet.Write(_inputs.Length);
-            foreach(bool _input in _inputs)
+            foreach (bool _input in _inputs)
             {
-                _packet.Write(_input);                
+                _packet.Write(_input);
             }
             _packet.Write(GameManager.players[Client.instance.myId].transform.rotation);
             _packet.Write(_type);
@@ -67,11 +67,11 @@ public class ClientSend : MonoBehaviour
     }
     public static void PlayerSentCommand(string _commandId, string? _parameter)
     {
-        int _numberOfStrings=1;
+        int _numberOfStrings = 1;
         using (Packet _packet = new Packet((int)ClientPackets.playerSentCommand))
         {
             _numberOfStrings++;
-            if(!(_parameter is null))
+            if (!(_parameter is null))
                 _numberOfStrings++;
 
             _packet.Write(_numberOfStrings);
@@ -91,6 +91,14 @@ public class ClientSend : MonoBehaviour
         using (Packet _packet = new Packet((int)ClientPackets.interactWithItem))
         {
             _packet.Write(_facing);
+            SendTCPData(_packet);
+        }
+    }
+    public static void PlayerSendReload()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerSendReload))
+        {
+            _packet.Write(Client.instance.myId);
             SendTCPData(_packet);
         }
     }

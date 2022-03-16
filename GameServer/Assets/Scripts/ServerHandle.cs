@@ -84,5 +84,11 @@ public class ServerHandle
 
         Server.clients[_fromClient].player.InteractWithObject(_shootDirection);
     }
+    public static void PlayerSendReload(int _fromClient, Packet _packet)
+    {
+        
+        ServerSend.ThisPlayerSendReload(_packet.ReadInt());
+    }
+
 }
 
