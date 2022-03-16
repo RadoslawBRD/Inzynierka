@@ -229,10 +229,17 @@ public class Client : MonoBehaviour
 
         public void Connect( int _localPort, string _currentScene)
         {
+            GameManager.instance.setCurrentMap(_currentScene);
             SceneManager.LoadScene(_currentScene, LoadSceneMode.Additive);
-            GameObject.Find("main Camera").SetActive(false);
-            socket = new UdpClient(_localPort);
-
+            GameObject.Find("main Camera").GetComponent<Camera>().enabled = true;
+            try
+            {
+                socket = new UdpClient(_localPort);
+            }
+            catch
+            {
+                Debug.LogWarning("Błąd portu, bo unity jest upośledzone, musisz resnąc kompa");
+            }
             socket.Connect(endpoint);
             socket.BeginReceive(ReciveCallback, null);
 
@@ -323,7 +330,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.projectileExploded, ClientHandle.ProjectileExplode},
             { (int)ServerPackets.spawnEnemy, ClientHandle.SpawnEnemy},
             { (int)ServerPackets.enemyPosition, ClientHandle.EnemyPosition},
-            { (int)ServerPackets.enemyHealth, ClientHandle.EnemyHealht},
+            { (int)ServerPackets.enemyHealth, ClientHandle.EnemyHealth},
             { (int)ServerPackets.playerMoney, ClientHandle.SetPlayerMoney},
             { (int)ServerPackets.killtargetupdate, ClientHandle.KillTargetUpdate},
             { (int)ServerPackets.interactedWithItem, ClientHandle.InteractedWithItem},

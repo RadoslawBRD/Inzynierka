@@ -167,35 +167,47 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rotation = _packet.ReadQuaternion();
         string state = _packet.ReadString();
         if (GameManager.enemies.TryGetValue(enemyId, out EnemyManager _enemy)) {
-            _enemy.transform.position = _position;
-            _enemy.transform.rotation = _rotation;
-            switch (state)
-            {
-                case "idle":
-                    _enemy.SetState(EnemyState.idle);
-                    break;
-                case "patrol":
-                    _enemy.SetState(EnemyState.patrol);
-                    break;
-                case "chase":
-                    _enemy.SetState(EnemyState.chase);
-                    break;
-                case "attack":
-                    _enemy.SetState(EnemyState.attack);
-                    break;
-                default:
-                    _enemy.SetState(EnemyState.idle);
-                    break;
+            try {
+                _enemy.transform.position = _position;
+                _enemy.transform.rotation = _rotation;
+                switch (state)
+                {
+                    case "idle":
+                        _enemy.SetState(EnemyState.idle);
+                        break;
+                    case "patrol":
+                        _enemy.SetState(EnemyState.patrol);
+                        break;
+                    case "chase":
+                        _enemy.SetState(EnemyState.chase);
+                        break;
+                    case "attack":
+                        _enemy.SetState(EnemyState.attack);
+                        break;
+                    default:
+                        _enemy.SetState(EnemyState.idle);
+                        break;
+                }
+
             }
-            
-        }   
+            catch
+            {
+                Debug.LogWarning("Tried to access Enemy manager but it's destroyed");
+            }
+            }
     }
-    public static void EnemyHealht(Packet _packet)
+    public static void EnemyHealth(Packet _packet)
     {
         int _enemyId = _packet.ReadInt();
         float _health = _packet.ReadFloat();
-
-        GameManager.enemies[_enemyId].SetHealth(_health);
+        try
+        {
+            GameManager.enemies[_enemyId].SetHealth(_health);
+        }
+        catch
+        {
+            Debug.Log("Not given directory");
+        }
     }
     public static void SetPlayerMoney(Packet _packet)
     {
