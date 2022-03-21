@@ -170,6 +170,7 @@ public class ClientHandle : MonoBehaviour
             try {
                 _enemy.transform.position = _position;
                 _enemy.transform.rotation = _rotation;
+                //TODO: zoombie ma randomowy obrót
                 switch (state)
                 {
                     case "idle":
