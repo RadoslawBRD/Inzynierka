@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
 
     public string typzombie;
 
+    private Vector2 _randomPatrolDirection= new Vector2(0,0);
     private bool isPatrolRoutineRunning;
     private float yVelocity = 0;
     protected virtual void Start()
@@ -87,6 +88,7 @@ public class Enemy : MonoBehaviour
 
                 break;
         }
+        this.transform.rotation = Quaternion.LookRotation(_randomPatrolDirection, transform.position);
     }
 
     private bool LookForPlayer()
@@ -133,7 +135,8 @@ public class Enemy : MonoBehaviour
     private IEnumerator StartPatrol()
     {
         isPatrolRoutineRunning = true;
-        Vector2 _randomPatrolDirection = Random.insideUnitCircle.normalized;
+        _randomPatrolDirection = Random.insideUnitCircle.normalized;
+        //navMeshaAgent.nextPosition = _randomPatrolDirection;
         transform.forward = new Vector3(_randomPatrolDirection.x, 0f, _randomPatrolDirection.y);
 
         yield return new WaitForSeconds(patrolDuration);
@@ -198,9 +201,11 @@ public class Enemy : MonoBehaviour
     {
         if (navMeshaAgent != null) //navMeshaAgent.gameObject.GetComponent<NavMeshAgent>().enabled ||
         {
-            navMeshaAgent.destination = target.transform.position;            
+            navMeshaAgent.destination = target.transform.position;
             this.transform.rotation = Quaternion.LookRotation(navMeshaAgent.nextPosition - this.transform.position);
+            //this.transform.rotation = Quaternion.LookRotation(navMeshaAgent.nextPosition);//- this.transform.position);
             ServerSend.EnemyPosition(this);
+            //TODO: zoombie ma randomowy obrót
         }
 
     }
