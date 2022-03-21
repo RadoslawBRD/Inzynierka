@@ -85,7 +85,8 @@ public class PlayerManager : MonoBehaviour
     public void Respawn(bool _master)
     {
         model.enabled = true;
-        SetHealth(maxHealth, id);
+        RevertInventory();
+
         if (_master)
             {
                 UIManager.instance.setMasterUI();
@@ -104,5 +105,13 @@ public class PlayerManager : MonoBehaviour
     public void SetWeaponState()
     {
 
+    }
+    public void RevertInventory()
+    {
+        SetHealth(maxHealth, id);
+        MoneyCount.instance.setMoney(0);
+        BulletsCount.instance.setCurrentBulets(30);
+        BulletsCount.instance.setMaxBulets(0);
+        GranadeCount.instance.setGranadeAmount(-100);
     }
 }

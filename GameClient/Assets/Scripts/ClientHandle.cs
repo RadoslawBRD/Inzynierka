@@ -85,7 +85,7 @@ public class ClientHandle : MonoBehaviour
         //TODO: reset ekwipunku
         
         MoneyCount.instance.setMoney(0);         
-        BulletsCount.instance.setCurrentBulets(0);
+        BulletsCount.instance.setCurrentBulets(30);
         BulletsCount.instance.setMaxBulets(0);
         
 

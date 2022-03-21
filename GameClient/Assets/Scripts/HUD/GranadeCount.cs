@@ -29,6 +29,8 @@ public class GranadeCount : MonoBehaviour
     {
         if(currentGranade > 0 || _value > 0)
             currentGranade += _value;
+        if (_value == -100) //usuwa wszystkie granaty
+            currentGranade = 0;
         updateGranadeCount(currentGranade);
     }
     public void updateGranadeCount(int _count)
