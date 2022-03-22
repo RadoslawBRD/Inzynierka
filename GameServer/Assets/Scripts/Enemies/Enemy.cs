@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour
 
                 break;
         }
-        this.transform.rotation = Quaternion.LookRotation(_randomPatrolDirection, transform.position);
+        //this.transform.rotation = Quaternion.LookRotation(_randomPatrolDirection, transform.position);
     }
 
     private bool LookForPlayer()
@@ -138,7 +138,7 @@ public class Enemy : MonoBehaviour
         _randomPatrolDirection = Random.insideUnitCircle.normalized;
         _randomPatrolDirection = Random.insideUnitCircle.normalized;
         //navMeshaAgent.nextPosition = _randomPatrolDirection;
-        transform.forward = new Vector3(_randomPatrolDirection.x, 0f, _randomPatrolDirection.y);
+       // transform.forward = new Vector3(_randomPatrolDirection.x, 0f, _randomPatrolDirection.y);
 
         yield return new WaitForSeconds(patrolDuration);
 
@@ -162,7 +162,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                //Move(_enemyToPlayer, chaseSpeed);
+                //Move(_enemyToPlayer,  chaseSpeed);
                 //navMeshaAgent.destination = target.transform.position;
                 //MoveNav();
                 NewMove("Chase", target.transform.position, chaseSpeed);
@@ -172,7 +172,8 @@ public class Enemy : MonoBehaviour
         else
         {
             target = null;
-            state = EnemyState.patrol;
+            if(navMeshaAgent.remainingDistance < .5f)              
+                state = EnemyState.patrol;
         }
     }
 
@@ -216,31 +217,63 @@ public class Enemy : MonoBehaviour
     private Vector3 PatrolRandomTarget()
     {
         NavMeshHit navHit;
-        NavMesh.SamplePosition(this.transform.position, out navHit, 5f, -1);
+        Vector3 randomDirection = Random.insideUnitSphere * 5f;
+        NavMesh.SamplePosition(randomDirection+=this.transform.position, out navHit, 5f, -1);
+        Debug.Log("Szukam");
         return navHit.position;
+        
     }
     protected void NewMove(string _mode, Vector3? _target, float _speed)
     {
-        switch (_mode)
-        {
-            case "Patrol":
-                navMeshaAgent.speed = (float)_speed;
-                navMeshaAgent.destination = PatrolRandomTarget();
-                this.transform.rotation = Quaternion.LookRotation((Vector3)(_target - transform.position));
-                break;
-            case "Chase":
-                navMeshaAgent.speed = (float)_speed;
-                navMeshaAgent.destination = (Vector3)_target;
-                this.transform.rotation = Quaternion.LookRotation(navMeshaAgent.nextPosition - this.transform.position);
-                break;
-            case "Idle":
-                break;
+        if (navMeshaAgent != null)
+            switch (_mode)
+            {
+                case "Patrol":
+                        if (navMeshaAgent.remainingDistance < .1f)
+                        {
+                            float baseAnimationSpeed = animator.speed;
+                            animator.speed = .6f;
+                            navMeshaAgent.speed = 1f;
+                            Vector3 destinationWalk = PatrolRandomTarget();
+                            Vector3 walkDirection = navMeshaAgent.destination - transform.position;
+                            this.transform.rotation = Quaternion.LookRotation(walkDirection);
+                            navMeshaAgent.destination = destinationWalk;
+                            Debug.DrawRay(transform.position, walkDirection, Color.red);
+                            animator.speed = baseAnimationSpeed;
+                        }
+                        break;
+                case "Chase":
+                        if (navMeshaAgent.remainingDistance < 500.1f)
+                        {
+                        navMeshaAgent.speed = 5.2f;
+                            
+                        Vector3 walkDirection = (Vector3)(_target - transform.position);
+                        this.transform.rotation = Quaternion.LookRotation(walkDirection);
+                        navMeshaAgent.destination = (Vector3)_target;
+                        Debug.DrawRay(transform.position, walkDirection, Color.red);
+                        DrawPath();
+                        ServerSend.EnemyPosition(this);
+                    }
+                    break;
+                    case "Idle":
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+
+            }
+        ServerSend.EnemyPosition(this);
+    }
+    private void DrawPath()
+    {
+        NavMeshPath path = navMeshaAgent.path;
+        Vector3 prevX = transform.position;
+        foreach (Vector3 x in path.corners){
+
+            Debug.DrawRay(prevX, x, Color.red, 1f);
+            prevX = x;
 
         }
-        ServerSend.EnemyPosition(this);
     }
     protected void Move(Vector3 _direction, float _speed)
     {
