@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -61,7 +62,7 @@ public class ClientHandle : MonoBehaviour
         float _health = _packet.ReadFloat();
 
         GameManager.players[_id].SetHealth(_health, _id);
-        if(_health <=1000)
+        if(_health <=-1000)
         {
             EnemyManager[] enemyInScene = FindObjectsOfType<EnemyManager>();
             foreach(EnemyManager x in enemyInScene)
@@ -169,6 +170,7 @@ public class ClientHandle : MonoBehaviour
         if (GameManager.enemies.TryGetValue(enemyId, out EnemyManager _enemy)) {
             try {
                 _enemy.transform.position = _position;
+                _rotation.z = 0;
                 _enemy.transform.rotation = _rotation;
                 //TODO: zoombie ma randomowy obrót
                 switch (state)
@@ -191,9 +193,9 @@ public class ClientHandle : MonoBehaviour
                 }
 
             }
-            catch
+            catch(Exception e)
             {
-                Debug.LogWarning("Tried to access Enemy manager but it's destroyed");
+                Debug.LogWarning("Tried to access Enemy manager but it's destroyed or "+ e.ToString());
             }
             }
     }
