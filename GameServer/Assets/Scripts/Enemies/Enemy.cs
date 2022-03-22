@@ -128,13 +128,14 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(StartPatrol());
         }
-
-        Move(transform.forward, patrolSpeed);
+        NewMove("Patrol",null,patrolSpeed);
+        //Move(transform.forward, patrolSpeed);
     }
 
     private IEnumerator StartPatrol()
     {
         isPatrolRoutineRunning = true;
+        _randomPatrolDirection = Random.insideUnitCircle.normalized;
         _randomPatrolDirection = Random.insideUnitCircle.normalized;
         //navMeshaAgent.nextPosition = _randomPatrolDirection;
         transform.forward = new Vector3(_randomPatrolDirection.x, 0f, _randomPatrolDirection.y);
@@ -163,7 +164,8 @@ public class Enemy : MonoBehaviour
             {
                 //Move(_enemyToPlayer, chaseSpeed);
                 //navMeshaAgent.destination = target.transform.position;
-                MoveNav();
+                //MoveNav();
+                NewMove("Chase", target.transform.position, chaseSpeed);
 
             }
         }
@@ -187,7 +189,9 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                MoveNav();
+                NewMove("Chase", target.transform.position, chaseSpeed);
+
+                //MoveNav();
                 //Move(_enemyToPlayer, chaseSpeed);
             }
         }
@@ -208,6 +212,35 @@ public class Enemy : MonoBehaviour
             //TODO: zoombie ma randomowy obrót
         }
 
+    }
+    private Vector3 PatrolRandomTarget()
+    {
+        NavMeshHit navHit;
+        NavMesh.SamplePosition(this.transform.position, out navHit, 5f, -1);
+        return navHit.position;
+    }
+    protected void NewMove(string _mode, Vector3? _target, float _speed)
+    {
+        switch (_mode)
+        {
+            case "Patrol":
+                navMeshaAgent.speed = (float)_speed;
+                navMeshaAgent.destination = PatrolRandomTarget();
+                this.transform.rotation = Quaternion.LookRotation((Vector3)(_target - transform.position));
+                break;
+            case "Chase":
+                navMeshaAgent.speed = (float)_speed;
+                navMeshaAgent.destination = (Vector3)_target;
+                this.transform.rotation = Quaternion.LookRotation(navMeshaAgent.nextPosition - this.transform.position);
+                break;
+            case "Idle":
+                break;
+
+            default:
+                break;
+
+        }
+        ServerSend.EnemyPosition(this);
     }
     protected void Move(Vector3 _direction, float _speed)
     {

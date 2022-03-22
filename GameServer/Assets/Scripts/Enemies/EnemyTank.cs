@@ -46,7 +46,9 @@ public class EnemyTank : Enemy
                 }
                 else
                 {
-                    Move(_enemyToPlayer, chaseSpeed);
+                NewMove("Chase", _enemyToPlayer, chaseSpeed);
+
+                //Move(_enemyToPlayer, chaseSpeed);
                 }
         }
         else
@@ -76,7 +78,9 @@ public class EnemyTank : Enemy
             }
             else
             {
-                Move(_enemyToPlayer, chaseSpeed);
+                NewMove("Chase", _enemyToPlayer, chaseSpeed);
+
+                //Move(_enemyToPlayer, chaseSpeed);
             }
         }
         else
