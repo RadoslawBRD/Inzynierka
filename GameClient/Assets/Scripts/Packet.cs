@@ -27,7 +27,8 @@ public enum ServerPackets
     killtargetupdate,
     interactedWithItem,
     thisPlayerSendReload,
-    changeMap
+    changeMap,
+    setMaster
 
 
 

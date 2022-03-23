@@ -110,10 +110,22 @@ public class UIManager : MonoBehaviour
         masterHUD.SetActive(false);
         playerHUD.SetActive(true);
     }
-    public void setMasterUI()
+    public void setMasterUI(bool _value, int _id)
     {
-        masterHUD.SetActive(true);
-        playerHUD.SetActive(false);
+        if (_value)
+        {
+            playerHUD.SetActive(false);
+            masterHUD.SetActive(true);
+            GameManager.players[_id].ChangeVisibilityOfWeapon(_value);
+        }
+        else
+        {
+            masterHUD.SetActive(false);
+            playerHUD.SetActive(true);
+            GameManager.players[_id].ChangeVisibilityOfWeapon(_value);
+
+        }
+
         //UIManager.instance.masterHUD.SetActive(true);
         //UIManager.instance.playerHUD.SetActive(false);
     }

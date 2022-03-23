@@ -49,10 +49,12 @@ public class Player : MonoBehaviour
         if (value)
         {
             gameObject.tag = "Master";
+            ServerSend.SetMaster(id,true);
         }
         else
         {
             gameObject.tag = "Player";
+            ServerSend.SetMaster(id, false);
         }
     }
     public void Initialize(int _id, string _username)
@@ -260,7 +262,7 @@ public class Player : MonoBehaviour
 
         health = maxHealth;
         controller.enabled = true;
-        ServerSend.PlayerRespawned(this, isMaster);
+        ServerSend.PlayerRespawned(this);
 
     }
     public bool AttemptPickupItem()

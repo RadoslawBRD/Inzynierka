@@ -75,16 +75,9 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerRespawned(Packet _packet)
     {
         int _id = _packet.ReadInt();
-        bool _isMaster = _packet.ReadBool();
-        if (_isMaster)
-            {
-                GameManager.players[_id].isMaster = _isMaster;
-                GameManager.players[_id].gameObject.tag = "Master";
-            }
-        
-        GameManager.players[_id].Respawn(_isMaster);
+        GameManager.players[_id].Respawn();
         //TODO: reset ekwipunku
-        
+
         MoneyCount.instance.setMoney(0);         
         BulletsCount.instance.setCurrentBulets(30);
         BulletsCount.instance.setMaxBulets(0);
@@ -224,7 +217,12 @@ public class ClientHandle : MonoBehaviour
     {
         int _killValue = _packet.ReadInt();
         int _killTargetValue = _packet.ReadInt();
-        KillCount.instance.SetKillCount(_killValue, _killTargetValue);
+        try
+        {
+            KillCount.instance.SetKillCount(_killValue, _killTargetValue);
+        }
+        catch { }
+
     }
     public static void InteractedWithItem(Packet _packet)
     {
@@ -253,6 +251,18 @@ public class ClientHandle : MonoBehaviour
         string _map = _packet.ReadString();
         GameManager.instance.ChangeMapClient(_map);
         Debug.Log("Zmieniam mape na: " + _map);
+
+    }
+    public static void SetMaster(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        bool _isMaster = _packet.ReadBool();
+        GameManager.players[_id].isMaster = _isMaster;
+        if(_isMaster)
+            GameManager.players[_id].gameObject.tag = "Master";
+        else
+            GameManager.players[_id].gameObject.tag = "Player";
+
 
     }
 

@@ -28,7 +28,8 @@ public enum ServerPackets { // wysy³ane do playerów
     killtargetupdate,
     interactedWithItem,
     thisPlayerSendReload,
-    changeMap
+    changeMap,
+    setMaster
 
 
 }
