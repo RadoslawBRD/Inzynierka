@@ -7,7 +7,7 @@ public class MoneyCount : MonoBehaviour
 {
     public static MoneyCount instance;
 
-    public int currentMoney;
+    public int currentMoney =30;
     public Text moneyDisplay;
 
 

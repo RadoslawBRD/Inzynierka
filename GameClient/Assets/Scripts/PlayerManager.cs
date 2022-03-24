@@ -43,6 +43,14 @@ public class PlayerManager : MonoBehaviour
         if(_id==Client.instance.myId)
             HealthCount.instance.SetHealth(health);
     }
+    public void Update()
+    {
+        if (isMaster)
+            UIManager.instance.setMasterUI(isMaster, id);
+        else
+            UIManager.instance.setMasterUI(isMaster, id);
+
+    }
     public void Die()
     {
         //StartCoroutine(createFloatingNickname());
@@ -74,27 +82,42 @@ public class PlayerManager : MonoBehaviour
     {
         FloatingNickname.instance.Destroy();
      }
-    public void Respawn(bool _master)
+    public void Respawn()
     {
         model.enabled = true;
-        SetHealth(maxHealth, id);
+        RevertInventory();
+/*
         if (_master)
             {
-                UIManager.instance.setMasterUI();
+                UIManager.instance.setMasterUI(_master);
                 //UIManager.instance.masterHUD.SetActive(true);
                 //UIManager.instance.playerHUD.SetActive(false);
             }
             else
             {
-                UIManager.instance.setPlayerUI();
+                UIManager.instance.setMasterUI(_master);
                 //UIManager.instance.masterHUD.SetActive(false);
                 //UIManager.instance.playerHUD.SetActive(true);
-            }
+            }*/
 
 
     }
     public void SetWeaponState()
     {
+
+    }
+    public void RevertInventory()
+    {
+        SetHealth(maxHealth, id);
+        MoneyCount.instance.setMoney(30);
+        BulletsCount.instance.setCurrentBulets(30);
+        BulletsCount.instance.setMaxBulets(0);
+        GranadeCount.instance.setGranadeAmount(-100);
+    }
+    public void ChangeVisibilityOfWeapon(bool _value)
+    {
+        foreach (SkinnedMeshRenderer x in gameObject.GetComponentsInChildren<SkinnedMeshRenderer>())
+            x.enabled = !_value;
 
     }
 }

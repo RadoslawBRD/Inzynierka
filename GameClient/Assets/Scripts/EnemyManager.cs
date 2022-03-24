@@ -27,7 +27,15 @@ public class EnemyManager : MonoBehaviour
         if (health <= 0)
         {
             GameManager.enemies.Remove(id);
-            Destroy(gameObject);
+            try
+            {
+                Destroy(gameObject.GetComponent<GameObject>());
+                Destroy(gameObject);
+            }
+            catch
+            {
+                Debug.Log("Problem przy zabijaniu zombie");
+            }
         }
     }
     public void SetState(EnemyState _state)

@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.BackQuote)|| Input.GetKeyDown(KeyCode.Tilde))
         {
+            Debug.Log("KONSOLE OTWIERAM####################");
             DebugConsole.instance.OpenCloseConsole();
         }
         if (Input.GetKeyDown(KeyCode.Escape))

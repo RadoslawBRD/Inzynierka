@@ -24,7 +24,7 @@ public class DebugConsole : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.KeypadEnter))
         {
-            Debug.Log($"czytam komende{input}");
+            //Debug.Log($"czytam komende {input}");
 
             HandleInput();
             input = "";
@@ -95,12 +95,12 @@ public class DebugConsole : MonoBehaviour
     private void HandleInput()
     {
         string[] properties = input.Split(' ');
-
+        Debug.Log("czytam: " + properties.ToString()); ;
         for (int i = 0; i < commandList.Count; i++)
         {
             DebugCommandBase commandBase = commandList[i] as DebugCommandBase;
 
-            if(input.Equals(commandBase.commandId))
+            if(properties[0].Equals(commandBase.commandId))
             {
                 if (commandList[i] as DebugCommand != null)
                 {

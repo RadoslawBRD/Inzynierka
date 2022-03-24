@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
 public class NetworkManager : MonoBehaviour
 {
     public static NetworkManager instance;
@@ -10,16 +9,13 @@ public class NetworkManager : MonoBehaviour
     public GameObject enemyTankPrefab;
     public GameObject playerSimpleGranadePrefab;
     public GameObject enemyStonePrefab;
-    public string currrentScene = "KillHouseMap"; //domyœlna scena to kill house
+    private string currrentScene = "KillHouseMap"; // domyœlna   StadiumMap   KillHouseMap
 
-    private AssetBundle myLoadedAssetBundle;
-    private string[] scenePaths;
-    
     private void Awake()
     {
         if (instance == null)
             instance = this;
-        else if (instance != this)
+        else if (instance != this) 
         {
             Debug.Log("instance already exists, destroying object!");
             Destroy(this);
@@ -42,7 +38,13 @@ public class NetworkManager : MonoBehaviour
     }
     public Player InstantiatePlayer()
     {
-        return Instantiate(playerPrefab, new Vector3(14f, 10f, -25f), Quaternion.identity).GetComponent<Player>(); //zwraca referencje do playera / miejsce spawnu gracza
+        if (NetworkManager.instance.getCurrentScene().ToString() == "KillHouseMap")//nazwa mapy to killhouse
+            return Instantiate(playerPrefab, new Vector3(20f, 10f, -30f), Quaternion.identity).GetComponent<Player>(); //zwraca referencje do playera / miejsce spawnu gracza
+        else
+         //nazwa mapy to Stadium
+            return Instantiate(playerPrefab, new Vector3(-28f, 7f, 33f), Quaternion.identity).GetComponent<Player>(); //zwraca referencje do playera / miejsce spawnu gracza
+                                                                                                                      //miejsce spawnu gracza
+        
     }
 
     public ProjectileBase InstantiateProjectile(Transform _shootOrigin, string _type)
@@ -80,15 +82,16 @@ public class NetworkManager : MonoBehaviour
     }
     public void Set_map(string _map)
     {
-        
-        
+
         switch (_map)
         {
             case "KillHouseMap":
                 try
                 {
-                    SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
+                    currrentScene = "KillHouseMap";
                     SceneManager.UnloadScene("StadiumMap");
+                    SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
+                    
                 }
                 catch { }
                 SceneManager.LoadScene("KillHouseMap", LoadSceneMode.Additive);
@@ -96,6 +99,8 @@ public class NetworkManager : MonoBehaviour
             case "StadiumMap":
                 try
                 {
+                    currrentScene = "StadiumMap";
+
                     SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
                     SceneManager.UnloadScene("StadiumMap");
                 }
@@ -106,6 +111,12 @@ public class NetworkManager : MonoBehaviour
             default:
                 break;
         }
+        GameManager.instance.runRestartGame(0.1f);
+
+    }
+    public string getCurrentScene()
+    {
+        return currrentScene;
     }
 
 }
