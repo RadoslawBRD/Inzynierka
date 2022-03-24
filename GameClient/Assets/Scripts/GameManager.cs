@@ -152,7 +152,10 @@ public class GameManager : MonoBehaviour
                     //currrentScene = "StadiumMap";
 
                     SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
+
                     SceneManager.UnloadScene("StadiumMap");
+                    GameObject.Find("Main Camera").GetComponent<Camera>().enabled = false;
+                    GameObject.Find("Main Camera").GetComponent<Camera>().enabled = true;
                 }
                 catch { }
 
