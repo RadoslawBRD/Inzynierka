@@ -161,6 +161,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkelMesh_Bodyguard_03
       objectReference: {fileID: 0}
+    - target: {fileID: 100154, guid: 6996385895b383749b266464bf872c69, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400154, guid: 6996385895b383749b266464bf872c69, type: 3}
       propertyPath: m_RootOrder
       value: 1
