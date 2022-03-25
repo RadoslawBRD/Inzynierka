@@ -30,7 +30,7 @@ public class AmmoBoxHint : MonoBehaviour
         //GameObject.Find("HintWindow").SetActive(true);
         hint.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
        // GameObject.Find("HintWindow").SetActive(false);
 
         hint.SetActive(false);
