@@ -138,6 +138,14 @@ public class GameManager : MonoBehaviour
             case "KillHouseMap":
                 try
                 {
+                    foreach(GameObject x in GameObject.FindGameObjectsWithTag("ItemSpawner"))
+                    {
+                        Destroy(x);
+                    }
+                }
+                catch { }
+                try
+                {
                     //currrentScene = "KillHouseMap";
                     SceneManager.UnloadScene("StadiumMap");
                     SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
@@ -147,6 +155,14 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("KillHouseMap", LoadSceneMode.Additive);
                 break;
             case "StadiumMap":
+                try
+                {
+                    foreach (GameObject x in GameObject.FindGameObjectsWithTag("ItemSpawner"))
+                    {
+                        Destroy(x);
+                    }
+                }
+                catch { }
                 try
                 {
                     //currrentScene = "StadiumMap";
