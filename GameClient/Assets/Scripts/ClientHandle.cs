@@ -258,10 +258,26 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         bool _isMaster = _packet.ReadBool();
         GameManager.players[_id].isMaster = _isMaster;
-        if(_isMaster)
+        if (_isMaster)
+        {
             GameManager.players[_id].gameObject.tag = "Master";
+            foreach(SkinnedMeshRenderer x in GameObject.FindGameObjectWithTag("Master").GetComponents<SkinnedMeshRenderer>())
+              x.enabled = false;
+
+        }
         else
-            GameManager.players[_id].gameObject.tag = "Player";
+        {
+            try
+            {
+                foreach (SkinnedMeshRenderer x in GameObject.FindGameObjectWithTag("Master").GetComponents<SkinnedMeshRenderer>())
+                    x.enabled = true;
+                GameManager.players[_id].gameObject.tag = "Player";
+            }
+            catch
+            {
+                Debug.Log("There is no master");
+            }
+        }
 
 
     }
