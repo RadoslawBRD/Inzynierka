@@ -86,6 +86,21 @@ public class PlayerManager : MonoBehaviour
     {
         model.enabled = true;
         RevertInventory();
+/*
+        if (_master)
+            {
+                UIManager.instance.setMasterUI(_master);
+                //UIManager.instance.masterHUD.SetActive(true);
+                //UIManager.instance.playerHUD.SetActive(false);
+            }
+            else
+            {
+                UIManager.instance.setMasterUI(_master);
+                //UIManager.instance.masterHUD.SetActive(false);
+                //UIManager.instance.playerHUD.SetActive(true);
+            }*/
+
+
     }
     public void SetWeaponState()
     {
