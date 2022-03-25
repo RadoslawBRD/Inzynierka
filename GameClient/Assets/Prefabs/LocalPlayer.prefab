@@ -260,7 +260,7 @@ MonoBehaviour:
   model: {fileID: 7099239633810417850}
   itemCount: 0
   isMaster: 0
-  moneyCount: 0
+  moneyCount: 30
 --- !u!114 &303041162050151390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +288,11 @@ PrefabInstance:
       objectReference: {fileID: 59923951027551640, guid: 73ec04e2bfe985f40b39e56c89c7e6b6, type: 3}
     - target: {fileID: 46925486000866484, guid: 73ec04e2bfe985f40b39e56c89c7e6b6, type: 3}
       propertyPath: bulletsCurrent
-      value: 5
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 59923951027551620, guid: 73ec04e2bfe985f40b39e56c89c7e6b6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 59923951027551640, guid: 73ec04e2bfe985f40b39e56c89c7e6b6, type: 3}
       propertyPath: m_Name

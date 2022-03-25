@@ -67,7 +67,7 @@ public class ProjectileBase : MonoBehaviour
             {
                 float dist = Vector3.Distance(_collider.gameObject.transform.position, transform.position);
 
-                _collider.GetComponent<Enemy>().TakeDamage(explosionDamage * (1 * explosionDamage / dist));
+                _collider.GetComponentInParent<Enemy>().TakeDamage(explosionDamage * (1 * explosionDamage / dist));
             }
 
         }

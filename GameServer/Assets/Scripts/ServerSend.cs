@@ -120,12 +120,11 @@ public class ServerSend
             
         }
     }
-    public static void PlayerRespawned(Player player, bool _isMaster) 
+    public static void PlayerRespawned(Player player) 
     {
         using (Packet _packet = new Packet((int)ServerPackets.playerRespawn))
         {
             _packet.Write(player.id);
-            _packet.Write(_isMaster);
             SendTCPDataToAll(_packet);
 
         }
@@ -143,6 +142,10 @@ public class ServerSend
             SendTCPData(_toClient, _packet);
 
         }
+    }
+    public static void DestroyItemSpawner()
+    {
+
     }
     public static void ItemSpawned(int _spawnerId)
     {
@@ -228,7 +231,7 @@ public class ServerSend
             _packet.Write(_enemy.transform.position);
             _packet.Write(_enemy.transform.rotation);
             _packet.Write(_enemy.state.ToString());
-            SendUDPDataToAll(_packet);
+            SendTCPDataToAll(_packet);
         }
     }
     public static void EnemyHealth(Enemy _enemy)
@@ -276,10 +279,29 @@ public class ServerSend
     {
         using (Packet _packet = new Packet((int)ServerPackets.interactedWithItem))
         {
-            Debug.LogError("Player " + _fromClient + "reload ###########");
+            Debug.Log("Player " + _fromClient + "reload ###########");
             SendTCPDataToAll(_fromClient, _packet);
         }
     }
-    
+
+    public static void ChangeMap(string _map)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.changeMap))
+        {
+            _packet.Write(_map);
+            SendTCPDataToAll(_packet);
+        }
+    }
+    public static void SetMaster(int _id, bool _value)
+    {
+        using (Packet _packet = new Packet((int)ServerPackets.setMaster))
+        {
+            _packet.Write(_id);
+            _packet.Write(_value);
+            SendTCPDataToAll(_packet);
+        }
+    }
+
+
 
 }

@@ -20,7 +20,9 @@ public class GameManager : MonoBehaviour
     public GameObject enemyBasicPrefab;
     public GameObject enemyTankPrefab;
     public GameObject offlinePlayer;
-    
+    public GameObject KillCount;
+
+    private string currentMap;
     private void Awake()
     {
         if (instance == null)
@@ -117,7 +119,7 @@ public class GameManager : MonoBehaviour
     {
         try
         {
-            SceneManager.UnloadScene("Main");
+            SceneManager.UnloadScene(getCurrentMap());
         }
         catch { }
         try { players.Clear(); } catch { }
@@ -125,13 +127,44 @@ public class GameManager : MonoBehaviour
         try { itemSpawners.Clear(); } catch { }
         try { projectiles.Clear(); } catch { }
         //Destroy(gameObject);
-        try
-        {
-            SceneManager.LoadScene("Main",LoadSceneMode.Additive);
-        }
-        catch { }
+       
         Debug.Log("zamykanko");
     }
+    public void ChangeMapClient(string _map)
+    {
+        setCurrentMap(_map);
+        switch (_map)
+        {
+            case "KillHouseMap":
+                try
+                {
+                    //currrentScene = "KillHouseMap";
+                    SceneManager.UnloadScene("StadiumMap");
+                    SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
+
+                }
+                catch { }
+                SceneManager.LoadScene("KillHouseMap", LoadSceneMode.Additive);
+                break;
+            case "StadiumMap":
+                try
+                {
+                    //currrentScene = "StadiumMap";
+
+                    SceneManager.UnloadScene("KillHouseMap"); //TODO: zmieniæ na UnloadSceneAsync jak przygotujemy loading screen
+                    SceneManager.UnloadScene("StadiumMap");
+                }
+                catch { }
+
+                SceneManager.LoadScene("StadiumMap", LoadSceneMode.Additive);
+                break;
+            default:
+                break;
+        }
+    }
+    public string getCurrentMap() { return currentMap; }
+    public void setCurrentMap(string _map) { currentMap = _map; }
+    
 
 }
 

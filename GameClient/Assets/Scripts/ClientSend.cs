@@ -32,17 +32,24 @@ public class ClientSend : MonoBehaviour
 
     public static void PlayerMovement(bool[] _inputs, string _type)
     {
-        using (Packet _packet = new Packet((int)ClientPackets.playerMovement))
+        try
         {
-            _packet.Write(_inputs.Length);
-            foreach (bool _input in _inputs)
+            using (Packet _packet = new Packet((int)ClientPackets.playerMovement))
             {
-                _packet.Write(_input);
-            }
-            _packet.Write(GameManager.players[Client.instance.myId].transform.rotation);
-            _packet.Write(_type);
+                _packet.Write(_inputs.Length);
+                foreach (bool _input in _inputs)
+                {
+                    _packet.Write(_input);
+                }
+                _packet.Write(GameManager.players[Client.instance.myId].transform.rotation);
+                _packet.Write(_type);
 
-            SendUDPData(_packet);//wysy³am przez udp, bo mogê straciæ ewentualne pakiety i zyskam na prêdkoœci transferu
+                SendUDPData(_packet);//wysy³am przez udp, bo mogê straciæ ewentualne pakiety i zyskam na prêdkoœci transferu
+            }
+        }
+        catch
+        {
+            Debug.Log("Problem on exit");
         }
     }
 

@@ -27,7 +27,9 @@ public enum ServerPackets { // wysy³ane do playerów
     playerMoney,
     killtargetupdate,
     interactedWithItem,
-    thisPlayerSendReload
+    thisPlayerSendReload,
+    changeMap,
+    setMaster
 
 
 }

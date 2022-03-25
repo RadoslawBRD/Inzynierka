@@ -7,6 +7,7 @@ TagManager:
   - Master
   - Ground
   - AmmoBox
+  - ItemSpawner
   layers:
   - Default
   - TransparentFX

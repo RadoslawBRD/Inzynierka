@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public bool isGameLive = false;
-    public int killTarget = 55;
+    public int killTarget = 5;
     public int killCount = 0;
     public int _selectedPlayer; //id gracza, który jest masterem
     int playerCount = 0;
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         if(killTarget <= killCount)
         {
             killCount = 0;
-            StartCoroutine(RestartGame());
+            StartCoroutine(RestartGame(0.1f));
             Debug.Log("Koniec gry!");
         }
         /*playerCount = 0;
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    private IEnumerator RestartGame()
+    private IEnumerator RestartGame(float seconds)
     {
         isGameLive = false;
         try
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("Resetting game");
-        
+         
 
         foreach (Client _client in Server.clients.Values)
         {
@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        
         foreach(Enemy _enemy in Enemy.enemies.Values.ToList())
         {
             if (_enemy.health > 0)
@@ -137,8 +138,16 @@ public class GameManager : MonoBehaviour
                 Debug.Log($"Zabijam zombie{ _enemy.id}");
             }
         }
-        yield return new WaitForSeconds(5f);
-        Debug.Log("Starting game");
+
+        Enemy[] enemyInScene = FindObjectsOfType<Enemy>();
+        foreach (Enemy x in enemyInScene)
+        {
+            x.TakeDamage(x.maxHealth + 1000f);
+            Debug.Log("Dobijam zombie");
+        }
+
+            yield return new WaitForSeconds(seconds);
+        Debug.Log("Retarting game");
 
     }
 
@@ -152,7 +161,14 @@ public class GameManager : MonoBehaviour
             
 
     }
-   
+    public void runRestartGame(float seconds)
+    {
+        StartCoroutine(RestartGame(seconds));
+
+    }
+
+
+
     //////////// commands/////////////
     public void startGame()
     {
@@ -160,7 +176,7 @@ public class GameManager : MonoBehaviour
     }
     public void restartGame()
     {
-        StartCoroutine(RestartGame());
+        StartCoroutine(RestartGame(5f));
 
     }
     public void killAllEnemies()
@@ -182,6 +198,11 @@ public class GameManager : MonoBehaviour
     {
         killTarget = _killTarget;
 
+    }
+    public void set_map(string _map)
+    {
+        NetworkManager.instance.Set_map(_map.ToString());
+        ServerSend.ChangeMap(_map);
     }
 
 

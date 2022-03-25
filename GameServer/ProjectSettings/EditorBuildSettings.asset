@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/KillHouseMap.unity
     guid: 5eff7e7c128ad8245ab34f786f49a084
+  - enabled: 1
+    path: Assets/Scenes/StadiumMap.unity
+    guid: e563f8fab953f5449bada8acce6f50c4
   m_configObjects: {}

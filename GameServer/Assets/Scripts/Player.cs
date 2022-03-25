@@ -49,10 +49,12 @@ public class Player : MonoBehaviour
         if (value)
         {
             gameObject.tag = "Master";
+            ServerSend.SetMaster(id,true);
         }
         else
         {
             gameObject.tag = "Player";
+            ServerSend.SetMaster(id, false);
         }
     }
     public void Initialize(int _id, string _username)
@@ -153,8 +155,13 @@ public class Player : MonoBehaviour
 
                     foreach(Client _player in Server.clients.Values) 
                     {
-                        if (Vector3.Distance(_player.player.transform.position, _masterHit) < 25) //TODO: dopracowaæ odleg³oœæ
-                            isPlayerAway = false;
+                        if(_player.player!=null)
+                            if (_player.player.isMaster == true)
+                            {
+
+                            }else
+                                if (Vector3.Distance(_player.player.transform.position, _masterHit) < 25) //TODO: dopracowaæ odleg³oœæ
+                                    isPlayerAway = false;
                     }
                         
                     if (isPlayerAway)
@@ -226,11 +233,11 @@ public class Player : MonoBehaviour
             controller.enabled = false;
 
             //
-            if (NetworkManager.instance.currrentScene.ToString() == "KillHouse")//nazwa mapy to killhouse
-                transform.position = new Vector3(13f, 10f, -25f); //miejsce spawnu gracza
+            if (NetworkManager.instance.getCurrentScene().ToString() == "KillHouseMap")//nazwa mapy to killhouse
+                this.transform.position = new Vector3(20f, 10f, -30f); //miejsce respawnu gracza
             else 
             { //nazwa mapy to Stadium
-                transform.position = new Vector3(13f, 10f, -25f); //miejsce spawnu gracza
+                this.transform.position = new Vector3(-28f, 7f, 33f); //miejsce respawnu gracza
             }
             ServerSend.PlayerPosition(this);
             StartCoroutine(Respawn());
@@ -255,7 +262,7 @@ public class Player : MonoBehaviour
 
         health = maxHealth;
         controller.enabled = true;
-        ServerSend.PlayerRespawned(this, isMaster);
+        ServerSend.PlayerRespawned(this);
 
     }
     public bool AttemptPickupItem()
