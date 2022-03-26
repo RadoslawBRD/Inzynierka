@@ -29,7 +29,8 @@ public class ServerHandle
         }
         Quaternion _rotation = _packet.ReadQuaternion();
         string _type = _packet.ReadString();
-        Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
+        string _state = _packet.ReadString();
+        Server.clients[_fromClient].player.SetInput(_inputs, _rotation, _state);
         //Server.clients[_fromClient].player.SetSelectedEnemy(_type);
 
     }

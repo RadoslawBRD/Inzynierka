@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     private bool[] inputs;
     private float yVelocity = 0; //prêdkoœc poruszania siê wertykalnie
 
+    public string state = "Idle";
     private void Start()
     {
         selectedEnemy[1] = "Basic";
@@ -137,10 +138,11 @@ public class Player : MonoBehaviour
         ServerSend.PlayerRotation(this);
     }
 
-    public void SetInput(bool[] _inputs, Quaternion _rotation)
+    public void SetInput(bool[] _inputs, Quaternion _rotation, string _state)
     {
         inputs = _inputs;
         transform.rotation = _rotation;
+        state = _state;
     }
     public void Shoot(Vector3 _viewDirection, string _type)
     {

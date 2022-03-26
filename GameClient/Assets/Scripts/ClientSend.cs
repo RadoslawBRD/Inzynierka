@@ -30,7 +30,7 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void PlayerMovement(bool[] _inputs, string _type)
+    public static void PlayerMovement(bool[] _inputs, string _type, string _state)
     {
         try
         {
@@ -43,6 +43,7 @@ public class ClientSend : MonoBehaviour
                 }
                 _packet.Write(GameManager.players[Client.instance.myId].transform.rotation);
                 _packet.Write(_type);
+                _packet.Write(_state);
 
                 SendUDPData(_packet);//wysy³am przez udp, bo mogê straciæ ewentualne pakiety i zyskam na prêdkoœci transferu
             }
