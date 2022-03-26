@@ -16,14 +16,16 @@ public class PlayerManager : MonoBehaviour
     public int itemCount = 0;
     public bool isMaster = false;
     public int moneyCount=0;
-   
+    private Animator animator;
+
 
     public void Initialize(int _id, string _username)
     {
         id = _id;
         username = _username;
         health = maxHealth;
-        
+        animator = GetComponentInChildren<Animator>();
+
         StartCoroutine(createFloatingNickname());
         //StartCoroutine(GunInit());
         /*BulletsCount.instance.ammoDisplay.gameObject.SetActive(true);
@@ -45,10 +47,10 @@ public class PlayerManager : MonoBehaviour
     }
     public void Update()
     {
-        if (isMaster)
-            UIManager.instance.setMasterUI(isMaster, id);
-        else
-            UIManager.instance.setMasterUI(isMaster, id);
+       // if (isMaster)
+           // UIManager.instance.setMasterUI(isMaster, id);
+       // else
+           // UIManager.instance.setMasterUI(isMaster, id);
 
     }
     public void Die()
@@ -67,40 +69,15 @@ public class PlayerManager : MonoBehaviour
             floatingText.transform.parent = GameManager.players[id].transform;
         }
     }
-    /*private IEnumerator GunInit()
-    {
-        yield return new WaitForSeconds(1f);
-
-        if (gunPrefab != null)
-        {
-            var gun = Instantiate(gunPrefab,transform.position, Quaternion.identity);
-            gun.transform.parent = GameManager.players[id].transform;
-        }
-    }*/
-   
+       
     public void RemoveFloatingNickname()
     {
         FloatingNickname.instance.Destroy();
      }
     public void Respawn()
     {
-        model.enabled = true;
+        //model.enabled = true;
         RevertInventory();
-/*
-        if (_master)
-            {
-                UIManager.instance.setMasterUI(_master);
-                //UIManager.instance.masterHUD.SetActive(true);
-                //UIManager.instance.playerHUD.SetActive(false);
-            }
-            else
-            {
-                UIManager.instance.setMasterUI(_master);
-                //UIManager.instance.masterHUD.SetActive(false);
-                //UIManager.instance.playerHUD.SetActive(true);
-            }*/
-
-
     }
     public void SetWeaponState()
     {
@@ -118,6 +95,23 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (SkinnedMeshRenderer x in gameObject.GetComponentsInChildren<SkinnedMeshRenderer>())
             x.enabled = !_value;
+
+    }
+    public void RunPlayerAnimation(string _state)
+    {
+        switch (_state)
+        {
+            case "Idle":
+                animator.SetInteger("ChangeState", 1);
+                break;
+            case "Run":
+                animator.SetInteger("ChangeState", 3);
+                break;
+            case "Jump":
+                break;
+            default:
+                break;
+        }
 
     }
 }

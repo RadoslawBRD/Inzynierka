@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     public static Dictionary<int, string> selectedThrowable = new Dictionary<int, string>();
     public static Dictionary<int, string> selectedEnemy = new Dictionary<int, string>();
     public int selectedEnemyInt = 1;
-    private string playerState="idle";
+    private string playerState="Idle";
     private void Start()
     {
         selectedThrowable[1] = "Basic";
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
             Input.GetKey(KeyCode.E)
         };
 
-        ClientSend.PlayerMovement(_inputs, selectedEnemy[selectedEnemyInt]);//,playerState);
+        ClientSend.PlayerMovement(_inputs, selectedEnemy[selectedEnemyInt], playerState);
 
     }
     private void ChangePlayerAnimator(string _state)
@@ -100,8 +100,10 @@ public class PlayerController : MonoBehaviour
         switch (_state)
         {
             case "Idle":
+                playerState = "Idle";
                 break;
             case "Run":
+                playerState = "Run";
                 break;
             case "Jump":
                 break;

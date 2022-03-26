@@ -36,8 +36,12 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
-        if(GameManager.players.TryGetValue(_id, out PlayerManager _player))
-            _player.transform.position =  _position;
+        string _state = _packet.ReadString();
+        if (GameManager.players.TryGetValue(_id, out PlayerManager _player))
+        {
+            _player.transform.position = _position;
+            GameManager.players[_id].RunPlayerAnimation(_state);
+        }
     }
 
     public static void PlayerRotation(Packet _packet)
@@ -258,8 +262,9 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         bool _isMaster = _packet.ReadBool();
         GameManager.players[_id].isMaster = _isMaster;
-        if (_isMaster)
+        if (_isMaster && _id == Client.instance.myId)
         {
+            UIManager.instance.setMasterUI(_isMaster, _id);
             GameManager.players[_id].gameObject.tag = "Master";
             foreach(SkinnedMeshRenderer x in GameObject.FindGameObjectWithTag("Master").GetComponents<SkinnedMeshRenderer>())
               x.enabled = false;
