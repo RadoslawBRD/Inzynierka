@@ -83,10 +83,10 @@ public class GunRecoil : MonoBehaviour
                 break;
             case PlayerWeaponState.reload:
                 Debug.Log("RELOAD################################");
-                animator.SetInteger("ChangeState", 3);
+                animator.SetInteger("ChangeState", 4);
                 break;
             case PlayerWeaponState.fullreload:
-                animator.SetInteger("ChangeState", 4);
+                animator.SetInteger("ChangeState", 6);
                 break;
             default:
                 animator.SetInteger("ChangeState", 1);

@@ -225,43 +225,55 @@ public class Enemy : MonoBehaviour
     }
     protected void NewMove(string _mode, Vector3? _target, float _speed)
     {
-        if (navMeshaAgent != null)
-            switch (_mode)
-            {
-                case "Patrol":
-                        if (navMeshaAgent.remainingDistance < .1f)
+        try
+        {
+            if (navMeshaAgent != null)
+                switch (_mode)
+                {
+                    case "Patrol":
+                        try
                         {
-                            float baseAnimationSpeed = animator.speed;
-                            animator.speed = .6f;
-                            navMeshaAgent.speed = 1f;
-                            Vector3 destinationWalk = PatrolRandomTarget();
-                            Vector3 walkDirection = navMeshaAgent.destination - transform.position;
-                            this.transform.rotation = Quaternion.LookRotation(walkDirection);
-                            navMeshaAgent.destination = destinationWalk;
-                            Debug.DrawRay(transform.position, walkDirection, Color.red);
-                            animator.speed = baseAnimationSpeed;
+                            if (navMeshaAgent.remainingDistance < .1f)
+                            {
+                                float baseAnimationSpeed = animator.speed;
+                                animator.speed = .6f;
+                                navMeshaAgent.speed = 1f;
+                                Vector3 destinationWalk = PatrolRandomTarget();
+                                Vector3 walkDirection = navMeshaAgent.destination - transform.position;
+                                this.transform.rotation = Quaternion.LookRotation(walkDirection);
+                                navMeshaAgent.destination = destinationWalk;
+                                Debug.DrawRay(transform.position, walkDirection, Color.red);
+                                animator.speed = baseAnimationSpeed;
+                            }
                         }
+                        catch { }
                         break;
-                case "Chase":
-                        if (navMeshaAgent.remainingDistance < 500.1f)
+                    case "Chase":
+                        try
                         {
-                        navMeshaAgent.speed = 5.2f;
-                            
-                        Vector3 walkDirection = (Vector3)(_target - transform.position);
-                        this.transform.rotation = Quaternion.LookRotation(walkDirection);
-                        navMeshaAgent.destination = (Vector3)_target;
-                        Debug.DrawRay(transform.position, walkDirection, Color.red);
-                        DrawPath();
-                        ServerSend.EnemyPosition(this);
-                    }
-                    break;
+                            if (navMeshaAgent.remainingDistance < 500.1f)
+                            {
+                                navMeshaAgent.speed = 5.2f;
+
+                                Vector3 walkDirection = (Vector3)(_target - transform.position);
+                                this.transform.rotation = Quaternion.LookRotation(walkDirection);
+                                navMeshaAgent.destination = (Vector3)_target;
+                                Debug.DrawRay(transform.position, walkDirection, Color.red);
+                                DrawPath();
+                                ServerSend.EnemyPosition(this);
+                            }
+                        }
+                        catch { }
+                        break;
                     case "Idle":
-                    break;
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
 
-            }
+                }
+        }
+        catch { }
         ServerSend.EnemyPosition(this);
     }
     private void DrawPath()
