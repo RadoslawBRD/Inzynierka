@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
                             {
 
                             }else
-                                if (Vector3.Distance(_player.player.transform.position, _masterHit) < 25) //TODO: dopracowaæ odleg³oœæ
+                                if (Vector3.Distance(_player.player.transform.position, _masterHit) < 15) //TODO: dopracowaæ odleg³oœæ
                                     isPlayerAway = false;
                     }
                         

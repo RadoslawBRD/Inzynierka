@@ -255,6 +255,11 @@ public class ClientHandle : MonoBehaviour
         string _map = _packet.ReadString();
         GameManager.instance.ChangeMapClient(_map);
         Debug.Log("Zmieniam mape na: " + _map);
+        foreach(PlayerManager x in GameManager.players.Values)
+        {
+            UIManager.instance.setMasterUI(false, x.id);
+
+        }
 
     }
     public static void SetMaster(Packet _packet)
