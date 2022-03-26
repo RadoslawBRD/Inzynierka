@@ -89,6 +89,8 @@ public class Enemy : MonoBehaviour
 
                 break;
         }
+        ServerSend.EnemyPosition(this);
+
         //this.transform.rotation = Quaternion.LookRotation(_randomPatrolDirection, transform.position);
     }
 
@@ -250,6 +252,7 @@ public class Enemy : MonoBehaviour
                         {
                             if (navMeshaAgent.remainingDistance < .2f)
                             {
+                                navMeshaAgent.ResetPath();
                                 navMeshaAgent.speed = 5.2f;
 
                                 Vector3 walkDirection = (Vector3)(_target - transform.position);
@@ -271,7 +274,7 @@ public class Enemy : MonoBehaviour
                 }
         }
         catch { }
-        ServerSend.EnemyPosition(this);
+        //ServerSend.EnemyPosition(this);
     }
     private void DrawPath()
     {
