@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public bool isGameLive = false;
-    public int killTarget = 5;
+    public int killTarget = 3;
     public int killCount = 0;
     public int _selectedPlayer; //id gracza, który jest masterem
     int playerCount = 0;
@@ -50,17 +50,17 @@ public class GameManager : MonoBehaviour
                 playerCount++;
             }
         }
-        
+        */ 
         if (!isGameLive)
         {
-            if (playerCount>=2)
+            if (playerCount >= 2)
             {
-                StartCoroutine(SelectMaster(playerCount));
-                Debug.Log("Game is starting...");                
-                Debug.Log("Game would be starting...");                
+                StartCoroutine(SelectMaster());
+                Debug.Log("Game is starting...");
+                Debug.Log("Game would be starting...");
             }
 
-        }*/
+        }
         
     }
     private IEnumerator SelectMaster()
