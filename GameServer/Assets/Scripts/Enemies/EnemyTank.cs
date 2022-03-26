@@ -86,7 +86,8 @@ public class EnemyTank : Enemy
         else
         {
             target = null;
-            state = EnemyState.patrol;
+            if (navMeshaAgent.remainingDistance < .5f)
+                state = EnemyState.patrol;
         }
     }
 }

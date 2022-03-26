@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public Player target;
     public CharacterController controller;
     public Transform shootOrigin;
-    private NavMeshAgent navMeshaAgent;
+    protected NavMeshAgent navMeshaAgent;
     private Animator animator;
 
     public float gravity = -9.81f;
@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour
 
     protected void FixedUpdate()
     {
+        
         switch (state)
         {
             case EnemyState.idle:
@@ -162,11 +163,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                //Move(_enemyToPlayer,  chaseSpeed);
-                //navMeshaAgent.destination = target.transform.position;
-                //MoveNav();
-                NewMove("Chase", target.transform.position, chaseSpeed);
-
+               NewMove("Chase", target.transform.position, chaseSpeed);
             }
         }
         else
@@ -217,8 +214,8 @@ public class Enemy : MonoBehaviour
     private Vector3 PatrolRandomTarget()
     {
         NavMeshHit navHit;
-        Vector3 randomDirection = Random.insideUnitSphere * 5f;
-        NavMesh.SamplePosition(randomDirection+=this.transform.position, out navHit, 5f, -1);
+        Vector3 randomDirection = Random.insideUnitSphere * 2f;
+        NavMesh.SamplePosition(randomDirection+=this.transform.position, out navHit, 2f, -1);
         Debug.Log("Szukam");
         return navHit.position;
         
@@ -251,7 +248,7 @@ public class Enemy : MonoBehaviour
                     case "Chase":
                         try
                         {
-                            if (navMeshaAgent.remainingDistance < 500.1f)
+                            if (navMeshaAgent.remainingDistance < .2f)
                             {
                                 navMeshaAgent.speed = 5.2f;
 
