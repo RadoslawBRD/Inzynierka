@@ -29,7 +29,8 @@ public class ServerHandle
         }
         Quaternion _rotation = _packet.ReadQuaternion();
         string _type = _packet.ReadString();
-        Server.clients[_fromClient].player.SetInput(_inputs, _rotation);
+        string _state = _packet.ReadString();
+        Server.clients[_fromClient].player.SetInput(_inputs, _rotation, _state);
         //Server.clients[_fromClient].player.SetSelectedEnemy(_type);
 
     }
@@ -70,8 +71,9 @@ public class ServerHandle
             case "add_granade":
                 GameManager.instance.addGranade(_fromClient, _command[1]);
                 break;
-            case "change_map":
-                NetworkManager.instance.Set_map(_command[1].ToString());
+            case "set_map":
+                GameManager.instance.set_map(_command[1].ToString());
+                Debug.Log("Dosta³em komende na zmiane mapy na: " + _command[1].ToString());
                 break;
             default:
                 break;
@@ -84,5 +86,11 @@ public class ServerHandle
 
         Server.clients[_fromClient].player.InteractWithObject(_shootDirection);
     }
+    public static void PlayerSendReload(int _fromClient, Packet _packet)
+    {
+        
+        ServerSend.ThisPlayerSendReload(_packet.ReadInt());
+    }
+
 }
 

@@ -8,6 +8,7 @@ public class EnemyTank : Enemy
     public float throwRange;
     public float throwForce ;
     public string projectileType;
+    public bool canIThrow= true;
     protected override void Start()
     {
 
@@ -17,14 +18,14 @@ public class EnemyTank : Enemy
         health = 250f;
         maxHealth = 250f;
         detectionRange = 30f;
-        shootRange = 2f;
-        shootAccuracy = 0.00001f;
+        shootRange = 5f;
+        shootAccuracy = 1f;
         patrolDuration = 3f;
         idleDuration = 1f;
         damage = 60f;
         type = "Tank";
-        throwRange = 15f;
-        throwForce = 250f;
+        throwRange = 20f;
+        throwForce = 200f;
         projectileType = "Stone";
         base.Start();
     }
@@ -39,14 +40,17 @@ public class EnemyTank : Enemy
             if (_enemyToPlayer.magnitude <= shootRange)
             {
                 Shoot(_enemyToPlayer);
-            }else if(_enemyToPlayer.magnitude >= shootRange && _enemyToPlayer.magnitude <= throwRange)
+            }else if(_enemyToPlayer.magnitude >= shootRange && _enemyToPlayer.magnitude <= throwRange && canIThrow)
                 {
                 Debug.Log("próbuje rzuciæ no");
-                ThrowItem(transform.forward*3+transform.up,"Stone");
+                ThrowItem(transform.forward*2+transform.up,"Stone");
+                StartCoroutine(WaitTillNextThrow());
                 }
                 else
                 {
-                    Move(_enemyToPlayer, chaseSpeed);
+                NewMove("Chase", _enemyToPlayer, chaseSpeed);
+
+                //Move(_enemyToPlayer, chaseSpeed);
                 }
         }
         else
@@ -76,13 +80,22 @@ public class EnemyTank : Enemy
             }
             else
             {
-                Move(_enemyToPlayer, chaseSpeed);
+                NewMove("Chase", _enemyToPlayer, chaseSpeed);
+
+                //Move(_enemyToPlayer, chaseSpeed);
             }
         }
         else
         {
             target = null;
-            state = EnemyState.patrol;
+            if (navMeshaAgent.remainingDistance < .1f)
+                state = EnemyState.patrol;
         }
+    }
+    IEnumerator WaitTillNextThrow()
+    {
+        canIThrow = false;
+        yield return new WaitForSeconds(1f);
+        canIThrow = true;
     }
 }

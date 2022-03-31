@@ -49,5 +49,9 @@ public class ItemSpawner : MonoBehaviour
         StartCoroutine(SpawnItem());
 
     }
+    public void OnDestroy()
+    {
+       // StartCoroutine(Client.);
+    }
 
 }

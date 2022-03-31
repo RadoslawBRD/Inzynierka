@@ -25,11 +25,14 @@ public class Player : MonoBehaviour
     public int itemAmount = 0;
     public int maxItemAmount = 3;
 
+    private int ammoCost = 5;
+
     public string _type = "Basic";
     public int selectedEnemyInt = 1;
     private bool[] inputs;
     private float yVelocity = 0; //prêdkoœc poruszania siê wertykalnie
 
+    public string state = "Idle";
     private void Start()
     {
         selectedEnemy[1] = "Basic";
@@ -47,10 +50,12 @@ public class Player : MonoBehaviour
         if (value)
         {
             gameObject.tag = "Master";
+            ServerSend.SetMaster(id,true);
         }
         else
         {
             gameObject.tag = "Player";
+            ServerSend.SetMaster(id, false);
         }
     }
     public void Initialize(int _id, string _username)
@@ -133,10 +138,11 @@ public class Player : MonoBehaviour
         ServerSend.PlayerRotation(this);
     }
 
-    public void SetInput(bool[] _inputs, Quaternion _rotation)
+    public void SetInput(bool[] _inputs, Quaternion _rotation, string _state)
     {
         inputs = _inputs;
         transform.rotation = _rotation;
+        state = _state;
     }
     public void Shoot(Vector3 _viewDirection, string _type)
     {
@@ -151,14 +157,23 @@ public class Player : MonoBehaviour
 
                     foreach(Client _player in Server.clients.Values) 
                     {
-                        if (Vector3.Distance(_player.player.transform.position, _masterHit) < 25) //TODO: dopracowaæ odleg³oœæ
-                            isPlayerAway = false;
+                        if(_player.player!=null)
+                            if (_player.player.isMaster == true)
+                            {
+
+                            }else
+                                if (Vector3.Distance(_player.player.transform.position, _masterHit) < 15) //TODO: dopracowaæ odleg³oœæ
+                                    isPlayerAway = false;
                     }
                         
                     if (isPlayerAway)
                     {
                         Debug.Log(_type);
                         NetworkManager.instance.InstantiateEnemy(_hitGround.point, _type);
+                    }
+                    else
+                    {
+                        Debug.Log("IsPlayerAway");
                     }
                 }
             }
@@ -218,7 +233,14 @@ public class Player : MonoBehaviour
         {
             health = 0f;
             controller.enabled = false;
-            transform.position = new Vector3(13f, 10f, -25f); //miejsce spawnu gracza
+
+            //
+            if (NetworkManager.instance.getCurrentScene().ToString() == "KillHouseMap")//nazwa mapy to killhouse
+                this.transform.position = new Vector3(20f, 10f, -30f); //miejsce respawnu gracza
+            else 
+            { //nazwa mapy to Stadium
+                this.transform.position = new Vector3(-28f, 7f, 33f); //miejsce respawnu gracza
+            }
             ServerSend.PlayerPosition(this);
             StartCoroutine(Respawn());
             if(_damage == 1190f)
@@ -242,7 +264,7 @@ public class Player : MonoBehaviour
 
         health = maxHealth;
         controller.enabled = true;
-        ServerSend.PlayerRespawned(this, isMaster);
+        ServerSend.PlayerRespawned(this);
 
     }
     public bool AttemptPickupItem()
@@ -269,9 +291,12 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("In AmmoBOX");
                 //dodaj X amunicji do gracza
-                ServerSend.InteractedWithItem(id, 30, "AmmoBox");
-                moneyCount -= 1;
-                ServerSend.SetPlayerMoney(id, moneyCount);
+                if (moneyCount > ammoCost)
+                {
+                    ServerSend.InteractedWithItem(id, 30, "AmmoBox");
+                    moneyCount -= ammoCost;
+                    ServerSend.SetPlayerMoney(id, moneyCount);
+                }
 
                 //zabierz x kasy od gracza
             }

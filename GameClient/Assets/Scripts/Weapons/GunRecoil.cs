@@ -8,10 +8,12 @@ public class GunRecoil : MonoBehaviour
     Vector3 originalRotation;
     public GameObject gunPrefab;
     bool CR_running = false;
-    public int bulletsCurrent=5;
-    
+    public int bulletsCurrent;
+    private Animator animator;
+    public PlayerWeaponState playerWeaponState = PlayerWeaponState.idle;
+    private bool objectLoaded = false;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,71 +24,104 @@ public class GunRecoil : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!objectLoaded)
+        {
+            animator = gameObject.GetComponentInChildren<Animator>();
+            objectLoaded = true;
+        }
         //gunPrefab.transform.parent = Camera.main.transform;
         BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
 
         if (Input.GetButtonDown("Fire1"))
         {
-            if(!CR_running)
-                if (bulletsCurrent > 0) 
-                {
-                    AddRecoil();
-                    bulletShoot();
-                }else
-                {
+            if (CR_running || this.animator.GetCurrentAnimatorStateInfo(0).IsName("Fire"))
+            {
 
+            }
+            else
+            {
+                if (bulletsCurrent > 0)
+                {
+                    //AddRecoil();
+                    SetState(PlayerWeaponState.fire);
+                    bulletShoot();
+                }
+                else
+                {
                     if (BulletsCount.instance.bulletsMax > 0)
                     {
+                        ClientSend.PlayerSendReload();
                         CR_running = true;
                         StartCoroutine(gunReload());
                     }
                 }
+            }
 
         }
         else if (Input.GetButtonUp("Fire1") && bulletsCurrent > 0)
         {
-           StopRecoil();
+            //SetState(PlayerWeaponState.idle);
+            //StopRecoil();
         }
     }
-    private void AddRecoil()
-    {
-        transform.localEulerAngles += upRecoil;
-    }
-
-    private void StopRecoil()
-    {
-        transform.localEulerAngles = originalRotation;
-
-    }
-    private void bulletShoot()
+   private void bulletShoot()
     {
         bulletsCurrent--;
         BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
 
     }
-   
-    private IEnumerator gunReload()
+    public void SetState(PlayerWeaponState _state)
     {
+        switch (_state)
+        {
+            case PlayerWeaponState.idle:
+                animator.SetInteger("ChangeState", 1);
+                break;
+            case PlayerWeaponState.fire:
+                Debug.Log("STRZELAM################");
+                animator.SetTrigger("Shoot");
+                break;
+            case PlayerWeaponState.reload:
+                Debug.Log("RELOAD################################");
+                animator.SetInteger("ChangeState", 4);
+                break;
+            case PlayerWeaponState.fullreload:
+                animator.SetInteger("ChangeState", 6);
+                break;
+            default:
+                animator.SetInteger("ChangeState", 1);
+                break;
+        }
+        //animator.SetInteger("ChangeState", 1);
+    }
+        private IEnumerator gunReload()
+        {
         //AddRecoil();
-        yield return new WaitForSeconds(1f);
-        if (BulletsCount.instance.bulletsMax <= 30)
-        {
-            bulletsCurrent = BulletsCount.instance.bulletsMax;
-            BulletsCount.instance.updateMaxBulets(-30);
+        SetState(PlayerWeaponState.reload);
 
-        }
-        else
-        {
-            
-            BulletsCount.instance.updateMaxBulets(bulletsCurrent - 30);
-            bulletsCurrent = 30;
-        }
-        BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
-        StopRecoil();
+        yield return new WaitForSeconds(2.5f);
+            if (BulletsCount.instance.bulletsMax <= 30)
+            {
+                bulletsCurrent = BulletsCount.instance.bulletsMax;
+                BulletsCount.instance.updateMaxBulets(-30);
+            }
+            else
+            {
+                BulletsCount.instance.updateMaxBulets(bulletsCurrent - 30);
+                bulletsCurrent = 30;
+            }
+            BulletsCount.instance.updateCurrentBulets(bulletsCurrent);
+            SetState(PlayerWeaponState.idle);
 
         CR_running = false;
-
-        //StopRecoil();
-
+            //StopRecoil();
+        }
     }
+
+public enum PlayerWeaponState
+{
+    idle,
+    fire,
+    reload,
+    fullreload
 }

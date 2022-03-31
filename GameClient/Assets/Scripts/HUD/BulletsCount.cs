@@ -38,5 +38,13 @@ public class BulletsCount : MonoBehaviour
     {
         bulletsMax += value;
     }
+    public void setCurrentBulets(int value)
+    {
+        bulletsCurrent = value;
+    }
+    public void setMaxBulets(int value)
+    {
+        bulletsMax = value;
 
+    }
 }

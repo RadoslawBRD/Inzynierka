@@ -46,7 +46,8 @@ public class EnemySpiter : Enemy
             }
             else
             {
-                Move(_enemyToPlayer, chaseSpeed);
+                NewMove("Chase", _enemyToPlayer, chaseSpeed);
+                //Move(_enemyToPlayer, chaseSpeed);
             }
         }
         else

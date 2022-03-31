@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -35,8 +36,12 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         Vector3 _position = _packet.ReadVector3();
-        if(GameManager.players.TryGetValue(_id, out PlayerManager _player))
-            _player.transform.position =  _position;
+        string _state = _packet.ReadString();
+        if (GameManager.players.TryGetValue(_id, out PlayerManager _player))
+        {
+            _player.transform.position = _position;
+            GameManager.players[_id].RunPlayerAnimation(_state);
+        }
     }
 
     public static void PlayerRotation(Packet _packet)
@@ -61,19 +66,29 @@ public class ClientHandle : MonoBehaviour
         float _health = _packet.ReadFloat();
 
         GameManager.players[_id].SetHealth(_health, _id);
+        if(_health <=-1000)
+        {
+            EnemyManager[] enemyInScene = FindObjectsOfType<EnemyManager>();
+            foreach(EnemyManager x in enemyInScene)
+            {
+                Destroy(x);            // testy
+            }
+        }
     }
 
     public static void PlayerRespawned(Packet _packet)
     {
         int _id = _packet.ReadInt();
-        bool _isMaster = _packet.ReadBool();
-        if (_isMaster)
-            {
-                GameManager.players[_id].isMaster = _isMaster;
-                GameManager.players[_id].gameObject.tag = "Master";
-            }
+        GameManager.players[_id].Respawn();
+        //TODO: reset ekwipunku
+
+        MoneyCount.instance.setMoney(0);         
+        BulletsCount.instance.setCurrentBulets(30);
+        BulletsCount.instance.setMaxBulets(0);
         
-        GameManager.players[_id].Respawn(_isMaster);
+
+           
+
     }
     public static void CreateItemSpawner(Packet _packet)
     {
@@ -82,6 +97,10 @@ public class ClientHandle : MonoBehaviour
         bool _hasItem = _packet.ReadBool();
 
         GameManager.instance.CreateItemSapwner(_spawnerId, _spawnerPosition, _hasItem);
+    }
+    public static void DestroyItemSpawner(Packet _packet)
+    {
+
     }
 
     public static void ItemSpawned(Packet _packet)
@@ -146,35 +165,49 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rotation = _packet.ReadQuaternion();
         string state = _packet.ReadString();
         if (GameManager.enemies.TryGetValue(enemyId, out EnemyManager _enemy)) {
-            _enemy.transform.position = _position;
-            _enemy.transform.rotation = _rotation;
-            switch (state)
-            {
-                case "idle":
-                    _enemy.SetState(EnemyState.idle);
-                    break;
-                case "patrol":
-                    _enemy.SetState(EnemyState.patrol);
-                    break;
-                case "chase":
-                    _enemy.SetState(EnemyState.chase);
-                    break;
-                case "attack":
-                    _enemy.SetState(EnemyState.attack);
-                    break;
-                default:
-                    _enemy.SetState(EnemyState.idle);
-                    break;
+            try {
+                _enemy.transform.position = _position;
+                _rotation.z = 0;
+                _enemy.transform.rotation = _rotation;
+                //TODO: zoombie ma randomowy obrót
+                switch (state)
+                {
+                    case "idle":
+                        _enemy.SetState(EnemyState.idle);
+                        break;
+                    case "patrol":
+                        _enemy.SetState(EnemyState.patrol);
+                        break;
+                    case "chase":
+                        _enemy.SetState(EnemyState.chase);
+                        break;
+                    case "attack":
+                        _enemy.SetState(EnemyState.attack);
+                        break;
+                    default:
+                        _enemy.SetState(EnemyState.idle);
+                        break;
+                }
+
             }
-            
-        }   
+            catch(Exception e)
+            {
+                Debug.LogWarning("Tried to access Enemy manager but it's destroyed or "+ e.ToString());
+            }
+            }
     }
-    public static void EnemyHealht(Packet _packet)
+    public static void EnemyHealth(Packet _packet)
     {
         int _enemyId = _packet.ReadInt();
         float _health = _packet.ReadFloat();
-
-        GameManager.enemies[_enemyId].SetHealth(_health);
+        try
+        {
+            GameManager.enemies[_enemyId].SetHealth(_health);
+        }
+        catch
+        {
+            Debug.Log("Not given directory");
+        }
     }
     public static void SetPlayerMoney(Packet _packet)
     {
@@ -188,7 +221,12 @@ public class ClientHandle : MonoBehaviour
     {
         int _killValue = _packet.ReadInt();
         int _killTargetValue = _packet.ReadInt();
-        KillCount.instance.SetKillCount(_killValue, _killTargetValue);
+        try
+        {
+            KillCount.instance.SetKillCount(_killValue, _killTargetValue);
+        }
+        catch { }
+
     }
     public static void InteractedWithItem(Packet _packet)
     {
@@ -205,7 +243,54 @@ public class ClientHandle : MonoBehaviour
                 break;
         }
     }
-   
+    public static void ThisPlayerSendReload(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        if (GameManager.players.TryGetValue(_id, out PlayerManager _player))
+            _player.SetWeaponState(); // set state reload
+        Debug.LogError("player "+ _player.username.ToString() + "przeladowanie###########");
+    }
+    public static void ChangeMap(Packet _packet)
+    {
+        string _map = _packet.ReadString();
+        GameManager.instance.ChangeMapClient(_map);
+        Debug.Log("Zmieniam mape na: " + _map);
+        foreach(PlayerManager x in GameManager.players.Values)
+        {
+            UIManager.instance.setMasterUI(false, x.id);
+
+        }
+
+    }
+    public static void SetMaster(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        bool _isMaster = _packet.ReadBool();
+        GameManager.players[_id].isMaster = _isMaster;
+        if (_isMaster && _id == Client.instance.myId)
+        {
+            UIManager.instance.setMasterUI(_isMaster, _id);
+            GameManager.players[_id].gameObject.tag = "Master";
+            foreach(SkinnedMeshRenderer x in GameObject.FindGameObjectWithTag("Master").GetComponents<SkinnedMeshRenderer>())
+              x.enabled = false;
+
+        }
+        else
+        {
+            try
+            {
+                foreach (SkinnedMeshRenderer x in GameObject.FindGameObjectWithTag("Master").GetComponents<SkinnedMeshRenderer>())
+                    x.enabled = true;
+                GameManager.players[_id].gameObject.tag = "Player";
+            }
+            catch
+            {
+                Debug.Log("There is no master");
+            }
+        }
+
+
+    }
 
 }
 
